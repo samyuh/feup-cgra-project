@@ -2,6 +2,7 @@
  * MyCylinder
  * @constructor
  * @param scene - Reference to MyScene object
+ * @param slices - Reference to number of sides of Cylinder
  */
 class MyCylinder extends CGFobject {
   	constructor(scene, slices) {
@@ -12,10 +13,12 @@ class MyCylinder extends CGFobject {
 
   	initBuffers() {
       this.vertices = [0, 0, 0]; // Base Center
-      this.normals = [0, -1, 0];
+      this.normals = [0, -1, 0]; // Bas Normal -> If Base is necessary do it for each vertice at base
+      this.texCoords = [];
 
       var amplitude = (2 * Math.PI)/this.slices;
       var angle = 0;
+      var inc = 1;
 
       for (var i = 0; i < this.slices; i++) {
           var x = Math.cos(angle);
@@ -35,6 +38,17 @@ class MyCylinder extends CGFobject {
           this.normals.push(Math.cos(angle), 0, Math.sin(angle));
           this.normals.push(Math.cos(angle), 0, Math.sin(angle));
 
+          /*  0 ----------- 1
+           *  |
+           *  |
+           *  |
+           *  |
+           *  1
+           *  To map a texture, each side will have 1/this.slices
+           * */
+          this.textCoords.push(i/this.slices, 1);
+          this.textCoords.push(i/this.slices, 0);
+
           angle += amplitude;
       }
 
@@ -45,7 +59,7 @@ class MyCylinder extends CGFobject {
           this.indices.push(1 + (i+2) % (this.slices * 2));
           this.indices.push(0);
           this.indices.push(1 + i);
-
+          
           this.indices.push(1 + i % (this.slices * 2));
           this.indices.push(1 + (i + 1) % (this.slices * 2));
           this.indices.push(1 + (i + 2) % (this.slices * 2));
