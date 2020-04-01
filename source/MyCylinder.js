@@ -46,8 +46,8 @@ class MyCylinder extends CGFobject {
            *  1
            *  To map a texture, each side will have 1/this.slices
            * */
-          this.textCoords.push(i/this.slices, 1);
-          this.textCoords.push(i/this.slices, 0);
+          this.texCoords.push(i/this.slices, 1);
+          this.texCoords.push(i/this.slices, 0);
 
           angle += amplitude;
       }
@@ -59,7 +59,7 @@ class MyCylinder extends CGFobject {
           this.indices.push(1 + (i+2) % (this.slices * 2));
           this.indices.push(0);
           this.indices.push(1 + i);
-          
+
           this.indices.push(1 + i % (this.slices * 2));
           this.indices.push(1 + (i + 1) % (this.slices * 2));
           this.indices.push(1 + (i + 2) % (this.slices * 2));
