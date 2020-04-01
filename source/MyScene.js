@@ -20,15 +20,19 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.setUpdatePeriod(50);
-        
+
         this.enableTextures(true);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+        this.cylinder = new MyCylinder(this, 8);
         this.incompleteSphere = new MySphere(this, 16, 8);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.displayCylinder = false;
+        this.displaySphere = true;
+        this.displayNormal = false;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -60,7 +64,7 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-        
+
         // Draw axis
         if (this.displayAxis)
             this.axis.display();
@@ -69,8 +73,15 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
+        if(this.displayCylinder)
+            this.cylinder.display();
+
         //This sphere does not have defined texture coordinates
-        this.incompleteSphere.display();
+        if(this.displaySphere)
+            this.incompleteSphere.display();
+
+        if (this.displayNormal)
+            this.cylinder.enableNormalViz();
 
         // ---- END Primitive drawing section
     }
