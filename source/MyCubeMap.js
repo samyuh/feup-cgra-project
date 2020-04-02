@@ -8,19 +8,12 @@ class MyCubeMap extends CGFobject {
 		super(scene);
     this.quad = new MyQuad(scene);
 
-    this.skybox = new CGFappearance(this.scene);
-    this.skybox.setAmbient(1, 1, 1, 1);
-    this.skybox.setDiffuse(0, 0, 0, 1);
-    this.skybox.setSpecular(0, 0, 0, 1);
-    this.skybox.setShininess(5.0);
-    this.skybox.setTextureWrap('REPEAT', 'REPEAT');
-
-    this.back = new CGFtexture(this.scene,'images/split_cubemap/back.png');
-    this.bottom = new CGFtexture(this.scene,'images/split_cubemap/bottom.png');
-		this.front = new CGFtexture(this.scene,'images/split_cubemap/front.png');
-		this.left = new CGFtexture(this.scene,'images/split_cubemap/left.png');
-    this.right = new CGFtexture(this.scene,'images/split_cubemap/right.png');
-		this.top = new CGFtexture(this.scene,'images/split_cubemap/top.png');
+		this.skybox = new CGFappearance(this.scene);
+		this.skybox.setAmbient(1, 1, 1, 1);
+		this.skybox.setDiffuse(0, 0, 0, 1);
+		this.skybox.setSpecular(0, 0, 0, 1);
+		this.skybox.setShininess(5.0);
+		this.skybox.setTextureWrap('REPEAT', 'REPEAT');
 
   }
 	setNewTextures(texture) {
@@ -50,59 +43,57 @@ class MyCubeMap extends CGFobject {
 		this.skybox.setTexture(this.top);
 	}
 	display() {
+		this.scene.pushMatrix();
 		this.textureLeft();
 		this.skybox.apply();
 		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2, 0,1,0);
 		this.scene.translate(0,0, -0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 
+		this.scene.pushMatrix();
 		this.textureFront();
 		this.skybox.apply();
-		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-		this.scene.pushMatrix();
+		//this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 		this.scene.translate(0,0, -0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 
+		this.scene.pushMatrix();
 		this.textureRight();
 		this.skybox.apply();
     this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-    this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI/2, 0,1,0);
 		this.scene.translate(0,0, -0.5);
     this.quad.display();
     this.scene.popMatrix();
 
+		this.scene.pushMatrix();
 		this.textureBack();
 		this.skybox.apply();
 		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI, 0,1,0);
 		this.scene.translate(0, 0, -0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 
+		this.scene.pushMatrix();
 		this.textureTop();
 		this.skybox.apply();
     this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-    this.scene.pushMatrix();
     this.scene.rotate(Math.PI/2, 1,0,0);
 		this.scene.translate(0,0, -0.5);
     this.quad.display();
     this.scene.popMatrix();
 
+		this.scene.pushMatrix();
 		this.textureBottom();
 		this.skybox.apply();
     this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-    this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI/2, 1,0,0);
 		this.scene.translate(0,0, -0.5);
     this.quad.display();
     this.scene.popMatrix();
-
-
 	}
 }

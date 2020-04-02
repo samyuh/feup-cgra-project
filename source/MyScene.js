@@ -10,6 +10,7 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
+        this.initTextures();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -30,30 +31,59 @@ class MyScene extends CGFscene {
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
 
-        // Material
-        this.skybox = new CGFappearance(this);
-        this.skybox.setAmbient(1, 1, 1, 1);
-        this.skybox.setDiffuse(0, 0, 0, 1);
-        this.skybox.setSpecular(0, 0, 0, 1);
-        this.skybox.setShininess(5.0);
-        this.skybox.setTextureWrap('REPEAT', 'REPEAT');
-
-        this.back = new CGFtexture(this,'images/split_cubemap/back.png');
-        this.bottom = new CGFtexture(this,'images/split_cubemap/bottom.png');
-        this.front = new CGFtexture(this,'images/split_cubemap/front.png');
-        this.left = new CGFtexture(this,'images/split_cubemap/left.png');
-        this.right = new CGFtexture(this,'images/split_cubemap/right.png');
-        this.top = new CGFtexture(this,'images/split_cubemap/top.png');
-
-        this.texture = [this.back, this.bottom, this.front, this.left, this.right, this.top];
-
-        this.cube.setNewTextures(this.texture);
-
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displayCylinder = false;
         this.displaySphere = true;
         this.displayNormal = false;
+        this.selectedTexture = -1;
+    }
+
+    
+    // Function that initialize the scene textures
+    initTextures() {
+      this.worldTexture = [ new CGFtexture(this,'images/world_texture/back.png'),
+                            new CGFtexture(this,'images/world_texture/bottom.png'),
+                            new CGFtexture(this,'images/world_texture/front.png'),
+                            new CGFtexture(this,'images/world_texture/left.png'),
+                            new CGFtexture(this,'images/world_texture/right.png'),
+                            new CGFtexture(this,'images/world_texture/top.png')
+                          ];
+
+      this.aridTexture = [ new CGFtexture(this,'images/arid/back.jpg'),
+                            new CGFtexture(this,'images/arid/bottom.jpg'),
+                            new CGFtexture(this,'images/arid/front.jpg'),
+                            new CGFtexture(this,'images/arid/left.jpg'),
+                            new CGFtexture(this,'images/arid/right.jpg'),
+                            new CGFtexture(this,'images/arid/top.jpg')
+                          ];
+
+      this.divineTexture = [ new CGFtexture(this,'images/divine/back.jpg'),
+                            new CGFtexture(this,'images/divine/bottom.jpg'),
+                            new CGFtexture(this,'images/divine/front.jpg'),
+                            new CGFtexture(this,'images/divine/left.jpg'),
+                            new CGFtexture(this,'images/divine/right.jpg'),
+                            new CGFtexture(this,'images/divine/top.jpg')
+                          ];
+
+      this.lakeTexture = [ new CGFtexture(this,'images/lake/back.jpg'),
+                            new CGFtexture(this,'images/lake/bottom.jpg'),
+                            new CGFtexture(this,'images/lake/front.jpg'),
+                            new CGFtexture(this,'images/lake/left.jpg'),
+                            new CGFtexture(this,'images/lake/right.jpg'),
+                            new CGFtexture(this,'images/lake/top.jpg')
+                          ];
+
+      this.testeTexture = [ new CGFtexture(this,'images/teste/back.png'),
+                            new CGFtexture(this,'images/teste/bottom.png'),
+                            new CGFtexture(this,'images/teste/front.png'),
+                            new CGFtexture(this,'images/teste/left.png'),
+                            new CGFtexture(this,'images/teste/right.png'),
+                            new CGFtexture(this,'images/teste/top.png')
+                          ];
+
+      this.textures = [this.worldTexture, this.aridTexture, this.divineTexture, this.lakeTexture, this.testeTexture];
+      this.textureIds = { 'World': 0, 'Arid' : 1, 'Divine' : 2, 'Lake' : 3, 'Teste': 4};
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -70,11 +100,14 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+    //Function that applies a new texture selected in interface
+    updateAppliedTexture() {
+        this.cube.setNewTextures(this.textures[this.selectedTexture]);
+    }
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         //To be done...
     }
-
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -87,8 +120,9 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        if (this.displayAxis)
+        if (this.displayAxis) {
             this.axis.display();
+        }
 
         this.setDefaultAppearance();
 
@@ -104,10 +138,12 @@ class MyScene extends CGFscene {
         if (this.displayNormal)
             this.cylinder.enableNormalViz();
 
-        this.pushMatrix();
-        this.scale(50, 50, 50);
-        this.cube.display();
-        this.popMatrix();
+        if (1) {
+            this.pushMatrix();
+            this.scale(50, 50, 50);
+            this.cube.display();
+            this.popMatrix();
+        }
 
 
         // ---- END Primitive drawing section
