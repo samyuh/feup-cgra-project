@@ -24,6 +24,16 @@ class MyScene extends CGFscene {
 
         this.enableTextures(true);
 
+        //Criar uma nova appearance
+        this.earth = new CGFappearance(this);
+        this.earth.setAmbient(0.1, 0.1, 0.1, 1);
+        this.earth.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.earth.setSpecular(0.1, 0.1, 0.1, 1);
+        this.earth.setShininess(10.0);
+        this.earth.loadTexture('images/earth.jpg');
+        this.earth.setTextureWrap('REPEAT', 'REPEAT');
+
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.cylinder = new MyCylinder(this, 8);
@@ -36,20 +46,12 @@ class MyScene extends CGFscene {
         this.displayCylinder = false;
         this.displaySphere = true;
         this.displayNormal = false;
-        this.displayCube = true;
         this.selectedTexture = -1;
     }
 
+
     // Function that initialize the scene textures
     initTextures() {
-      // Default Material
-      this.defaultMaterial = new CGFappearance(this);
-      this.defaultMaterial.setAmbient(0.2, 0.4, 0.8, 1);
-      this.defaultMaterial.setDiffuse(0.2, 0.4, 0.8, 1);
-      this.defaultMaterial.setSpecular(0.2, 0.4, 0.8, 1);
-      this.defaultMaterial.setShininess(10.0);
-      this.defaultMaterial.setTextureWrap('REPEAT', 'REPEAT');
-
       this.worldTexture = [ new CGFtexture(this,'images/world_texture/back.png'),
                             new CGFtexture(this,'images/world_texture/bottom.png'),
                             new CGFtexture(this,'images/world_texture/front.png'),
@@ -58,7 +60,7 @@ class MyScene extends CGFscene {
                             new CGFtexture(this,'images/world_texture/top.png')
                           ];
 
-      this.aridTexture = [  new CGFtexture(this,'images/arid/back.jpg'),
+      this.aridTexture = [ new CGFtexture(this,'images/arid/back.jpg'),
                             new CGFtexture(this,'images/arid/bottom.jpg'),
                             new CGFtexture(this,'images/arid/front.jpg'),
                             new CGFtexture(this,'images/arid/left.jpg'),
@@ -89,6 +91,7 @@ class MyScene extends CGFscene {
                             new CGFtexture(this,'images/teste/right.png'),
                             new CGFtexture(this,'images/teste/top.png')
                           ];
+
 
       this.textures = [this.worldTexture, this.aridTexture, this.divineTexture, this.lakeTexture, this.testeTexture];
       this.textureIds = { 'World': 0, 'Arid' : 1, 'Divine' : 2, 'Lake' : 3, 'Teste': 4};
@@ -131,34 +134,31 @@ class MyScene extends CGFscene {
         if (this.displayAxis) {
             this.axis.display();
         }
-        // After display Axis, because it changes the scene itself
+
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        if (this.displayNormal)
-            this.cylinder.enableNormalViz();
-        else
-            this.cylinder.disableNormalViz();
 
-        if(this.displayCylinder) {
-            // Need this because its a object with textures that dont have it yet
-            this.defaultMaterial.apply();
+        this.earth.apply();
+
+        if(this.displayCylinder)
             this.cylinder.display();
-        }
 
         //This sphere does not have defined texture coordinates
-        if(this.displaySphere) {
-            // Need this because its a object with textures that dont have it yet
-            this.defaultMaterial.apply();
+        if(this.displaySphere)
             this.incompleteSphere.display();
+
+        if (this.displayNormal)
+            this.cylinder.enableNormalViz();
+
+        if (1) {
+            this.pushMatrix();
+            this.scale(50, 50, 50);
+            this.cube.display();
+            this.popMatrix();
         }
 
-        if(this.displayCube) {
-          this.pushMatrix();
-          this.scale(50, 50, 50);
-          this.cube.display();
-          this.popMatrix();
-        }
+
         // ---- END Primitive drawing section
     }
 }

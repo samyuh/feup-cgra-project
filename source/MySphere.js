@@ -8,7 +8,7 @@ class MySphere extends CGFobject {
   constructor(scene, slices, stacks) {
     super(scene);
     this.latDivs = stacks * 2;
-    this.longDivs = slices
+    this.longDivs = slices;
 
     this.initBuffers();
   }
