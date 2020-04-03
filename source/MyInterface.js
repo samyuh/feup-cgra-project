@@ -23,6 +23,7 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
         //this.gui.add(this.scene, 'displayCube').name('Display Cube');
 
+        this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
 
         return true;

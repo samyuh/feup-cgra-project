@@ -11,6 +11,7 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
         this.initTextures();
+        this.initMaterials();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -24,15 +25,6 @@ class MyScene extends CGFscene {
 
         this.enableTextures(true);
 
-        //Criar uma nova appearance
-        this.earth = new CGFappearance(this);
-        this.earth.setAmbient(0.1, 0.1, 0.1, 1);
-        this.earth.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.earth.setSpecular(0.1, 0.1, 0.1, 1);
-        this.earth.setShininess(10.0);
-        this.earth.loadTexture('images/earth.jpg');
-        this.earth.setTextureWrap('REPEAT', 'REPEAT');
-
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -40,13 +32,17 @@ class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
+        this.vehicle = new MyVehicle(this);
+
+        this.selectedMaterial = 0;
 
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displayCylinder = false;
-        this.displaySphere = true;
+        this.displaySphere = false;
         this.displayNormal = false;
         this.selectedTexture = -1;
+        this.displayVehicle = true;
     }
 
 
@@ -119,6 +115,27 @@ class MyScene extends CGFscene {
     update(t){
         //To be done...
     }
+    initMaterials(){
+      this.default = new CGFappearance(this);
+      this.default.setAmbient(0.2, 0.4, 0.8, 1.0);
+      this.default.setDiffuse(0.2, 0.4, 0.8, 1.0);
+      this.default.setSpecular(0.2, 0.4, 0.8, 1.0);
+      this.default.setShininess(10.0);
+
+      this.earth = new CGFappearance(this);
+      this.earth.setAmbient(0.1, 0.1, 0.1, 1);
+      this.earth.setDiffuse(0.9, 0.9, 0.9, 1);
+      this.earth.setSpecular(0.1, 0.1, 0.1, 1);
+      this.earth.setShininess(10.0);
+      this.earth.loadTexture('images/earth.jpg');
+      this.earth.setTextureWrap('REPEAT', 'REPEAT');
+
+      this.materials = [this.default, this.earth];
+
+      // Labels and ID's for object selection on MyInterface
+      this.materialIDs = {'Default': 0, 'Earth': 1};
+
+    }
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -136,10 +153,10 @@ class MyScene extends CGFscene {
         }
 
         this.setDefaultAppearance();
+        this.materials[this.selectedMaterial].apply();
 
         // ---- BEGIN Primitive drawing section
 
-        this.earth.apply();
 
         if(this.displayCylinder)
             this.cylinder.display();
@@ -147,6 +164,9 @@ class MyScene extends CGFscene {
         //This sphere does not have defined texture coordinates
         if(this.displaySphere)
             this.incompleteSphere.display();
+
+        if(this.displayVehicle)
+            this.vehicle.display();
 
         if (this.displayNormal)
             this.cylinder.enableNormalViz();
