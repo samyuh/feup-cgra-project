@@ -51,13 +51,13 @@ class MySphere extends CGFobject {
           // pushing two triangles using indices from this round (current, current+1)
           // and the ones directly south (next, next+1)
           // (i.e. one full round of slices ahead)
-          
+
           this.indices.push( current + 1, current, next);
           this.indices.push( current + 1, next, next +1);
         }
 
         //--- Normals
-        // at each vertex, the direction of the normal is equal to 
+        // at each vertex, the direction of the normal is equal to
         // the vector from the center of the sphere to the vertex.
         // in a sphere of radius equal to one, the vector length is one.
         // therefore, the value of the normal is equal to the position vectro
@@ -65,9 +65,9 @@ class MySphere extends CGFobject {
         theta += thetaInc;
 
         //--- Texture Coordinates
-        // To be done... 
+        // To be done...
         // May need some additional code also in the beginning of the function.
-        
+
       }
       phi += phiInc;
     }

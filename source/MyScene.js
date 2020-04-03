@@ -36,12 +36,20 @@ class MyScene extends CGFscene {
         this.displayCylinder = false;
         this.displaySphere = true;
         this.displayNormal = false;
+        this.displayCube = true;
         this.selectedTexture = -1;
     }
 
-    
     // Function that initialize the scene textures
     initTextures() {
+      // Default Material
+      this.defaultMaterial = new CGFappearance(this);
+      this.defaultMaterial.setAmbient(0.2, 0.4, 0.8, 1);
+      this.defaultMaterial.setDiffuse(0.2, 0.4, 0.8, 1);
+      this.defaultMaterial.setSpecular(0.2, 0.4, 0.8, 1);
+      this.defaultMaterial.setShininess(10.0);
+      this.defaultMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
       this.worldTexture = [ new CGFtexture(this,'images/world_texture/back.png'),
                             new CGFtexture(this,'images/world_texture/bottom.png'),
                             new CGFtexture(this,'images/world_texture/front.png'),
@@ -50,7 +58,7 @@ class MyScene extends CGFscene {
                             new CGFtexture(this,'images/world_texture/top.png')
                           ];
 
-      this.aridTexture = [ new CGFtexture(this,'images/arid/back.jpg'),
+      this.aridTexture = [  new CGFtexture(this,'images/arid/back.jpg'),
                             new CGFtexture(this,'images/arid/bottom.jpg'),
                             new CGFtexture(this,'images/arid/front.jpg'),
                             new CGFtexture(this,'images/arid/left.jpg'),
@@ -123,29 +131,34 @@ class MyScene extends CGFscene {
         if (this.displayAxis) {
             this.axis.display();
         }
-
+        // After display Axis, because it changes the scene itself
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-
-        if(this.displayCylinder)
-            this.cylinder.display();
-
-        //This sphere does not have defined texture coordinates
-        if(this.displaySphere)
-            this.incompleteSphere.display();
-
         if (this.displayNormal)
             this.cylinder.enableNormalViz();
+        else
+            this.cylinder.disableNormalViz();
 
-        if (1) {
-            this.pushMatrix();
-            this.scale(50, 50, 50);
-            this.cube.display();
-            this.popMatrix();
+        if(this.displayCylinder) {
+            // Need this because its a object with textures that dont have it yet
+            this.defaultMaterial.apply();
+            this.cylinder.display();
         }
 
+        //This sphere does not have defined texture coordinates
+        if(this.displaySphere) {
+            // Need this because its a object with textures that dont have it yet
+            this.defaultMaterial.apply();
+            this.incompleteSphere.display();
+        }
 
+        if(this.displayCube) {
+          this.pushMatrix();
+          this.scale(50, 50, 50);
+          this.cube.display();
+          this.popMatrix();
+        }
         // ---- END Primitive drawing section
     }
 }
