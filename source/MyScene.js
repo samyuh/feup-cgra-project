@@ -12,6 +12,7 @@ class MyScene extends CGFscene {
         this.initLights();
         this.initTextures();
         this.initMaterials();
+        this.setUpdatePeriod(50);
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -21,7 +22,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        this.setUpdatePeriod(50);
+        this.setUpdatePeriod(10);
 
         this.enableTextures(true);
 
@@ -43,6 +44,27 @@ class MyScene extends CGFscene {
         this.displayNormal = false;
         this.selectedTexture = -1;
         this.displayVehicle = true;
+    }
+    checkKeys() {
+        var move=false;
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+            this.vehicle.accelerate(0.1);
+        }
+        if (this.gui.isKeyPressed("KeyS")) {
+            this.vehicle.accelerate(-0.1);
+        }
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.vehicle.turn(Math.PI/90);
+        }
+        if (this.gui.isKeyPressed("KeyD")) {
+            this.vehicle.turn(-Math.PI/90);
+        }
+        if (this.gui.isKeyPressed("KeyR")) {
+            this.vehicle.reset();
+        }
+        if (move)
+            this.vehicle.update();
     }
 
 
@@ -112,8 +134,8 @@ class MyScene extends CGFscene {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
     }
     // called periodically (as per setUpdatePeriod() in init())
-    update(t){
-        //To be done...
+    update(t) {
+        this.vehicle.update();
     }
     initMaterials(){
       this.default = new CGFappearance(this);
@@ -178,7 +200,8 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-
         // ---- END Primitive drawing section
+
+        this.checkKeys();
     }
 }

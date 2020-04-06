@@ -26,6 +26,35 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
 
+        // Init Keys
+        this.initKeys();
         return true;
     }
-}
+
+    initKeys() {
+      // Create reference from the scene to GUI
+      this.scene.gui = this;
+
+      // disable processKeyboard
+      this.processKeyboard = function() {};
+
+      // array to store which keys are being pressed
+      this.activeKeys = {};
+    }
+
+    processKeyDown(event) {
+      // called when a key is pressed down
+      // mark it as active in the array
+      this.activeKeys[event.code]=true;
+    }
+
+    processKeyUp(event) {
+      // called when a key is released, mark it as inactive in the array
+      this.activeKeys[event.code]=false;
+    }
+
+    isKeyPressed(keyCode) {
+      // returns true if a key is marked as pressed, false otherwise
+      return this.activeKeys[keyCode] || false;
+    }
+  }
