@@ -36,6 +36,8 @@ class MyScene extends CGFscene {
         this.vehicle = new MyVehicle(this);
 
         this.selectedMaterial = 0;
+        this.speedFactor = 1;
+        this.scaleFactor = 1;
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -49,10 +51,10 @@ class MyScene extends CGFscene {
         var move=false;
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
-            this.vehicle.accelerate(0.1);
+            this.vehicle.accelerate(0.1*this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS")) {
-            this.vehicle.accelerate(-0.1);
+            this.vehicle.accelerate(-0.1*this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.vehicle.turn(Math.PI/90);
@@ -177,6 +179,9 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
         this.materials[this.selectedMaterial].apply();
 
+        // Make the vehicle move here;
+        // this.vehiclePosition = speedFactor
+
         // ---- BEGIN Primitive drawing section
 
 
@@ -187,8 +192,13 @@ class MyScene extends CGFscene {
         if(this.displaySphere)
             this.incompleteSphere.display();
 
-        if(this.displayVehicle)
-            this.vehicle.display();
+        if(this.displayVehicle){
+          this.pushMatrix();
+          this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+          this.vehicle.display();
+          this.popMatrix();
+        }
+
 
         if (this.displayNormal)
             this.cylinder.enableNormalViz();
