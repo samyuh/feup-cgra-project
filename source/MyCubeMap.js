@@ -18,7 +18,7 @@ class MyCubeMap extends CGFobject {
 		setNewTextures(texture) {
 				this.back = texture[0];
 				this.bottom = texture[1];
-				this.front =	texture[2];
+				this.front = texture[2];
 				this.left =	texture[3];
 				this.right = texture[4];
 				this.top = texture[5];

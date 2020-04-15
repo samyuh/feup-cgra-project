@@ -16,13 +16,14 @@ class MyVehicle extends CGFobject {
         this.posX += Math.sin(this.angleY) * this.velocity;
         this.posY += 0;
         this.posZ += Math.cos(this.angleY) * this.velocity;
-        this.velocity = 0;
     }
     turn(val) {
         this.angleY += val;
     }
     accelerate(val) {
-        this.velocity = val;
+        this.velocity += val;
+
+        this.velocity = ((this.velocity > 0) ? this.velocity : 0);
     }
     reset() {
         this.angleY = 0;

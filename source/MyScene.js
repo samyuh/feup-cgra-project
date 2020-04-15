@@ -48,13 +48,12 @@ class MyScene extends CGFscene {
         this.displayVehicle = true;
     }
     checkKeys() {
-        var move=false;
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
-            this.vehicle.accelerate(0.1*this.speedFactor);
+            this.vehicle.accelerate(0.001*this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS")) {
-            this.vehicle.accelerate(-0.1*this.speedFactor);
+            this.vehicle.accelerate(-0.005*this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.vehicle.turn(Math.PI/90);
@@ -65,8 +64,6 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
         }
-        if (move)
-            this.vehicle.update();
     }
 
 
@@ -178,9 +175,6 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
         this.materials[this.selectedMaterial].apply();
-
-        // Make the vehicle move here;
-        // this.vehiclePosition = speedFactor
 
         // ---- BEGIN Primitive drawing section
 
