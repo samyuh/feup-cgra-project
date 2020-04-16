@@ -151,8 +151,14 @@ class MyScene extends CGFscene {
     //Function that applies a new texture selected in interface
     updateAppliedTexture() {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
-        if(this.selectedTexture == 4 || this.selectedTexture == 5)
+        if(this.selectedTexture == 4 || this.selectedTexture == 5) {
+            this.audioMLP.loop = true;
             this.audioMLP.play();
+        }
+        else {
+            this.audioMLP.pause();
+            this.audioMLP.currentTime = 0;
+        }
     }
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
