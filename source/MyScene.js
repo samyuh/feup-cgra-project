@@ -46,6 +46,9 @@ class MyScene extends CGFscene {
         this.displayNormal = false;
         this.selectedTexture = -1;
         this.displayVehicle = true;
+
+        this.audioMLP = new Audio('audio/mlp.mp3');
+    
     }
 
     checkKeys() {
@@ -148,6 +151,8 @@ class MyScene extends CGFscene {
     //Function that applies a new texture selected in interface
     updateAppliedTexture() {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
+        if(this.selectedTexture == 4 || this.selectedTexture == 5)
+            this.audioMLP.play();
     }
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
