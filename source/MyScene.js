@@ -47,6 +47,7 @@ class MyScene extends CGFscene {
         this.selectedTexture = -1;
         this.displayVehicle = true;
     }
+
     checkKeys() {
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
@@ -65,7 +66,6 @@ class MyScene extends CGFscene {
             this.vehicle.reset();
         }
     }
-
 
     // Function that initialize the scene textures
     initTextures() {
@@ -115,12 +115,12 @@ class MyScene extends CGFscene {
         ];
 
         this.palaceTexture = [
-            new CGFtexture(this, 'images/palace/back.png'),
-            new CGFtexture(this, 'images/palace/bottom.png'),
-            new CGFtexture(this, 'images/palace/front.png'),
-            new CGFtexture(this, 'images/palace/left.png'),
-            new CGFtexture(this, 'images/palace/right.png'),
-            new CGFtexture(this, 'images/palace/top.png')
+            new CGFtexture(this, 'images/palace/back.jpg'),
+            new CGFtexture(this, 'images/palace/bottom.jpg'),
+            new CGFtexture(this, 'images/palace/front.jpg'),
+            new CGFtexture(this, 'images/palace/left.jpg'),
+            new CGFtexture(this, 'images/palace/right.jpg'),
+            new CGFtexture(this, 'images/palace/top.jpg')
         ];
 
 
@@ -192,6 +192,7 @@ class MyScene extends CGFscene {
         if (this.displayAxis) {
             this.axis.display();
         }
+
         this.materials[this.selectedMaterial].apply();
 
         // ---- BEGIN Primitive drawing section
