@@ -47,4 +47,11 @@ class MyVehicle extends CGFobject {
 
         this.scene.popMatrix();
     }
+    enableNormalViz() {
+		this.pyramid.enableNormalViz();
+    }
+    disableNormalViz() {
+		this.pyramid.disableNormalViz();
+    }
+
 }

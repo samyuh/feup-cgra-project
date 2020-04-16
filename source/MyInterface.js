@@ -18,19 +18,19 @@ class MyInterface extends CGFinterface {
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-        this.gui.add(this.scene, 'displayNormal').name('Display Normal');
         this.gui.add(this.scene, 'displayCylinder').name('Display Cylinder');
         this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
-
-        //this.gui.add(this.scene, 'displayCube').name('Display Cube');
-
+        this.gui.add(this.scene, 'displayNormal').name('Display Normal');
         this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
-        this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
+        
+        var fSkyBox = this.gui.addFolder('SkyBox Config');
+        fSkyBox.add(this.scene, 'displaySkyBox').name('Display SkyBox');
+        fSkyBox.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
 
-        var f0 = this.gui.addFolder('Vehicle info');
-        f0.add(this.scene, 'displayVehicle').name('Display Vehicle');
-        f0.add(this.scene, 'speedFactor', 0.1, 3.0).name('Speed Factor');
-        f0.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale Factor');
+        var fVehicle = this.gui.addFolder('Vehicle Config');
+        fVehicle.add(this.scene, 'displayVehicle').name('Display Vehicle');
+        fVehicle.add(this.scene, 'speedFactor', 0.1, 3.0).name('Speed Factor');
+        fVehicle.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale Factor');
 
         // Init Keys
         this.initKeys();
