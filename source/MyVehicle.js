@@ -39,7 +39,7 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(this.angleY, 0, 1, 0);
         // Pyramid on axis x0z
         this.scene.pushMatrix();
-        this.scene.scale(1,1,2);
+        // this.scene.scale(1,1,2);
         this.scene.translate(0, 0, -0.5);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.pyramid.display();
