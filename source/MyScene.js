@@ -16,7 +16,6 @@ class MyScene extends CGFscene {
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
-
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -33,6 +32,7 @@ class MyScene extends CGFscene {
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
         this.vehicle = new MyVehicle(this);
+        this.zeppelin = new MyZeppelin(this);
 
         this.selectedMaterial = 0;
         this.speedFactor = 1;
@@ -45,7 +45,11 @@ class MyScene extends CGFscene {
         this.displaySphere = false;
         this.displayNormal = false;
         this.selectedTexture = -1;
-        this.displayVehicle = true;
+        this.displayVehicle = false;
+        this.displayZeppelin = true;
+
+        this.audioMLP = new Audio('audio/mlp.mp3');
+
     }
 
     checkKeys() {
@@ -148,6 +152,14 @@ class MyScene extends CGFscene {
     //Function that applies a new texture selected in interface
     updateAppliedTexture() {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
+        if(this.selectedTexture == 4 || this.selectedTexture == 5) {
+            this.audioMLP.loop = true;
+            this.audioMLP.play();
+        }
+        else {
+            this.audioMLP.pause();
+            this.audioMLP.currentTime = 0;
+        }
     }
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
@@ -209,6 +221,8 @@ class MyScene extends CGFscene {
             this.vehicle.display();
             this.popMatrix();
         }
+        if(this.displayZeppelin)
+            this.zeppelin.display();
 
         if (this.displaySkyBox) {
             this.pushMatrix();
