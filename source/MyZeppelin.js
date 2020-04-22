@@ -12,85 +12,87 @@ class MyZeppelin extends CGFobject {
           this.triangle = new MyTriangle(scene); //Recalibrar vertices
     }
     display() {
+        this.scene.pushMatrix();
+        //this.scene.translate(0, 10, 0);
 
-        //Corpo do dirigível
+        // Zeppelin body
         this.scene.pushMatrix();
         this.scene.scale(0.5,0.5,1);
         this.sphere.display();
         this.scene.popMatrix();
 
-        //Quadrado da asa de cima
+        // --------
+        // Top Wing and Bottom Wing
         this.scene.pushMatrix();
-        this.scene.translate(0,0.5,-1);
+        this.scene.rotate(-Math.PI/20, 0, 1, 0);
+        // Square Top
+        this.scene.pushMatrix();
+        this.scene.translate(0,0.5,-1.3);
         this.scene.rotate(Math.PI/2,0,1,0);
         this.scene.scale(0.5,0.5,0.5);
         this.square.display();
         this.scene.popMatrix();
-
-        //Quadrado da asa de baixo
+        //Triangle Top
         this.scene.pushMatrix();
-        this.scene.translate(0,-0.5,-1);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.scale(0.5,0.5,0.5);
-        this.square.display();
-        this.scene.popMatrix();
-
-        //Triangulo da asa de cima
-        this.scene.pushMatrix();
-        this.scene.translate(0,0.5,-0.5);
+        this.scene.translate(0,0.5,-0.8);
         this.scene.rotate(Math.PI,0,1,0);
         this.scene.rotate(Math.PI/2,0,1,0);
         this.scene.scale(0.25,0.25,0.25);
         this.triangle.display();
         this.scene.popMatrix();
-
-        //Triangulo da asa de baixo
+        // Square Bottom
         this.scene.pushMatrix();
-        this.scene.translate(0,-0.5,-0.5);
+        this.scene.translate(0,-0.5,-1.3);
+        this.scene.rotate(Math.PI/2,0,1,0);
+        this.scene.scale(0.5,0.5,0.5);
+        this.square.display();
+        this.scene.popMatrix();
+        // Triangle Bottom
+        this.scene.pushMatrix();
+        this.scene.translate(0,-0.5,-0.8);
         this.scene.rotate(Math.PI,1,0,0);
         this.scene.rotate(Math.PI/2,0,1,0);
         this.scene.scale(0.25,0.25,0.25);
         this.triangle.display();
         this.scene.popMatrix();
-
-
-        //Quadrado da asa lateral da frente
+        this.scene.popMatrix();
+        // --------
+        // Front
+        // Square
         this.scene.pushMatrix();
-        this.scene.translate(0.5,0,-1);
+        this.scene.translate(0.5,0,-1.3);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.scale(0.5,0.5,0.5);
         this.square.display();
         this.scene.popMatrix();
-
-        //Quadrado da asa lateral de trás
+        // Triangle
         this.scene.pushMatrix();
-        this.scene.translate(-0.5,0,-1);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.scene.scale(0.5,0.5,0.5);
-        this.square.display();
-        this.scene.popMatrix();
-
-        //Triangulo da asa de frente
-        this.scene.pushMatrix();
-        this.scene.translate(0.5,0,-0.5);
+        this.scene.translate(0.5,0,-0.8);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.scale(0.25,0.25,0.25);
         this.triangle.display();
         this.scene.popMatrix();
 
-        //Triangulo da asa de trás
+        // --------
+        // Back Wing
+        // Square
         this.scene.pushMatrix();
-        this.scene.translate(-0.5,0,-0.5);
+        this.scene.translate(-0.5,0,-1.3);
+        this.scene.rotate(Math.PI/2,1,0,0);
+        this.scene.scale(0.5,0.5,0.5);
+        this.square.display();
+        this.scene.popMatrix();
+        // Triangle
+        this.scene.pushMatrix();
+        this.scene.translate(-0.5,0,-0.8);
         this.scene.scale(-1,1,1);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.scale(0.25,0.25,0.25);
         this.triangle.display();
         this.scene.popMatrix();
 
-
-
-        //Corpo inferior
-
+        // --------
+        // Waggon
         this.scene.pushMatrix();
         this.scene.translate(0,-0.5,0);
         this.scene.scale(1/8,1/8,1/2);
@@ -113,13 +115,19 @@ class MyZeppelin extends CGFobject {
         this.sphere.display();
         this.scene.popMatrix();
 
-
-
-
-
-
-
-
+        this.scene.popMatrix();
+    }
+    enableNormalViz() {
+        this.cylinder.enableNormalViz();
+        this.sphere.enableNormalViz();
+        this.square.enableNormalViz();
+        this.triangle.enableNormalViz();
+    }
+    disableNormalViz() {
+        this.cylinder.disableNormalViz();
+        this.sphere.disableNormalViz();
+        this.square.disableNormalViz();
+        this.triangle.disableNormalViz();
     }
 
 }

@@ -10,7 +10,7 @@ class MyVehicle extends CGFobject {
           this.posX = 0;
           this.posY = 0;
           this.posZ = 0;
-          this.pyramid = new MyPyramid(scene, 5, 1);
+          this.zeppelin = new MyZeppelin(scene, 5, 1);
     }
     update() {
         this.posX += Math.sin(this.angleY) * this.velocity;
@@ -37,21 +37,14 @@ class MyVehicle extends CGFobject {
         // Update vehicle coordinates
         this.scene.translate(this.posX, this.posY, this.posZ);
         this.scene.rotate(this.angleY, 0, 1, 0);
-        // Pyramid on axis x0z
-        this.scene.pushMatrix();
-        // this.scene.scale(1,1,2);
-        this.scene.translate(0, 0, -0.5);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.pyramid.display();
-        this.scene.popMatrix();
-
+        this.zeppelin.display();
         this.scene.popMatrix();
     }
     enableNormalViz() {
-		this.pyramid.enableNormalViz();
+		this.zeppelin.enableNormalViz();
     }
     disableNormalViz() {
-		this.pyramid.disableNormalViz();
+		this.zeppelin.disableNormalViz();
     }
 
 }
