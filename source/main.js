@@ -17,6 +17,8 @@ serialInclude(['../lib/CGF.js',
                   'MySquare.js',
                   'MyWing.js',
                   'MyHelix.js',
+                  'MySupply.js',
+                  'MyUnitCubeQuad.js',
 
 main=function()
 {

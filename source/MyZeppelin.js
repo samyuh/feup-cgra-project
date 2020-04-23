@@ -15,7 +15,7 @@ class MyZeppelin extends CGFobject {
     }
     display() {
         this.scene.pushMatrix();
-        //this.scene.translate(0, 10, 0);
+        this.scene.translate(0, 0, 0);
 
         // Zeppelin body
         this.scene.pushMatrix();

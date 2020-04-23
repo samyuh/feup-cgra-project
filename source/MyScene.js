@@ -33,7 +33,17 @@ class MyScene extends CGFscene {
         this.diamond = new MyDiamond(this);
         this.vehicle = new MyVehicle(this);
         this.helix = new MyHelix(this);
+        this.supply = new MySupply(this);
 
+        this.supplies = [
+            new MySupply(this),
+            new MySupply(this),
+            new MySupply(this),
+            new MySupply(this),
+            new MySupply(this),
+        ];
+
+        this.selectSupply = 0;
         this.selectedMaterial = 0;
         this.speedFactor = 1;
         this.scaleFactor = 1;
@@ -46,7 +56,6 @@ class MyScene extends CGFscene {
         this.displayNormal = false;
         this.selectedTexture = -1;
         this.displayVehicle = true;
-        this.displayHelix = false;
 
         this.audioMLP = new Audio('audio/mlp.mp3');
 
@@ -68,6 +77,15 @@ class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
+        }
+        if (this.gui.isKeyPressed("KeyL")) {
+            if(this.selectSupply < 4){
+                this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ);
+                this.selectSupply += 1;
+                if(this.selectSupply == 5){
+                    this.selectSupply = 4;
+                }
+            }
         }
     }
 
@@ -165,6 +183,7 @@ class MyScene extends CGFscene {
     update(t) {
         this.checkKeys();
         this.vehicle.update();
+        this.supply.update();
     }
     initMaterials() {
         this.default = new CGFappearance(this);
@@ -221,9 +240,9 @@ class MyScene extends CGFscene {
             this.vehicle.display();
             this.popMatrix();
         }
-        if(this.displayHelix)
-            this.helix.display();
-
+        for(var i = 0; i < this.selectSupply; i++){
+            this.supplies[i].display();
+        }
         if (this.displaySkyBox) {
             this.pushMatrix();
             this.scale(50, 50, 50);
