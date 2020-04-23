@@ -9,14 +9,6 @@ class MyHelix extends CGFobject {
           this.sphere = new MySphere(scene, 16, 8);
     }
     display() {
-
-        // Body
-        this.scene.pushMatrix();
-        this.scene.translate(0,0,0);
-        this.scene.scale(3/4,3/4,2);
-        this.sphere.display();
-        this.scene.popMatrix();
-
         // Translateion of none-body part
         this.scene.pushMatrix();
         this.scene.translate(0,0,-2);
@@ -26,7 +18,6 @@ class MyHelix extends CGFobject {
         this.scene.scale(1/4,1/4,1/4);
         this.sphere.display();
         this.scene.popMatrix();
-
         // Helix nª 1
         this.scene.pushMatrix();
         this.scene.translate(-1/2,1/2,0);
@@ -34,7 +25,6 @@ class MyHelix extends CGFobject {
         this.scene.scale(1/4,1/4,1);
         this.sphere.display();
         this.scene.popMatrix();
-
         // Helix nª 2
         this.scene.pushMatrix();
         this.scene.translate(1/2,-1/2,0);
@@ -45,7 +35,5 @@ class MyHelix extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.popMatrix();
-
-
       }
 }

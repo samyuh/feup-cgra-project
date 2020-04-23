@@ -12,6 +12,15 @@ class MyZeppelin extends CGFobject {
           this.triangle = new MyTriangle(scene); //Recalibrar vertices
           this.wing = new MyWing(scene);
           this.helix = new MyHelix(scene);
+          this.helixRotate = 0;
+          this.lemesRotate = 0;
+    }
+    rotateHelix(velocity) {
+        this.helixRotate += Math.PI/3 * velocity;
+    }
+
+    updateLemes(max, signal) {
+        this.lemesRotate = (Math.abs(this.lemesRotate) >= Math.abs(max) ? max : this.lemesRotate + (Math.PI/200)*signal); 
     }
     display() {
         this.scene.pushMatrix();
@@ -27,18 +36,18 @@ class MyZeppelin extends CGFobject {
         // Top Wing and Bottom Wing
         // Top Wing
         this.scene.pushMatrix();
-        this.scene.translate(0,0.5,-1);
-        this.scene.rotate(-0.2,0,1,1);
-        this.scene.scale(1,1,-1);
+        this.scene.rotate(this.lemesRotate, 0, 1, 1);
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0.5, -1);
+        this.scene.scale(1, 1, -1);
         this.wing.display();
         this.scene.popMatrix();
-
         // Bottom Wing
         this.scene.pushMatrix();
-        this.scene.translate(0,-0.5,-1);
-        this.scene.rotate(-0.2,0,1,1);
-        this.scene.scale(1,-1,-1);
+        this.scene.translate(0, -0.5, -1);
+        this.scene.scale(1, -1, -1);
         this.wing.display();
+        this.scene.popMatrix();
         this.scene.popMatrix();
 
         // --------
@@ -50,7 +59,6 @@ class MyZeppelin extends CGFobject {
         this.scene.scale(1,1,-1);
         this.wing.display();
         this.scene.popMatrix();
-
         // Back Wing
         this.scene.pushMatrix();
         this.scene.translate(0.5,0,-1);
@@ -87,9 +95,18 @@ class MyZeppelin extends CGFobject {
         // --------
 
         // Helix
+        
         this.scene.pushMatrix();
         this.scene.translate(0.1,-0.55,-0.3);
         this.scene.scale(1/16,1/16,1/16);
+        this.scene.rotate(this.helixRotate, 0, 0, 1);
+
+        this.scene.pushMatrix();
+        this.scene.translate(0,0,0);
+        this.scene.scale(3/4,3/4,2);
+        this.sphere.display();
+        this.scene.popMatrix();
+
         this.helix.display();
         this.scene.popMatrix();
 
