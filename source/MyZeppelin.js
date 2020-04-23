@@ -11,6 +11,7 @@ class MyZeppelin extends CGFobject {
           this.square = new MySquare(scene);
           this.triangle = new MyTriangle(scene); //Recalibrar vertices
           this.wing = new MyWing(scene);
+          this.helix = new MyHelix(scene);
     }
     display() {
         this.scene.pushMatrix();
@@ -18,7 +19,7 @@ class MyZeppelin extends CGFobject {
 
         // Zeppelin body
         this.scene.pushMatrix();
-        this.scene.scale(0.5,0.5,1);
+        this.scene.scale(1/2,1/2,1);
         this.sphere.display();
         this.scene.popMatrix();
 
@@ -81,6 +82,15 @@ class MyZeppelin extends CGFobject {
         this.scene.scale(1/8,1/8,1/8);
         this.scene.translate(0,0,1);
         this.sphere.display();
+        this.scene.popMatrix();
+
+        // --------
+
+        // Helix
+        this.scene.pushMatrix();
+        this.scene.translate(0.1,-0.55,-0.3);
+        this.scene.scale(1/16,1/16,1/16);
+        this.helix.display();
         this.scene.popMatrix();
 
         this.scene.popMatrix();

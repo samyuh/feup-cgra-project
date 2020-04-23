@@ -32,6 +32,7 @@ class MyScene extends CGFscene {
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
         this.vehicle = new MyVehicle(this);
+        this.helix = new MyHelix(this);
 
         this.selectedMaterial = 0;
         this.speedFactor = 1;
@@ -44,7 +45,8 @@ class MyScene extends CGFscene {
         this.displaySphere = false;
         this.displayNormal = false;
         this.selectedTexture = -1;
-        this.displayVehicle = false;
+        this.displayVehicle = true;
+        this.displayHelix = false;
 
         this.audioMLP = new Audio('audio/mlp.mp3');
 
@@ -219,6 +221,8 @@ class MyScene extends CGFscene {
             this.vehicle.display();
             this.popMatrix();
         }
+        if(this.displayHelix)
+            this.helix.display();
 
         if (this.displaySkyBox) {
             this.pushMatrix();
