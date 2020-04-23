@@ -33,9 +33,16 @@ class MyScene extends CGFscene {
         this.diamond = new MyDiamond(this);
         this.vehicle = new MyVehicle(this);
         this.helix = new MyHelix(this);
-        this.supply = new MySupply(this);
-        
 
+        this.supplies = [
+            new MySupply(this),
+            new MySupply(this),
+            new MySupply(this),
+            new MySupply(this),
+            new MySupply(this),
+        ];
+
+        this.selectSupply = 0;
         this.selectedMaterial = 0;
         this.speedFactor = 1;
         this.scaleFactor = 1;
@@ -47,8 +54,7 @@ class MyScene extends CGFscene {
         this.displaySphere = false;
         this.displayNormal = false;
         this.selectedTexture = -1;
-        this.displayVehicle = true;;
-        this.displaySupply = true;;
+        this.displayVehicle = true;
 
         this.audioMLP = new Audio('audio/mlp.mp3');
 
@@ -70,9 +76,17 @@ class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
+            for(var i = 0; i < 5; i++){
+                this.supplies[i].reset();
+                this.selectSupply = 0;
+            }
+
         }
         if (this.gui.isKeyPressed("KeyL")) {
-            this.supply.drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ);
+            if(this.selectSupply < 5){
+                this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ);
+                this.selectSupply++;
+            }
         }
     }
 
@@ -170,7 +184,10 @@ class MyScene extends CGFscene {
     update(t) {
         this.checkKeys();
         this.vehicle.update();
-        this.supply.update();
+        for(var i = 0; i < 5; i++){
+            this.supplies[i].update();
+        }
+        
     }
     initMaterials() {
         this.default = new CGFappearance(this);
@@ -227,8 +244,8 @@ class MyScene extends CGFscene {
             this.vehicle.display();
             this.popMatrix();
         }
-        if(this.displaySupply){
-            this.supply.display();
+        for(var i = 0; i < 5; i++){
+            this.supplies[i].display();
         }
         if (this.displaySkyBox) {
             this.pushMatrix();

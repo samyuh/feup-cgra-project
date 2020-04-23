@@ -15,7 +15,7 @@ class MySupply extends CGFobject {
         this.state=SupplyStates.INACTIVE;
 
         this.posX = 0;
-        this.posY = 2;
+        this.posY = 0;
         this.posZ = 0;
         this.velocity = 0;
 
@@ -54,6 +54,13 @@ class MySupply extends CGFobject {
             this.posY -= 0.01;
             this.land();
         }
+    }
+    reset(){
+        this.state = SupplyStates.INACTIVE;
+        this.posX = 0;
+        this.posY = 0;
+        this.posZ = 0;
+        this.velocity = 0;
     }
 
     displayFalling(){
