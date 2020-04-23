@@ -8,8 +8,9 @@ class MyZeppelin extends CGFobject {
           super(scene);
           this.cylinder = new MyCylinder(scene, 100);
           this.sphere = new MySphere(scene, 16, 8);
-          this.square = new MyQuad(scene);
+          this.square = new MySquare(scene);
           this.triangle = new MyTriangle(scene); //Recalibrar vertices
+          this.wing = new MyWing(scene);
     }
     display() {
         this.scene.pushMatrix();
@@ -23,75 +24,42 @@ class MyZeppelin extends CGFobject {
 
         // --------
         // Top Wing and Bottom Wing
+        // Top Wing
         this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/20, 0, 1, 0);
-        // Square Top
-        this.scene.pushMatrix();
-        this.scene.translate(0,0.5,-1.3);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.scale(0.5,0.5,0.5);
-        this.square.display();
+        this.scene.translate(0,0.5,-1);
+        this.scene.rotate(-0.2,0,1,1);
+        this.scene.scale(1,1,-1);
+        this.wing.display();
         this.scene.popMatrix();
-        //Triangle Top
+
+        // Bottom Wing
         this.scene.pushMatrix();
-        this.scene.translate(0,0.5,-0.8);
-        this.scene.rotate(Math.PI,0,1,0);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.scale(0.25,0.25,0.25);
-        this.triangle.display();
-        this.scene.popMatrix();
-        // Square Bottom
-        this.scene.pushMatrix();
-        this.scene.translate(0,-0.5,-1.3);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.scale(0.5,0.5,0.5);
-        this.square.display();
-        this.scene.popMatrix();
-        // Triangle Bottom
-        this.scene.pushMatrix();
-        this.scene.translate(0,-0.5,-0.8);
-        this.scene.rotate(Math.PI,1,0,0);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.scale(0.25,0.25,0.25);
-        this.triangle.display();
-        this.scene.popMatrix();
-        this.scene.popMatrix();
-        // --------
-        // Front
-        // Square
-        this.scene.pushMatrix();
-        this.scene.translate(0.5,0,-1.3);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.scene.scale(0.5,0.5,0.5);
-        this.square.display();
-        this.scene.popMatrix();
-        // Triangle
-        this.scene.pushMatrix();
-        this.scene.translate(0.5,0,-0.8);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.scene.scale(0.25,0.25,0.25);
-        this.triangle.display();
+        this.scene.translate(0,-0.5,-1);
+        this.scene.rotate(-0.2,0,1,1);
+        this.scene.scale(1,-1,-1);
+        this.wing.display();
         this.scene.popMatrix();
 
         // --------
+        // Front and Back Wing
+        // Front Wing
+        this.scene.pushMatrix();
+        this.scene.translate(-0.5,0,-1);
+        this.scene.rotate(Math.PI/2,0,0,1)
+        this.scene.scale(1,1,-1);
+        this.wing.display();
+        this.scene.popMatrix();
+
         // Back Wing
-        // Square
         this.scene.pushMatrix();
-        this.scene.translate(-0.5,0,-1.3);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.scene.scale(0.5,0.5,0.5);
-        this.square.display();
-        this.scene.popMatrix();
-        // Triangle
-        this.scene.pushMatrix();
-        this.scene.translate(-0.5,0,-0.8);
-        this.scene.scale(-1,1,1);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.scene.scale(0.25,0.25,0.25);
-        this.triangle.display();
+        this.scene.translate(0.5,0,-1);
+        this.scene.rotate(Math.PI/2,0,0,1)
+        this.scene.scale(1,-1,-1);
+        this.wing.display();
         this.scene.popMatrix();
 
         // --------
+
         // Waggon
         this.scene.pushMatrix();
         this.scene.translate(0,-0.5,0);
