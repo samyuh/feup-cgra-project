@@ -31,7 +31,7 @@ class MyScene extends CGFscene {
         this.sphere = new MySphere(this, 16, 8);
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
-        this.vehicle = new MyVehicle(this);
+        this.vehicle = new MyVehicle(this,3);
         this.helix = new MyHelix(this);
 
         this.supplies = [
@@ -82,6 +82,7 @@ class MyScene extends CGFscene {
             }
 
         }
+        // Está bugado, porque carrego uma vez e despejas as 5 caixas
         if (this.gui.isKeyPressed("KeyL")) {
             if(this.selectSupply < 5){
                 this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ);

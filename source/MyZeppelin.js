@@ -14,9 +14,6 @@ class MyZeppelin extends CGFobject {
           this.helix = new MyHelix(scene);
     }
     display() {
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0);
-
         // Zeppelin body
         this.scene.pushMatrix();
         this.scene.scale(1/2,1/2,1);
@@ -91,8 +88,6 @@ class MyZeppelin extends CGFobject {
         this.scene.translate(0.1,-0.55,-0.3);
         this.scene.scale(1/16,1/16,1/16);
         this.helix.display();
-        this.scene.popMatrix();
-
         this.scene.popMatrix();
     }
     enableNormalViz() {

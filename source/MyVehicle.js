@@ -3,12 +3,13 @@
 * @constructor
 */
 class MyVehicle extends CGFobject {
-    constructor(scene) {
+    constructor(scene,initialPosY) {
           super(scene);
           this.angleY = 0;
           this.velocity = 0;
           this.posX = 0;
-          this.posY = 2;
+          this.initialPosY = initialPosY;
+          this.posY = initialPosY;
           this.posZ = 0;
           this.zeppelin = new MyZeppelin(scene, 5, 1);
     }
@@ -29,7 +30,7 @@ class MyVehicle extends CGFobject {
         this.angleY = 0;
         this.velocity = 0;
         this.posX = 0;
-        this.posY = 2;
+        this.posY = this.initialPosY;
         this.posZ = 0;
     }
     display() {

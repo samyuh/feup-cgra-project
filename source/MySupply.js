@@ -17,7 +17,9 @@ class MySupply extends CGFobject {
         this.posX = 0;
         this.posY = 0;
         this.posZ = 0;
-        this.velocity = 0;
+        this.initialPosY = 0;
+        this.accelaration = 9.8; //Constant for accelaration
+        this.time = 0;
 
         this.quad = new MyUnitCubeQuad(scene);
         
@@ -38,11 +40,14 @@ class MySupply extends CGFobject {
         this.state = SupplyStates.FALLING;
         this.posX = posX;
         this.posY = posY - 0.7;
+        this.initialPosY = this.posY;
         this.posZ = posZ;
-        this.quad.setNewTextures(this.fallingTextures); //Isto poia estar no construtor da caixa
+        this.accelaration = 2*this.initialPosY/9;
+        this.quad.setNewTextures(this.fallingTextures); //Isto podia estar no construtor da caixa
     }
     land(){
         if(this.posY <= 0.125){
+            this.posY = 0.125;
             this.state=SupplyStates.LANDED;
             this.quad.setNewTextures(this.landingTextures);
         }
@@ -51,7 +56,8 @@ class MySupply extends CGFobject {
     update(){
         // Fazer a caixa cair a uma certa velocidade
         if(this.state == SupplyStates.FALLING){
-            this.posY -= 0.01;
+            this.posY = -1/2*this.accelaration * this.time * this.time + this.initialPosY;
+            this.time += 1/50;
             this.land();
         }
     }
@@ -60,7 +66,7 @@ class MySupply extends CGFobject {
         this.posX = 0;
         this.posY = 0;
         this.posZ = 0;
-        this.velocity = 0;
+        this.time = 0;
     }
 
     displayFalling(){
