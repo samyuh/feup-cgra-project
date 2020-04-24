@@ -12,7 +12,6 @@ class MyScene extends CGFscene {
         this.initLights();
         this.initTextures();
         this.initMaterials();
-        this.setUpdatePeriod(50);
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -21,7 +20,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        this.setUpdatePeriod(10);
+        this.setUpdatePeriod(12);
 
         this.enableTextures(true);
 
@@ -70,9 +69,11 @@ class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.vehicle.turn(Math.PI / 90);
+            this.vehicle.leme(0);
         }
         if (this.gui.isKeyPressed("KeyD")) {
             this.vehicle.turn(-Math.PI / 90);
+            this.vehicle.leme(1);
         }
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
@@ -88,6 +89,9 @@ class MyScene extends CGFscene {
                 this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ);
                 this.selectSupply++;
             }
+        }
+        if (this.gui.isKeyPressed("KeyP")) {
+            this.vehicle.autoPilot();
         }
     }
 
@@ -248,6 +252,7 @@ class MyScene extends CGFscene {
         for(var i = 0; i < 5; i++){
             this.supplies[i].display();
         }
+
         if (this.displaySkyBox) {
             this.pushMatrix();
             this.scale(50, 50, 50);
