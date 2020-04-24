@@ -20,6 +20,7 @@ class MySupply extends CGFobject {
         this.initialPosY = 0;
         this.accelaration = 9.8; //Constant for accelaration
         this.time = 0;
+        this.initialTime = 0;
 
         this.quad = new MyUnitCubeQuad(scene);
         
@@ -53,11 +54,14 @@ class MySupply extends CGFobject {
         }
     }
 
-    update(){
+    update(t){
+        if(this.state == SupplyStates.INACTIVE){
+            this.initialTime = t;
+        }
         // Fazer a caixa cair a uma certa velocidade
         if(this.state == SupplyStates.FALLING){
+            this.time = (t-this.initialTime)/1000;
             this.posY = -1/2*this.accelaration * this.time * this.time + this.initialPosY;
-            this.time += 1/50;
             this.land();
         }
     }

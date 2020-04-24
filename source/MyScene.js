@@ -30,12 +30,12 @@ class MyScene extends CGFscene {
         this.sphere = new MySphere(this, 16, 8);
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
-        this.vehicle = new MyVehicle(this,3);
+        this.vehicle = new MyVehicle(this,4);
         this.helix = new MyHelix(this);
         this.plane = new MyPlane(this, 50);
 
         this.appearance = new CGFappearance(this);
-		this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
+		this.appearance.setAmbient(0.3  , 0.3, 0.3, 1);
 		this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
 		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
         this.appearance.setShininess(120);
@@ -67,7 +67,7 @@ class MyScene extends CGFscene {
         this.displaySkyBox = false;
         this.displaySphere = false;
         this.displayNormal = false;
-        this.selectedTexture = -1;
+        this.selectedTexture = 0;
         this.displayVehicle = true;
 
         this.audioMLP = new Audio('audio/mlp.mp3');
@@ -184,9 +184,14 @@ class MyScene extends CGFscene {
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
+
+        this.lights[1].setPosition(0,0,0,0);
+        this.lights[1].setAmbient(0.75,0.75,0.75,0.75);
+        
+
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(40, 10, 10), vec3.fromValues(0, 0, 0));
     }
     //Function that applies a new texture selected in interface
     updateAppliedTexture() {
@@ -205,7 +210,7 @@ class MyScene extends CGFscene {
         this.checkKeys();
         this.vehicle.update();
         for(var i = 0; i < 5; i++){
-            this.supplies[i].update();
+            this.supplies[i].update(t);
         }
         
     }
@@ -270,8 +275,13 @@ class MyScene extends CGFscene {
 
         if (this.displaySkyBox) {
             this.pushMatrix();
+            this.translate(0,25,0);
+            this.lights[1].enable();
+            this.lights[1].update();
             this.scale(50, 50, 50);
             this.cube.display();
+            this.lights[1].disable();
+            this.lights[1].update();
             this.popMatrix();
         }
 

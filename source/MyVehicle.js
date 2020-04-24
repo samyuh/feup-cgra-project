@@ -8,7 +8,8 @@ class MyVehicle extends CGFobject {
           this.angleY = 0;
           this.velocity = 0;
           this.posX = -0;
-          this.posY = 0;
+          this.posY = initialPosY;
+          this.initialPosY = initialPosY;
           this.posZ = 0;
           this.auto = false;
           this.zeppelin = new MyZeppelin(scene, 5, 1);
@@ -73,7 +74,6 @@ class MyVehicle extends CGFobject {
     }
     accelerate(val) {
         this.velocity += val;
-
         this.velocity = ((this.velocity > 0) ? this.velocity : 0);
     }
     reset() {
