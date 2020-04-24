@@ -37,10 +37,10 @@ class MySupply extends CGFobject {
         ];
         
 	}
-    drop(posX,posY,posZ){
+    drop(posX,posY,posZ,scale){
         this.state = SupplyStates.FALLING;
         this.posX = posX;
-        this.posY = posY - 0.7;
+        this.posY = posY - 0.7 * scale;
         this.initialPosY = this.posY;
         this.posZ = posZ;
         this.accelaration = 2*this.initialPosY/9;

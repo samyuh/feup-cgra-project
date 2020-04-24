@@ -102,7 +102,7 @@ class MyScene extends CGFscene {
         // Está bugado, porque carrego uma vez e despejas as 5 caixas
         if (this.gui.isKeyPressed("KeyL")) {
             if(this.selectSupply < 5){
-                this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ);
+                this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ,this.scaleFactor);
                 this.selectSupply++;
             }
         }
@@ -266,7 +266,9 @@ class MyScene extends CGFscene {
 
         if (this.displayVehicle) {
             this.pushMatrix();
+            this.translate(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ);
             this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+            this.translate(-this.vehicle.posX,-this.vehicle.posY,-this.vehicle.posZ);
             this.vehicle.display();
             this.popMatrix();
         }
