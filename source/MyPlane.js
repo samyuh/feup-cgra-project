@@ -1,83 +1,64 @@
-class MyPlane extends CGFobject {
-    constructor(scene, nDivs) {
-        super(scene);
-        nDivs = typeof nDivs !== 'undefined' ? nDivs : 1;
 
-        this.nDivs = nDivs;
-        this.patchLength = 1.0 / nDivs;
+/** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
+class MyPlane extends CGFobject{
+	constructor(scene, nrDivs, minS, maxS, minT, maxT) {
+		super(scene);
+		// nrDivs = 1 if not provided
+		nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
+		this.nrDivs = nrDivs;
+		this.patchLength = 1.0 / nrDivs;
+		this.minS = minS || 0;
+		this.maxS = maxS || 1;
+		this.minT = minT || 0;
+		this.maxT = maxT || 1;
+		this.q = (this.maxS - this.minS) / this.nrDivs;
+		this.w = (this.maxT - this.minT) / this.nrDivs;
+		this.initBuffers();
+	}
+	initBuffers() {
+		// Generate vertices, normals, and texCoords
+		this.vertices = [];
+		this.normals = [];
+		this.texCoords = [];
+		var yCoord = 0.5;
+		for (var j = 0; j <= this.nrDivs; j++) {
+			var xCoord = -0.5;
+			for (var i = 0; i <= this.nrDivs; i++) {
+				this.vertices.push(xCoord, yCoord, 0);
+				this.normals.push(0, 0, 1);
+				this.texCoords.push(this.minS + i * this.q, this.minT + j * this.w);
+				xCoord += this.patchLength;
+			}
+			yCoord -= this.patchLength;
+		}
+		// Generating indices
+		this.indices = [];
 
-        this.initBuffers();
-    }
+		var ind = 0;
+		for (var j = 0; j < this.nrDivs; j++) {
+			for (var i = 0; i <= this.nrDivs; i++) {
+				this.indices.push(ind);
+				this.indices.push(ind + this.nrDivs + 1);
+				ind++;
+			}
+			if (j + 1 < this.nrDivs) {
+				this.indices.push(ind + this.nrDivs);
+				this.indices.push(ind);
+			}
+		}
+		this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
+		this.initGLBuffers();
+	}
 
-    initBuffers() {
-        /* example for nDivs = 3 :
-        (numbers represent index of point in array)
-        ('x's represent vertices which are drawn but not stored
+	setFillMode() { 
+		this.primitiveType=this.scene.gl.TRIANGLE_STRIP;
+	}
 
-        y
-        ^
-        |
-        0    2    4    6    
-        |
-        1    3    5    7
-        |
-        x	 x	  x    x
-        |
-        x----x----x----x---> x
-        */
+	setLineMode() 
+	{ 
+		this.primitiveType=this.scene.gl.LINES;
+	};
 
-        // Generate vertices
-        this.vertices = [];
-        var xCoord = -0.5;
-        for (var i = 0; i <= this.nDivs; i++) {
-            this.vertices.push(xCoord, 0.5, 0);
-            this.vertices.push(xCoord, 0.5 - this.patchLength, 0);
-            xCoord += this.patchLength;
-        }
-
-        // Generating indices
-        /* for nDivs = 3 output will be [0, 1, 2, 3, 4, 5, 6, 7].
-        Interpreting this index list as a TRIANGLE_STRIP will draw a row of the plane. */
-        this.indices = [];
-        for (var i = 0; i <= 2 * this.nDivs + 1; i++) {
-            this.indices.push(i);
-        }
-
-        // Generating normals
-        /*
-        As this plane is being drawn on the xy plane, the normal to the plane will be along the positive z axis.
-        So all the vertices will have the same normal, (0, 0, 1).
-        */
-        this.normals = [];
-        for (var i = 0; i <= 2 * this.nDivs + 1; i++) {
-            this.normals.push(0, 0, 1);
-        }
-
-        this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
-        this.initGLBuffers();
-    }
-    // Drawing the plane
-    /*
-    To draw the plane we need to draw the row we defined, nDivs times.
-    Each row must be drawn patchLength lower than the one before it.
-    To draw each row, the drawElements() function is used. This function draws the geometry defined in initBuffers();
-    */
-    display() {
-        this.scene.pushMatrix();
-        for (var i = 0; i < this.nDivs; i++) {
-            super.display();
-            this.scene.translate(0, -this.patchLength, 0);
-        }
-
-        this.scene.popMatrix();
-    }
-
-    updateBuffers(complexity){
-        this.nDivs = 1 +  Math.round(9 * complexity); //complexity varies 0-1, so nDivs varies 1-10
-        this.patchLength = 1.0 / this. nDivs;
-
-        // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
-    }
 }
+
+
