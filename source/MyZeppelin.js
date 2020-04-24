@@ -65,7 +65,6 @@ class MyZeppelin extends CGFobject {
         this.scene.popMatrix();
 
         // --------
-
         // Waggon
         this.scene.pushMatrix();
         this.scene.translate(0,-0.5,0);
@@ -92,18 +91,27 @@ class MyZeppelin extends CGFobject {
         // --------
 
         // Helix
-        
         this.scene.pushMatrix();
         this.scene.translate(0.1,-0.55,-0.3);
         this.scene.scale(1/16,1/16,1/16);
         this.scene.rotate(this.helixRotate, 0, 0, 1);
-
         this.scene.pushMatrix();
         this.scene.translate(0,0,0);
         this.scene.scale(3/4,3/4,2);
         this.sphere.display();
         this.scene.popMatrix();
+        this.helix.display();
+        this.scene.popMatrix();
 
+        this.scene.pushMatrix();
+        this.scene.translate(-0.1,-0.55,-0.3);
+        this.scene.scale(1/16,1/16,1/16);
+        this.scene.rotate(this.helixRotate, 0, 0, 1);
+        this.scene.pushMatrix();
+        this.scene.translate(0,0,0);
+        this.scene.scale(3/4,3/4,2);
+        this.sphere.display();
+        this.scene.popMatrix();
         this.helix.display();
         this.scene.popMatrix();
     }
