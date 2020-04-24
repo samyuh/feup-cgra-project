@@ -64,13 +64,14 @@ class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displayCylinder = false;
-        this.displaySkyBox = false;
+        this.displaySkyBox = true;
         this.displaySphere = false;
         this.displayNormal = false;
         this.selectedTexture = 0;
         this.displayVehicle = true;
 
         this.audioMLP = new Audio('audio/mlp.mp3');
+        this.updateAppliedTexture();
 
     }
 
@@ -191,7 +192,7 @@ class MyScene extends CGFscene {
 
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(40, 10, 10), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50*Math.cos(Math.PI/6), 50*Math.sin(Math.PI/6), 0), vec3.fromValues(0, 0, 0));
     }
     //Function that applies a new texture selected in interface
     updateAppliedTexture() {
