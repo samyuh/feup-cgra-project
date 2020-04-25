@@ -30,23 +30,15 @@ class MyScene extends CGFscene {
         this.sphere = new MySphere(this, 16, 8);
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
-        this.vehicle = new MyVehicle(this,4);
-        this.helix = new MyHelix(this);
-        this.plane = new MyPlane(this, 50);
+        this.vehicle = new MyVehicle(this, 10);
+        this.terrain = new MyTerrain(this);
+        
 
         this.appearance = new CGFappearance(this);
 		this.appearance.setAmbient(0.3  , 0.3, 0.3, 1);
 		this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
 		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
         this.appearance.setShininess(120);
-        
-        this.waterTex = new CGFtexture(this, "textures/waterTex.jpg");
-		this.waterMap = new CGFtexture(this, "textures/waterMap.jpg");
-
-        this.waterShader = new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag");
-        
-        this.waterShader.setUniformsValues({ waterTex: 0 });
-        this.waterShader.setUniformsValues({ waterMap: 1 });
         
         this.supplies = [
             new MySupply(this),
@@ -288,13 +280,6 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        this.setActiveShader(this.waterShader);
-        this.waterTex.bind(0);
-        this.waterMap.bind(1);
-        this.scale(50, 50, 50);
-        this.rotate(-Math.PI/2, 1, 0, 0);
-        this.plane.display();
-        this.setActiveShader(this.defaultShader);
         if (this.displayNormal) {
             this.cube.enableNormalViz();
             this.vehicle.enableNormalViz();
@@ -306,6 +291,8 @@ class MyScene extends CGFscene {
             this.sphere.disableNormalViz();
             this.cylinder.disableNormalViz();
         }
+
+        this.terrain.display();
         // ---- END Primitive drawing section
     }
 }
