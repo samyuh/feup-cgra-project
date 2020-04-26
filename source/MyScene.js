@@ -62,6 +62,8 @@ class MyScene extends CGFscene {
         this.selectedTexture = 0;
         this.displayVehicle = true;
 
+        this.timefactor = 0;
+
         this.audioMLP = new Audio('audio/mlp.mp3');
         this.updateAppliedTexture();
 
@@ -92,13 +94,13 @@ class MyScene extends CGFscene {
 
         }
         // Está bugado, porque carrego uma vez e despejas as 5 caixas
-        if (this.gui.isKeyPressed("KeyL")) {
+        if (this.gui.keyPressedDown("KeyL")) {
             if(this.selectSupply < 5){
                 this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ,this.scaleFactor);
                 this.selectSupply++;
             }
         }
-        if (this.gui.isKeyPressed("KeyP")) {
+        if (this.gui.keyPressedDown("KeyP")) {
             this.vehicle.autoPilot();
         }
     }
@@ -201,11 +203,10 @@ class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
         this.checkKeys();
-        this.vehicle.update();
+        this.vehicle.update(t);
         for(var i = 0; i < 5; i++){
             this.supplies[i].update(t);
         }
-        
     }
     initMaterials() {
         this.default = new CGFappearance(this);

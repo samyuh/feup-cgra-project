@@ -44,12 +44,16 @@ class MyInterface extends CGFinterface {
 
       // array to store which keys are being pressed
       this.activeKeys = {};
+      // mark it as active in the array to process only one time
+      this.keysDown = {};
     }
 
     processKeyDown(event) {
       // called when a key is pressed down
       // mark it as active in the array
       this.activeKeys[event.code]=true;
+      // mark it as active in the array to process only one time
+      this.keysDown[event.code]=true;
     }
 
     processKeyUp(event) {
@@ -57,11 +61,13 @@ class MyInterface extends CGFinterface {
       this.activeKeys[event.code]=false;
     }
 
-    isKeyPressed(keyCode) {
-      // Only process L and P once
-      if (((keyCode == ("KeyL")) && this.activeKeys[keyCode]) || ((keyCode == ("KeyP")) && this.activeKeys[keyCode])) 
-        return !(this.activeKeys[keyCode] = false);
+    keyPressedDown(keyCode) {
+      if (this.keysDown[keyCode])
+        return !(this.keysDown[keyCode] = false);
+      return false;
+    }
 
+    isKeyPressed(keyCode) {
       // returns true if a key is marked as pressed, false otherwise
       return this.activeKeys[keyCode] || false;
     }

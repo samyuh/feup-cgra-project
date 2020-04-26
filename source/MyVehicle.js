@@ -7,21 +7,33 @@ class MyVehicle extends CGFobject {
           super(scene);
           this.angleY = 0;
           this.velocity = 0;
-          this.posX = -0;
+          this.posX = 0;
           this.posY = initialPosY;
           this.initialPosY = initialPosY;
           this.posZ = 0;
-          this.auto = false;
+          
           this.zeppelin = new MyZeppelin(scene, 5, 1);
 
-          //
+          this.flag = new MyPlane(scene, 50);
+          this.flagTex = new CGFtexture(scene, "textures/terrainTex.jpg");
+          this.flagMap = new CGFtexture(scene, "textures/flagMap.jpg");
+      
+          this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
+            
+          this.flagShader.setUniformsValues({ flagTex: 0});
+          this.flagShader.setUniformsValues({ flagMap: 1 });
+          this.flagShader.setUniformsValues({ velocity: 2 });
+          this.flagShader.setUniformsValues({ timeFactor : 3});
+          // Auto pilot
+          this.auto = false;
           this.first = false;
           this.final = 0;
     }
     origDist() {
         return Math.sqrt(this.posX*this.posX + this.posZ*this.posZ);
     }
-    update() {
+    update(t) {
+        this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
         if(this.auto) {
             if(4.9 < this.origDist() && this.origDist() < 5.1) {
                 if(this.first) {
@@ -34,7 +46,7 @@ class MyVehicle extends CGFobject {
                 else {
                     this.angleY += (Math.PI*2) / 300;
                     this.final = this.angleY;
-                    this.velocity = 10;
+                    this.velocity = 0.1;
                     this.posX = -5 * Math.cos(this.angleY);
                     this.posZ = 5 * Math.sin(this.angleY); 
                 }
@@ -92,6 +104,19 @@ class MyVehicle extends CGFobject {
         this.scene.translate(this.posX, this.posY, this.posZ);
         this.scene.rotate(this.angleY, 0, 1, 0);
         this.zeppelin.display();
+
+        this.scene.setActiveShader(this.flagShader);
+  
+        this.flagTex.bind(0);
+        this.flagMap.bind(1);
+        this.flagShader.setUniformsValues({ velocity: this.velocity });
+        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        this.scene.translate(3, 0, 0);
+        this.scene.scale(3, 0.8, 1);
+        this.flag.display();
+        
+        this.scene.setActiveShader(this.scene.defaultShader);
+       
         this.scene.popMatrix();
     }
     enableNormalViz() {
