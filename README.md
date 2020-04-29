@@ -1,10 +1,12 @@
 # Magical Zeppelin
 
 **Short Description**: Final project built with WebGL using the library [WebCGF](https://paginas.fe.up.pt/~ruirodrig/pub/sw/webcgf/docs/)
-**Institution**: [FEUP](https://sigarra.up.pt/feup/en/web_page.Inicial)
-**Course**: [MIEIC](https://sigarra.up.pt/feup/en/cur_geral.cur_view?pv_curso_id=742&pv_ano_lectivo=2019)
-**Curricular Unit**: [CGRA](https://sigarra.up.pt/feup/en/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=399891) (Computer Graphics)
 
+**Institution**: [FEUP](https://sigarra.up.pt/feup/en/web_page.Inicial)
+
+**Course**: [MIEIC](https://sigarra.up.pt/feup/en/cur_geral.cur_view?pv_curso_id=742&pv_ano_lectivo=2019)
+
+**Curricular Unit**: [CGRA](https://sigarra.up.pt/feup/en/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=399891) (Computer Graphics)
 
 ### Description
 
