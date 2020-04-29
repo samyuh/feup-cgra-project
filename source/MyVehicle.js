@@ -26,48 +26,41 @@ class MyVehicle extends CGFobject {
           this.flagShader.setUniformsValues({ timeFactor : 3});
           // Auto pilot
           this.auto = false;
-          this.first = false;
-          this.final = 0;
+          this.autoPilotConfigured = false;
+          this.previousTime = 0;
+          this.xCenter = 0;
+          this.zCenter = 0;
+          
     }
     origDist() {
         return Math.sqrt(this.posX*this.posX + this.posZ*this.posZ);
     }
     update(t) {
-        this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
         if(this.auto) {
-            if(4.9 < this.origDist() && this.origDist() < 5.1) {
-                if(this.first) {
-                    this.final = this.angleY + Math.PI / 2;
-                    this.first = false;
-                }
-                if(Math.abs(this.angleY - this.final) > 0.1) {
-                    this.angleY += Math.PI / 90;
-                }
-                else {
-                    this.angleY += (Math.PI*2) / 300;
-                    this.final = this.angleY;
-                    this.velocity = 0.1;
-                    this.posX = -5 * Math.cos(this.angleY);
-                    this.posZ = 5 * Math.sin(this.angleY); 
-                }
+            let vAng = (Math.PI*2) / 5000;
+            let deltaT = t - this.previousTime;
+
+            if(!this.autoPilotConfigured) {
+                this.xCenter = this.posX + Math.cos(this.angleY) * 5;
+                this.zCenter = this.posZ - Math.sin(this.angleY) * 5;
+                this.velocity = vAng * 5; // to see helix
+                this.autoPilotConfigured = true;
+                this.previousTime = t;
             }
-            else if(this.origDist() < 5) {
-                this.posZ += Math.cos(this.angleY) * 0.1;
-                this.posX += Math.sin(this.angleY) * 0.1;
-                this.first = true;
-            }
-            else {
-                //this.angleY = (this.posZ > 0) ? Math.PI/2 + Math.atan(this.posZ/this.posX) : Math.PI/2 + Math.atan(this.posZ/this.posX);
-                //this.posZ -= this.posZ * 0.01;
-                //this.posX -= this.posX * 0.01;
-            }   
+            else {  
+                this.previousTime = t;
+                this.angleY += vAng * deltaT;
+                this.posX = -Math.cos(this.angleY) * 5 + this.xCenter;
+                this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
+           }
         }
         else {
             this.posX += Math.sin(this.angleY) * this.velocity;
-            this.posY += 0;
             this.posZ += Math.cos(this.angleY) * this.velocity;
-            this.zeppelin.rotateHelix(this.velocity);
+            this.autoPilotConfigured = false;
         }
+        this.zeppelin.rotateHelix(this.velocity);
+        this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
     }
     turn(val) {
         this.angleY += val;

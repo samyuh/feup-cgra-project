@@ -16,7 +16,7 @@ class MyZeppelin extends CGFobject {
           this.lemesRotate = 0;
     }
     rotateHelix(velocity) {
-        this.helixRotate += Math.PI/3 * velocity;
+        this.helixRotate += Math.PI/3 * velocity * 10;
     }
 
     updateLemes(max, signal) {

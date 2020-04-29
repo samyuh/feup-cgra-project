@@ -72,10 +72,10 @@ class MyScene extends CGFscene {
     checkKeys() {
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
-            this.vehicle.accelerate(0.001 * this.speedFactor);
+            this.vehicle.accelerate(0.01 * this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS")) {
-            this.vehicle.accelerate(-0.005 * this.speedFactor);
+            this.vehicle.accelerate(-0.05 * this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.vehicle.turn(Math.PI / 90);
@@ -85,17 +85,18 @@ class MyScene extends CGFscene {
             this.vehicle.turn(-Math.PI / 90);
             this.vehicle.leme(1);
         }
+        if ((this.gui.isKeyPressed("KeyA") && this.gui.isKeyPressed("KeyD")) || (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))){
+            this.vehicle.leme(2);
+        }
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
             for(var i = 0; i < 5; i++){
                 this.supplies[i].reset();
                 this.selectSupply = 0;
             }
-
         }
-        // Está bugado, porque carrego uma vez e despejas as 5 caixas
         if (this.gui.keyPressedDown("KeyL")) {
-            if(this.selectSupply < 5){
+            if(this.selectSupply < 5) {
                 this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ,this.scaleFactor);
                 this.selectSupply++;
             }
