@@ -11,7 +11,13 @@ class MyBillboard extends CGFobject {
     this.suppliesDelivered = 0;
 
     //Textures
-    this.message = new CGFtexture(scene,"textures/white.png");
+    this.message = new CGFappearance(scene);
+    this.message.setAmbient(1, 1, 1, 1);
+    this.message.setDiffuse(0, 0, 0, 1);
+    this.message.setSpecular(0, 0, 0, 1);
+    this.message.setShininess(5.0);
+    this.message.setTextureWrap('REPEAT', 'REPEAT');
+    this.message.setTexture(new CGFtexture(scene,"textures/SuppliesDelivered.png"));
 
     //Shaders
     this.shader = new CGFshader(scene.gl, "shaders/billboard.vert", "shaders/billboard.frag");
@@ -28,6 +34,7 @@ class MyBillboard extends CGFobject {
     display() {
         // Planes
         // Front Plane
+        this.message.apply();
         this.scene.pushMatrix();
         this.scene.translate(0,3/2,0);
         this.scene.scale(2,1,1);
