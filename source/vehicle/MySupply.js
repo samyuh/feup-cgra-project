@@ -26,14 +26,14 @@ class MySupply extends CGFobject {
         
         //No need for inactive textures because there will be nothing drawn
         this.landingTextures = [
-            new CGFtexture(scene, 'images/world_texture/back.png'),
-            new CGFtexture(scene, 'images/world_texture/bottom.png'),
-            new CGFtexture(scene, 'images/world_texture/front.png'),
+            new CGFtexture(scene, 'textures/skybox/world_texture/back.png'),
+            new CGFtexture(scene, 'textures/skybox/world_texture/bottom.png'),
+            new CGFtexture(scene, 'textures/skybox/world_texture/front.png'),
         ];
         this.fallingTextures = [
-            new CGFtexture(scene, 'images/arid/back.jpg'),
-            new CGFtexture(scene, 'images/arid/bottom.jpg'),
-            new CGFtexture(scene, 'images/arid/front.jpg'),
+            new CGFtexture(scene, 'textures/skybox/arid/back.jpg'),
+            new CGFtexture(scene, 'textures/skybox/arid/bottom.jpg'),
+            new CGFtexture(scene, 'textures/skybox/arid/front.jpg'),
         ];
         
 	}

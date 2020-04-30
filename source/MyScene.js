@@ -109,57 +109,57 @@ class MyScene extends CGFscene {
     // Function that initialize the scene textures
     initTextures() {
         this.worldTexture = [
-            new CGFtexture(this, 'images/world_texture/back.png'),
-            new CGFtexture(this, 'images/world_texture/bottom.png'),
-            new CGFtexture(this, 'images/world_texture/front.png'),
-            new CGFtexture(this, 'images/world_texture/left.png'),
-            new CGFtexture(this, 'images/world_texture/right.png'),
-            new CGFtexture(this, 'images/world_texture/top.png')
+            new CGFtexture(this, 'textures/skybox/world_texture/back.png'),
+            new CGFtexture(this, 'textures/skybox/world_texture/bottom.png'),
+            new CGFtexture(this, 'textures/skybox/world_texture/front.png'),
+            new CGFtexture(this, 'textures/skybox/world_texture/left.png'),
+            new CGFtexture(this, 'textures/skybox/world_texture/right.png'),
+            new CGFtexture(this, 'textures/skybox/world_texture/top.png')
         ];
 
         this.aridTexture = [
-            new CGFtexture(this, 'images/arid/back.jpg'),
-            new CGFtexture(this, 'images/arid/bottom.jpg'),
-            new CGFtexture(this, 'images/arid/front.jpg'),
-            new CGFtexture(this, 'images/arid/left.jpg'),
-            new CGFtexture(this, 'images/arid/right.jpg'),
-            new CGFtexture(this, 'images/arid/top.jpg')
+            new CGFtexture(this, 'textures/skybox/arid/back.jpg'),
+            new CGFtexture(this, 'textures/skybox/arid/bottom.jpg'),
+            new CGFtexture(this, 'textures/skybox/arid/front.jpg'),
+            new CGFtexture(this, 'textures/skybox/arid/left.jpg'),
+            new CGFtexture(this, 'textures/skybox/arid/right.jpg'),
+            new CGFtexture(this, 'textures/skybox/arid/top.jpg')
         ];
 
         this.divineTexture = [
-            new CGFtexture(this, 'images/divine/back.jpg'),
-            new CGFtexture(this, 'images/divine/bottom.jpg'),
-            new CGFtexture(this, 'images/divine/front.jpg'),
-            new CGFtexture(this, 'images/divine/left.jpg'),
-            new CGFtexture(this, 'images/divine/right.jpg'),
-            new CGFtexture(this, 'images/divine/top.jpg')
+            new CGFtexture(this, 'textures/skybox/divine/back.jpg'),
+            new CGFtexture(this, 'textures/skybox/divine/bottom.jpg'),
+            new CGFtexture(this, 'textures/skybox/divine/front.jpg'),
+            new CGFtexture(this, 'textures/skybox/divine/left.jpg'),
+            new CGFtexture(this, 'textures/skybox/divine/right.jpg'),
+            new CGFtexture(this, 'textures/skybox/divine/top.jpg')
         ];
 
         this.lakeTexture = [
-            new CGFtexture(this, 'images/lake/back.jpg'),
-            new CGFtexture(this, 'images/lake/bottom.jpg'),
-            new CGFtexture(this, 'images/lake/front.jpg'),
-            new CGFtexture(this, 'images/lake/left.jpg'),
-            new CGFtexture(this, 'images/lake/right.jpg'),
-            new CGFtexture(this, 'images/lake/top.jpg')
+            new CGFtexture(this, 'textures/skybox/lake/back.jpg'),
+            new CGFtexture(this, 'textures/skybox/lake/bottom.jpg'),
+            new CGFtexture(this, 'textures/skybox/lake/front.jpg'),
+            new CGFtexture(this, 'textures/skybox/lake/left.jpg'),
+            new CGFtexture(this, 'textures/skybox/lake/right.jpg'),
+            new CGFtexture(this, 'textures/skybox/lake/top.jpg')
         ];
 
         this.rainbowTexture = [
-            new CGFtexture(this, 'images/rainbow/back.png'),
-            new CGFtexture(this, 'images/rainbow/bottom.png'),
-            new CGFtexture(this, 'images/rainbow/front.png'),
-            new CGFtexture(this, 'images/rainbow/left.png'),
-            new CGFtexture(this, 'images/rainbow/right.png'),
-            new CGFtexture(this, 'images/rainbow/top.png')
+            new CGFtexture(this, 'textures/skybox/rainbow/back.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/bottom.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/front.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/left.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/right.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/top.png')
         ];
 
         this.palaceTexture = [
-            new CGFtexture(this, 'images/palace/back.jpg'),
-            new CGFtexture(this, 'images/palace/bottom.jpg'),
-            new CGFtexture(this, 'images/palace/front.jpg'),
-            new CGFtexture(this, 'images/palace/left.jpg'),
-            new CGFtexture(this, 'images/palace/right.jpg'),
-            new CGFtexture(this, 'images/palace/top.jpg')
+            new CGFtexture(this, 'textures/skybox/palace/back.jpg'),
+            new CGFtexture(this, 'textures/skybox/palace/bottom.jpg'),
+            new CGFtexture(this, 'textures/skybox/palace/front.jpg'),
+            new CGFtexture(this, 'textures/skybox/palace/left.jpg'),
+            new CGFtexture(this, 'textures/skybox/palace/right.jpg'),
+            new CGFtexture(this, 'textures/skybox/palace/top.jpg')
         ];
 
 
@@ -221,7 +221,7 @@ class MyScene extends CGFscene {
         this.earth.setDiffuse(0.9, 0.9, 0.9, 1);
         this.earth.setSpecular(0.1, 0.1, 0.1, 1);
         this.earth.setShininess(10.0);
-        this.earth.loadTexture('images/earth.jpg');
+        this.earth.loadTexture('textures/earth.jpg');
         this.earth.setTextureWrap('REPEAT', 'REPEAT');
 
         this.materials = [this.default, this.earth];
