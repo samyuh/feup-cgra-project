@@ -124,7 +124,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d1*Math.cos(2*Math.PI/5),this.posY + 2,this.posZ + this.d1*Math.sin(2*Math.PI/5));
+        this.scene.translate(this.posX + this.d1*Math.cos(2*Math.PI/5 + this.d1 / 5.0),this.posY + 2,this.posZ + this.d1*Math.sin(2*Math.PI/5 + this.d1 / 5.0));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.r2,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -132,7 +132,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d2*Math.cos(4*Math.PI/5),this.posY + 2,this.posZ + this.d2*Math.sin(4*Math.PI/5));
+        this.scene.translate(this.posX + this.d2*Math.cos(4*Math.PI/5 + this.d1 / 2.0),this.posY + 2,this.posZ + this.d2*Math.sin(4*Math.PI/5 + this.d1 / 2.0));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.r3,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -140,7 +140,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d3*Math.cos(6*Math.PI/5),this.posY + 2,this.posZ + this.d3*Math.sin(6*Math.PI/5));
+        this.scene.translate(this.posX + this.d3*Math.cos(6*Math.PI/5 + this.d1 / 2.0),this.posY + 2,this.posZ + this.d3*Math.sin(6*Math.PI/5 + this.d1 / 2.0));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.r4,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -148,7 +148,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d4*Math.cos(8*Math.PI/5),this.posY + 2,this.posZ + this.d4*Math.sin(8*Math.PI/5));
+        this.scene.translate(this.posX + this.d4*Math.cos(8*Math.PI/5 + this.d1 / 2.0),this.posY + 2,this.posZ + this.d4*Math.sin(8*Math.PI/5 + this.d1 / 2.0));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.r5,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -156,7 +156,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d5*Math.cos(10*Math.PI/5),this.posY + 2,this.posZ + this.d5*Math.sin(10*Math.PI/5));
+        this.scene.translate(this.posX + this.d5*Math.cos(10*Math.PI/5 + this.d1 / 2.0),this.posY + 2,this.posZ + this.d5*Math.sin(10*Math.PI/5 + this.d1 / 2.0));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.r6,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
