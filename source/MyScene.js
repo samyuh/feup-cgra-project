@@ -75,7 +75,7 @@ class MyScene extends CGFscene {
             this.vehicle.accelerate(0.01 * this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS")) {
-            this.vehicle.accelerate(-0.05 * this.speedFactor);
+            this.vehicle.accelerate(-0.005 * this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.vehicle.turn(Math.PI / 90);
@@ -272,7 +272,7 @@ class MyScene extends CGFscene {
 
         if (this.displaySkyBox) {
             this.pushMatrix();
-            this.translate(0,25,0);
+            this.translate(0, 25, 0);
             this.lights[1].enable();
             this.lights[1].update();
             this.scale(50, 50, 50);

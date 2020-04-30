@@ -14,11 +14,12 @@ uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
 void main() {
-    float defaultOndulation = 0.1 * sin((aVertexPosition.x + timeFactor * 0.01) * 20.0);
-    float velocityFactor = 1.0;
+    float velocityFactor = velocity;
 
-    if (velocity != 0.0) 
-        velocityFactor = velocity + 1.0;
+    if (velocity == 0.0) 
+        velocityFactor = 1.0;
+
+    float defaultOndulation = 0.1 * sin((aVertexPosition.x + timeFactor * 0.005 * velocityFactor) * 20.0) ;
 
     vec3 offset = vec3(0.0, 0.0, defaultOndulation);
 

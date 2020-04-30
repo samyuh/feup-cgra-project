@@ -60,6 +60,7 @@ class MyVehicle extends CGFobject {
             this.autoPilotConfigured = false;
         }
         this.zeppelin.rotateHelix(this.velocity);
+        this.flagShader.setUniformsValues({ velocity: this.velocity });
         this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
     }
     turn(val) {
@@ -80,6 +81,7 @@ class MyVehicle extends CGFobject {
     accelerate(val) {
         this.velocity += val;
         this.velocity = ((this.velocity > 0) ? this.velocity : 0);
+        
     }
     reset() {
         this.angleY = 0;
@@ -102,7 +104,6 @@ class MyVehicle extends CGFobject {
   
         this.flagTex.bind(0);
         this.flagMap.bind(1);
-        this.flagShader.setUniformsValues({ velocity: this.velocity });
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.scene.translate(3, 0, 0);
         this.scene.scale(3, 0.8, 1);
