@@ -98,7 +98,7 @@ class MyScene extends CGFscene {
         }
         if (this.gui.keyPressedDown("KeyL")) {
             if(this.selectSupply < 5) {
-                this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ,this.scaleFactor);
+                this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ,this.scaleFactor,this.vehicle.velocity,this.vehicle.angleY);
                 this.selectSupply++;
             }
         }

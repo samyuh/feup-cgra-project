@@ -19,6 +19,8 @@ class MySupply extends CGFobject {
     this.posZ = 0;
     this.initialPosY = 0;
     this.accelaration = 9.8; //Constant for accelaration
+    this.velocityX = 0;
+    this.velocityZ = 0;
     this.time = 0;
     this.initialTime = 0;
 
@@ -66,14 +68,15 @@ class MySupply extends CGFobject {
     
         
 	}
-    drop(posX,posY,posZ,scale){
+    drop(posX,posY,posZ,scale,velocity,angle){
         this.state = SupplyStates.FALLING;
         this.posX = posX;
         this.posY = posY - 0.7 * scale;
         this.initialPosY = this.posY;
         this.posZ = posZ;
         this.accelaration = 2*this.initialPosY/9;
-        //Isto podia estar no construtor da caixa
+        this.velocityX = velocity * Math.sin(angle);
+        this.velocityZ = velocity * Math.cos(angle);
     }
     land(){
         if(this.posY <= 0.125){
@@ -89,7 +92,9 @@ class MySupply extends CGFobject {
         // Fazer a caixa cair a uma certa velocidade
         if(this.state == SupplyStates.FALLING){
             this.time = (t-this.initialTime)/1000;
+            this.posX += this.velocityX;
             this.posY = -1/2*this.accelaration * this.time * this.time + this.initialPosY;
+            this.posZ += this.velocityZ;
             this.land();
         }
     }
