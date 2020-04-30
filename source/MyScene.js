@@ -32,6 +32,7 @@ class MyScene extends CGFscene {
         this.diamond = new MyDiamond(this);
         this.vehicle = new MyVehicle(this, 10);
         this.terrain = new MyTerrain(this);
+        this.billboard = new MyBillboard(this);
         
 
         this.appearance = new CGFappearance(this);
@@ -208,6 +209,7 @@ class MyScene extends CGFscene {
         for(var i = 0; i < 5; i++){
             this.supplies[i].update(t);
         }
+        this.billboard.update(this.selectSupply);
     }
     initMaterials() {
         this.default = new CGFappearance(this);
@@ -293,7 +295,7 @@ class MyScene extends CGFscene {
             this.sphere.disableNormalViz();
             this.cylinder.disableNormalViz();
         }
-
+        this.billboard.display();
         this.terrain.display();
         // ---- END Primitive drawing section
     }
