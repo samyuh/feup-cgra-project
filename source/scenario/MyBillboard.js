@@ -11,13 +11,17 @@ class MyBillboard extends CGFobject {
     this.suppliesDelivered = 0;
 
     //Textures
-    this.message = new CGFappearance(scene);
-    this.message.setAmbient(1, 1, 1, 1);
-    this.message.setDiffuse(0, 0, 0, 1);
-    this.message.setSpecular(0, 0, 0, 1);
-    this.message.setShininess(5.0);
-    this.message.setTextureWrap('REPEAT', 'REPEAT');
-    this.message.setTexture(new CGFtexture(scene,"textures/SuppliesDelivered.png"));
+    this.material = new CGFappearance(scene);
+    this.material.setAmbient(1, 1, 1, 1);
+    this.material.setDiffuse(0, 0, 0, 1);
+    this.material.setSpecular(0, 0, 0, 1);
+    this.material.setShininess(5.0);
+    this.material.setTextureWrap('REPEAT', 'REPEAT');
+    //this.material.setTexture(this.message);
+
+    this.message = new CGFtexture(scene,"textures/message.png");
+    this.back = new CGFtexture(scene,"textures/white.png");
+    this.posts = new CGFtexture(scene,"textures/grey.png");
 
     //Shaders
     this.shader = new CGFshader(scene.gl, "shaders/billboard.vert", "shaders/billboard.frag");
@@ -34,7 +38,8 @@ class MyBillboard extends CGFobject {
     display() {
         // Planes
         // Front Plane
-        this.message.apply();
+        this.material.setTexture(this.message);
+        this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(0,3/2,0);
         this.scene.scale(2,1,1);
@@ -43,6 +48,8 @@ class MyBillboard extends CGFobject {
 
         // Back Plane
         this.scene.pushMatrix();
+        this.material.setTexture(this.back);
+        this.material.apply();
         this.scene.translate(0,3/2,0);
         this.scene.scale(2,1,1);
         this.scene.rotate(Math.PI,0,1,0);
@@ -52,6 +59,8 @@ class MyBillboard extends CGFobject {
         // Posts (Height = 1)
         // First Post Front
         this.scene.pushMatrix();
+        this.material.setTexture(this.posts);
+        this.material.apply();
         this.scene.translate(-15/16,1/2,0);
         this.scene.scale(1/8,1,1);
         this.plane.display();

@@ -295,7 +295,11 @@ class MyScene extends CGFscene {
             this.sphere.disableNormalViz();
             this.cylinder.disableNormalViz();
         }
+        this.pushMatrix();
+        this.translate(0,0,-3);
+        this.rotate(Math.PI/2,0,1,0);
         this.billboard.display();
+        this.popMatrix();
         this.terrain.display();
         // ---- END Primitive drawing section
     }
