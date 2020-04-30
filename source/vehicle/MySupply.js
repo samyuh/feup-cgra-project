@@ -48,6 +48,7 @@ class MySupply extends CGFobject {
     this.material.setTextureWrap('REPEAT', 'REPEAT');
     this.material.setTexture(this.TexBox);
 
+    // Boxes will always fall on a pentagon like form with:
     // Random rotations
     this.rotation1 = Math.random();
     this.rotation2 = Math.random();
@@ -56,14 +57,12 @@ class MySupply extends CGFobject {
     this.rotation5 = Math.random();
     this.rotation6 = Math.random();
 
+    // Random distance from centre of fall
     this.translation1 = Math.random() % 1 + 1/2;
     this.translation2 = Math.random() % 1 + 1/2;
     this.translation3 = Math.random() % 1 + 1/2;
     this.translation4 = Math.random() % 1 + 1/2;
-    this.translation5 = Math.random() % 1 + 1/2;
-    this.translation6 = Math.random() % 1 + 1/2;
-    
-        
+    this.translation5 = Math.random() % 1 + 1/2;  
     
         
 	}
