@@ -14,12 +14,15 @@ uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
 void main() {
-    vec3 offset = vec3(0.0,0.0,0.0);
-    vec4 filter = texture2D(flagMap, aTextureCoord + timeFactor*(0.01, 0.01));
-    
-    offset = aVertexNormal * filter.b * 0.1;
+    float defaultOndulation = 0.1 * sin((aVertexPosition.x + timeFactor * 0.01) * 20.0);
+    float velocityFactor = 1.0;
 
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
+    if (velocity != 0.0) 
+        velocityFactor = velocity + 1.0;
 
-	vTextureCoord = aTextureCoord;
+    vec3 offset = vec3(0.0, 0.0, defaultOndulation);
+
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
+
+    vTextureCoord = aTextureCoord;
 }
