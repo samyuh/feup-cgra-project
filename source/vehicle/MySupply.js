@@ -56,12 +56,12 @@ class MySupply extends CGFobject {
     this.rotation5 = Math.random();
     this.rotation6 = Math.random();
 
-    this.translation1 = Math.random() % 1/2 + 1/2;
-    this.translation2 = Math.random() % 1/2 + 1/2;
-    this.translation3 = Math.random() % 1/2 + 1/2;
-    this.translation4 = Math.random() % 1/2 + 1/2;
-    this.translation5 = Math.random() % 1/2 + 1/2;
-    this.translation6 = Math.random() % 1/2 + 1/2;
+    this.translation1 = Math.random() % 1 + 1/2;
+    this.translation2 = Math.random() % 1 + 1/2;
+    this.translation3 = Math.random() % 1 + 1/2;
+    this.translation4 = Math.random() % 1 + 1/2;
+    this.translation5 = Math.random() % 1 + 1/2;
+    this.translation6 = Math.random() % 1 + 1/2;
     
         
     
@@ -117,7 +117,7 @@ class MySupply extends CGFobject {
         this.material.apply(this.TexBox);
 
         this.scene.pushMatrix();
-        this.scene.translate(this.translation7,this.posY + 2,this.posZ);
+        this.scene.translate(this.posX,this.posY + 2,this.posZ);
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotation1,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -125,7 +125,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.translation1,this.posY + 2,this.posZ);
+        this.scene.translate(this.posX + this.translation1*Math.cos(2*Math.PI/5),this.posY + 2,this.posZ + this.translation1*Math.sin(2*Math.PI/5));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotation2,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -133,7 +133,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX - this.translation2,this.posY + 2,this.posZ);
+        this.scene.translate(this.posX + this.translation2*Math.cos(4*Math.PI/5),this.posY + 2,this.posZ + this.translation2*Math.sin(4*Math.PI/5));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotation3,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -141,7 +141,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX,this.posY + 2,this.posZ + this.translation3);
+        this.scene.translate(this.posX + this.translation3*Math.cos(6*Math.PI/5),this.posY + 2,this.posZ + this.translation3*Math.sin(6*Math.PI/5));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotation4,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -149,7 +149,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX,this.posY + 2,this.posZ - this.translation4);
+        this.scene.translate(this.posX + this.translation4*Math.cos(8*Math.PI/5),this.posY + 2,this.posZ + this.translation4*Math.sin(8*Math.PI/5));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotation5,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
@@ -157,7 +157,7 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX-this.translation5,this.posY + 2,this.posZ ,this.translation6);
+        this.scene.translate(this.posX + this.translation5*Math.cos(10*Math.PI/5),this.posY + 2,this.posZ + this.translation5*Math.sin(10*Math.PI/5));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotation6,0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
