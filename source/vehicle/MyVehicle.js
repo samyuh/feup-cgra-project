@@ -15,8 +15,7 @@ class MyVehicle extends CGFobject {
           this.zeppelin = new MyZeppelin(scene, 5, 1);
 
           this.flag = new MyPlane(scene, 50);
-          this.flagTex = new CGFtexture(scene, "textures/terrainTex.jpg");
-          this.flagMap = new CGFtexture(scene, "textures/flagMap.jpg");
+          this.flagTex = new CGFtexture(scene, "textures/zeppellin/flag.png");
       
           this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
             
@@ -55,12 +54,12 @@ class MyVehicle extends CGFobject {
            }
         }
         else {
-            this.posX += Math.sin(this.angleY) * this.velocity;
-            this.posZ += Math.cos(this.angleY) * this.velocity;
+            //this.posX += Math.sin(this.angleY) * this.velocity;
+            //this.posZ += Math.cos(this.angleY) * this.velocity;
             this.autoPilotConfigured = false;
         }
         this.zeppelin.rotateHelix(this.velocity);
-        this.flagShader.setUniformsValues({ velocity: this.velocity });
+        this.flagShader.setUniformsValues({ velocity: this.velocity * 1.0 });
         this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
     }
     turn(val) {
@@ -103,7 +102,6 @@ class MyVehicle extends CGFobject {
         this.scene.setActiveShader(this.flagShader);
   
         this.flagTex.bind(0);
-        this.flagMap.bind(1);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.scene.translate(3, 0, 0);
         this.scene.scale(3, 0.8, 1);

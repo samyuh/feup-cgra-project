@@ -52,7 +52,7 @@ class MyScene extends CGFscene {
         this.selectSupply = 0;
         this.selectedMaterial = 0;
         this.speedFactor = 1;
-        this.scaleFactor = 1;
+        this.scaleFactor = 3;
 
         //Objects connected to MyInterface
         this.displayAxis = true;

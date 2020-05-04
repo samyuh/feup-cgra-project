@@ -15,10 +15,13 @@ class MyWing extends CGFobject {
             this.skybox.setSpecular(0.5, 0.5, 0.5, 1);
             this.skybox.setShininess(5.0);
             this.skybox.setTextureWrap('REPEAT', 'REPEAT');
-            this.skybox.setTexture(new CGFtexture(scene, 'textures/zeppellin/body.jpg'));
+            this.wingfront = new CGFtexture(scene, 'textures/zeppellin/wingfront.jpg')
+            this.wingback = new CGFtexture(scene, 'textures/zeppellin/wingback.jpg');
+            
       }
       display() {
             //Wing's Square
+            this.skybox.setTexture(this.wingfront);
             this.skybox.apply();
             this.scene.pushMatrix();
             this.scene.rotate(Math.PI / 2, 0, 1, 0);
@@ -27,6 +30,8 @@ class MyWing extends CGFobject {
             this.scene.popMatrix();
 
             //Wing's Triangle
+            this.skybox.setTexture(this.wingback);
+            this.skybox.apply();
             this.scene.pushMatrix();
             this.scene.translate(0, 0, -0.5);
             this.scene.rotate(Math.PI / 2, 0, 1, 0);
