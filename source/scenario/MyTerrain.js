@@ -8,8 +8,8 @@ class MyTerrain extends CGFobject {
         super(scene);
         
         this.plane = new MyPlane(scene, 50);
-        this.waterTex = new CGFtexture(scene, "textures/terrainTex.jpg");
-        this.waterMap = new CGFtexture(scene, "textures/terrainMap.jpg");
+        this.waterTex = new CGFtexture(scene, "textures/terrain/grassTex.jpg");
+        this.waterMap = new CGFtexture(scene, "textures/terrain/grassMap.jpg");
 
         this.waterShader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
         

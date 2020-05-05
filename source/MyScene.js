@@ -159,6 +159,27 @@ class MyScene extends CGFscene {
         }
     }
     initZeppelinTextures() {
+        var bodyZeppelinClassic = 
+            new CGFtexture(this, "textures/zeppellin/classic/rainbowdash.jpg");
+
+        var waggonZeppelinClassic = [
+            new CGFtexture(this, "textures/zeppellin/classic/waggonmiddle.jpg"),
+            new CGFtexture(this, "textures/zeppellin/classic/waggonfront.jpg"),
+            new CGFtexture(this, "textures/zeppellin/classic/waggonback.jpg")
+        ];
+
+        var wingZeppelinClassic = [
+            new CGFtexture(this, 'textures/zeppellin/classic/wingfront.jpg'),
+            new CGFtexture(this, 'textures/zeppellin/classic/wingback.jpg')
+        ];
+
+        var helixZeppelinClassic = [
+            new CGFtexture(this, 'textures/zeppellin/classic/wingfront.jpg'),
+            new CGFtexture(this, 'textures/zeppellin/classic/wingback.jpg')
+        ];
+
+        this.zeppelinClassic = [bodyZeppelinClassic, waggonZeppelinClassic, wingZeppelinClassic, helixZeppelinClassic];
+
         var bodyZeppelinRainbowDash = 
             new CGFtexture(this, "textures/zeppellin/rainbowdash/rainbowdash.jpg");
 
@@ -180,10 +201,11 @@ class MyScene extends CGFscene {
 
         this.zeppelinRainbowDash = [bodyZeppelinRainbowDash, waggonZeppelinRainbowDash, wingZeppelinRainbowDash, helixZeppelinRainbowDash];
 
-        this.zeppelinTextures = [this.zeppelinRainbowDash];
+        this.zeppelinTextures = [this.zeppelinClassic, this.zeppelinRainbowDash];
         
         this.zeppelinTextureIds = {
-            'Rainbow Dash': 0,
+            'Classic': 0,
+            'Rainbow Dash': 1,
         };
 
     }
