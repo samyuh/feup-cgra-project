@@ -10,7 +10,10 @@ class MySquare extends CGFobject {
 		if (coords != undefined)
 			this.updateTexCoords(coords);
 	}
-
+	/**
+   	 * @method initBuffers
+   	 * Initializes Square's buffers
+   	 */
 	initBuffers() {
 		this.vertices = [
 			-0.5, -0.5, 0,	//0

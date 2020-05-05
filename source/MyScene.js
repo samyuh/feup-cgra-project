@@ -225,7 +225,7 @@ class MyScene extends CGFscene {
         this.lights[1].setAmbient(0.75, 0.75, 0.75, 0.75);
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50 * Math.cos(Math.PI / 6), 50 * Math.sin(Math.PI / 6), 0), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50 * Math.cos(Math.PI / 14), 1 * Math.sin(Math.PI / 12) + 35, 0), vec3.fromValues(0, 0, 0));
     }
     checkKeys() {
         if(!this.block) {

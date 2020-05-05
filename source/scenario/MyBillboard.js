@@ -29,12 +29,17 @@ class MyBillboard extends CGFobject {
     //this.shader.setUniformsValues({ white: 0 });
     this.shader.setUniformsValues({suppliesDelivered : this.suppliesDelivered/5.0});
     }
-
+    /**
+     * Updates the billboard's bar according to the current number of droped supplies
+     * @param {*} supplies MyScene's nymber of supplies droped
+     */
     update(supplies){
         this.suppliesDelivered = supplies;
         this.shader.setUniformsValues({suppliesDelivered : this.suppliesDelivered/5.0});
     }
-
+    /**
+     * Displays the billboard in a certain position
+     */
     display() {
         // Planes
         // Front Plane
@@ -89,19 +94,24 @@ class MyBillboard extends CGFobject {
         this.plane.display();
         this.scene.popMatrix();
 
-        //Progress Bar (Not visible by now because it's contained in the front plane)
+        //Progress Bar
         this.scene.pushMatrix();
         this.scene.setActiveShader(this.shader);
-        //this.shader.bind(0);
         this.scene.translate(0,3/2,0.001);
         this.scene.scale(3/2,1/5,1);
         this.plane.display();
         this.scene.popMatrix();
         
     }
+    /**
+     * Enables visualization of Object's normals
+     */
     enableNormalViz() {
         this.plane.enableNormalViz()
     }
+    /**
+     * Disables visualization of Object's normals
+     */
     disableNormalViz() {
         this.plane.disableNormalViz()
     }

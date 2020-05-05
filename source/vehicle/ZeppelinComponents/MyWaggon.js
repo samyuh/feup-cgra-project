@@ -1,5 +1,5 @@
 /**
- * MyWing
+ * MyWaggon
  * @constructor
  * @param scene - Reference to MyScene object
  */
@@ -16,12 +16,20 @@ class MyWaggon extends CGFobject {
         this.zeppelinMaterial.setShininess(5.0);
         this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
+    /**
+     * Changes the current applied textures
+     * @param {*} textures Array with 3 textures which are applied to the waggon
+     */
     updateTextures(textures) {
         this.mainWaggon = textures[0];
         this.frontWaggon = textures[1];
         this.backWaggon = textures[2];
     }
+    /**
+     * Displauys the waggon in a certain position
+     */
     display() {
+        // Central cylinder 
         this.zeppelinMaterial.setTexture(this.mainWaggon);
         this.zeppelinMaterial.apply();
         this.scene.pushMatrix();
@@ -32,7 +40,8 @@ class MyWaggon extends CGFobject {
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.cylinder.display();
         this.scene.popMatrix();
-
+        
+        // First sphere completing one side of the waggon
         this.zeppelinMaterial.setTexture(this.backWaggon);
         this.zeppelinMaterial.apply();
         this.scene.pushMatrix();
@@ -42,6 +51,7 @@ class MyWaggon extends CGFobject {
         this.sphere.display();
         this.scene.popMatrix();
 
+        // First sphere completing the other side of the waggon
         this.zeppelinMaterial.setTexture(this.frontWaggon);
         this.zeppelinMaterial.apply();
         this.scene.pushMatrix();
