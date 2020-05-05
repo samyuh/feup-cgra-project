@@ -1,6 +1,7 @@
 /**
  * MyVehicle
  * @constructor
+ * @param scene - Reference to MyScene object
  */
 class MyVehicle extends CGFobject {
     constructor(scene, initialPosY) {
@@ -29,12 +30,23 @@ class MyVehicle extends CGFobject {
         this.xCenter = 0;
         this.zCenter = 0;
     }
+    /**
+     * Set Method for changing current textures
+     * @param {*} textures Array with 4 textures which are applied to the vehicle
+     */
     setNewTextures(textures) {
         this.zeppelin.updateTextures(textures[0], textures[1], textures[2], textures[3]);
     }
+    /**
+     * Changes auto pilot state (on->off or off->on)
+     */
     setAutoPilot() {
         this.auto = !this.auto;
     }
+    /**
+     * Updates vehicle's attributes depending on user input and time passed
+     * @param {*} t current time of the program, in ms
+     */
     update(t) {
         if (this.auto) {
             let vAng = (Math.PI * 2) / 5000;
@@ -61,9 +73,17 @@ class MyVehicle extends CGFobject {
         this.flagShader.setUniformsValues({ velocity: this.velocity * 1.0 });
         this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
     }
+    /**
+     * Turns the vehicle
+     * @param {*} val vehicle angle for turning
+     */
     turn(val) {
         this.angleY += val;
     }
+    /**
+     * Rotates the vehicle's rudder
+     * @param {*} i 0 for negative rotation, 1 for positive rotation
+     */
     leme(i) {
         switch (i) {
             case 0:
@@ -76,17 +96,27 @@ class MyVehicle extends CGFobject {
                 this.zeppelin.rotateRudder(0, 0);
         }
     }
+    /**
+     * Changes vehicle's current speed
+     * @param {*} val value of accelaration
+     */
     accelerate(val) {
         this.velocity += val;
         this.velocity = ((this.velocity > 0) ? this.velocity : 0);
 
     }
+    /**
+     * Resets the obejcts's atrributes to its default state
+     */
     reset() {
         this.angleY = 0;
         this.velocity = 0;
         this.posX = 0;
         this.posZ = 0;
     }
+    /**
+     * Displays the vehicle in it's current position
+     */
     display() {
         this.scene.pushMatrix();
         /* Update Vehicle Coordinates */

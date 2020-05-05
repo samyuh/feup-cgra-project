@@ -16,13 +16,24 @@ class MyHelix extends CGFobject {
             this.zeppelinMaterial.setShininess(5.0);
             this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
       }
+      /**
+       * Changes the current applied textures
+       * @param {*} textures Array with 2 textures which are applied to the vehicle
+       */
       updateTextures(textures) {
-            this.helixTexture = textures[1];
-            this.turbineTexture = textures[2];
+            this.helixTexture = textures[0];
+            this.turbineTexture = textures[1];
       }
+      /**
+       * Changes the Helix's rotation angle
+       * @param {*} rotateAngle 
+       */
       rotateHelix(rotateAngle) {
             this.rotateAngle = rotateAngle;
       }
+      /**
+       * Displays the helix in a certain position
+       */
       display() {
             
             // Rotating the Helix and placing it on the side of the body

@@ -16,18 +16,37 @@ class MyZeppelin extends CGFobject {
         this.helixRotateAngle = 0;
         this.rudderRotateAngle = 0;
     }
+    /**
+     * Updates zeppelin's textures
+     * @param {*} bodyTexture New texture for the zeppelin's body
+     * @param {*} waggonTextures  New texture for the zeppelin's waggon
+     * @param {*} wingTextures New texture for the zeppelin's wings
+     * @param {*} helixTextures New texture for the zeppelin's helix
+     */
     updateTextures(bodyTexture, waggonTextures, wingTextures, helixTextures) {
         this.body.updateTextures(bodyTexture);
         this.waggon.updateTextures(waggonTextures);
         this.wing.updateTextures(wingTextures);
         this.helix.updateTextures(helixTextures);
     }
+    /**
+     * Rotates the zeppelin helix
+     * @param {*} velocity helix rotation velocity
+     */
     rotateHelix(velocity) {
         this.helixRotateAngle += Math.PI / 3 * velocity;
     }
+    /**
+     * Rotates the zeppelin's rudder
+     * @param {*} max Maximum value of rudder rotation
+     * @param {*} signal Value added to the rotation, if max is not surpassed
+     */
     rotateRudder(max, signal) {
         this.rudderRotateAngle = (Math.abs(this.rudderRotateAngle) >= Math.abs(max) ? max : this.rudderRotateAngle + (Math.PI / 200) * signal);
     }
+    /**
+     * Displays the zeppelin in a certain position
+     */
     display() {
         
         // Zeppelin body
@@ -44,30 +63,30 @@ class MyZeppelin extends CGFobject {
         
         // Top Wing
         this.scene.pushMatrix();
-        this.scene.translate(0, 0.5, -1);
-        this.scene.scale(1, 1, -1);
+        this.scene.translate(0, 0.4, -1);
+        this.scene.scale(3/4, 3/4, -3/4);
         this.wing.display();
         this.scene.popMatrix();
         // Bottom Wing 
         this.scene.pushMatrix();
-        this.scene.translate(0, -0.5, -1);
-        this.scene.scale(1, -1, -1);
+        this.scene.translate(0, -0.4, -1);
+        this.scene.scale(3/4, -3/4, -3/4);
         this.wing.display();
         this.scene.popMatrix();
         this.scene.popMatrix();
         // Right and Left Wings 
         // Right Wing 
         this.scene.pushMatrix();
-        this.scene.translate(-0.5, 0, -1);
+        this.scene.translate(-0.4, 0, -1);
         this.scene.rotate(Math.PI / 2, 0, 0, 1)
-        this.scene.scale(1, 1, -1);
+        this.scene.scale(3/4, 3/4, -3/4);
         this.wing.display();
         this.scene.popMatrix();
         // Left Wing 
         this.scene.pushMatrix();
-        this.scene.translate(0.5, 0, -1);
+        this.scene.translate(0.4, 0, -1);
         this.scene.rotate(Math.PI / 2, 0, 0, 1)
-        this.scene.scale(1, -1, -1);
+        this.scene.scale(3/4, -3/4, -3/4);
         this.wing.display();
         this.scene.popMatrix();
 

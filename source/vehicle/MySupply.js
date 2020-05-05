@@ -1,3 +1,6 @@
+/**
+ * Struct for current state of the supply box
+ */
 const SupplyStates = {
     INACTIVE: 0,
     FALLING: 1,
@@ -18,11 +21,12 @@ class MySupply extends CGFobject {
     this.posY = 0;
     this.posZ = 0;
     this.initialPosY = 0;
-    this.accelaration = 9.8; //Constant for accelaration
+    this.accelaration = 9.8; //Constant for accelaration (Not used on drop but set != 0 because physics xD)
     this.velocityX = 0;
     this.velocityZ = 0;
     this.time = 0;
     this.initialTime = 0;
+    this.rot = 0;
 
     this.quad = new MyUnitCubeQuad(scene);
     this.side = new MyQuad(scene);
@@ -52,22 +56,36 @@ class MySupply extends CGFobject {
 
     // Boxes will always fall on a pentagon like form with:
     // Random rotations
-    this.r1 = Math.random();
-    this.r2 = Math.random();
-    this.r3 = Math.random();
-    this.r4 = Math.random();
-    this.r5 = Math.random();
-    this.r6 = Math.random();
+    this.rotations = [Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()]
 
     // Random distance from centre of fall
-    this.d1 = Math.random() % 1 + 1/2;
-    this.d2 = Math.random() % 1 + 1/2;
-    this.d3 = Math.random() % 1 + 1/2;
-    this.d4 = Math.random() % 1 + 1/2;
-    this.d5 = Math.random() % 1 + 1/2;  
-    
+    this.distances = [Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2]
+     
+    }
+    /**
+     * Calculates a random position for the box indicated by index
+     * @param index index of this.distances 
+     * @return array with the parametres of scene.translate CGF function
+     */
+    breakBox(index){
+        return [
+            this.posX + this.distances[index]*Math.cos(2*(index + 1)*Math.PI/5 + this.distances[index] / 5.0),
+            this.posY,
+            this.posZ + this.distances[index]*Math.sin(2*(index + 1)*Math.PI/5 + this.distances[index] / 5.0)
+        ];
         
-	}
+    }
+
+    /**
+     * Drops the supply crate with a certain position, velocity and angle.
+     * Also changes the supply state to FALLING
+     * @param {*} posX vehicle position in the x axis
+     * @param {*} posY vehicle position in the y axis (default value should be 10)
+     * @param {*} posZ vehicle position in the z axis
+     * @param {*} scale vehicle scale factor
+     * @param {*} velocity vehicle velocity
+     * @param {*} angle  vehicle angle with the y axis
+     */
     drop(posX,posY,posZ,scale,velocity,angle){
         this.state = SupplyStates.FALLING;
         this.posX = posX;
@@ -77,7 +95,11 @@ class MySupply extends CGFobject {
         this.accelaration = 2*this.initialPosY/9;
         this.velocityX = velocity * Math.sin(angle) * 0.4;
         this.velocityZ = velocity * Math.cos(angle) * 0.4;
+        this.rot = angle;
     }
+    /**
+     * Changes the SupplyBox state if it hits the ground
+     */
     land(){
         if(this.posY <= 0.125){
             this.posY = 0.125;
@@ -85,6 +107,10 @@ class MySupply extends CGFobject {
         }
     }
 
+    /**
+     * Updates the box position and state, if needed
+     * @param {*} t current time of the program, in ms
+     */
     update(t){
         if(this.state == SupplyStates.INACTIVE){
             this.initialTime = t;
@@ -98,6 +124,9 @@ class MySupply extends CGFobject {
             this.land();
         }
     }
+    /**
+     * Resets the obejcts's atrributes to its default state
+     */
     reset(){
         this.state = SupplyStates.INACTIVE;
         this.posX = 0;
@@ -105,75 +134,79 @@ class MySupply extends CGFobject {
         this.posZ = 0;
         this.time = 0;
     }
-
+    /**
+     * Displays the box when its state equals SupplyStates.FALLING
+     */
     displayFalling(){
         this.scene.pushMatrix();
         this.scene.translate(this.posX,this.posY,this.posZ);
         this.scene.scale(1/4,1/4,1/4);
+        this.scene.rotate(this.rot,0,1,0);
         this.quad.display();
         this.scene.popMatrix();
     }
-
+    /**
+     * Displays the box when its state equals SupplyStates.LANDED
+     */
     displayOnLanded(){
-
-        // Remove the + 2 from the Y axis translations after terrain is fixed
 
         this.material.apply(this.TexBox);
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX,this.posY + 2,this.posZ);
+        this.scene.translate(this.posX,this.posY,this.posZ);
         this.scene.scale(1/4,1/4,1/4);
-        this.scene.rotate(this.r1,0,1,0);
+        this.scene.rotate(this.rotations[0],0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d1*Math.cos(2*Math.PI/5 + this.d1 / 5.0),this.posY + 2,this.posZ + this.d1*Math.sin(2*Math.PI/5 + this.d1 / 5.0));
+        this.scene.translate(...this.breakBox(0));
         this.scene.scale(1/4,1/4,1/4);
-        this.scene.rotate(this.r2,0,1,0);
+        this.scene.rotate(this.rotations[1],0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d2*Math.cos(4*Math.PI/5 + this.d1 / 2.0),this.posY + 2,this.posZ + this.d2*Math.sin(4*Math.PI/5 + this.d1 / 2.0));
+        this.scene.translate(...this.breakBox(1));
         this.scene.scale(1/4,1/4,1/4);
-        this.scene.rotate(this.r3,0,1,0);
+        this.scene.rotate(this.rotations[2],0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d3*Math.cos(6*Math.PI/5 + this.d1 / 2.0),this.posY + 2,this.posZ + this.d3*Math.sin(6*Math.PI/5 + this.d1 / 2.0));
+        this.scene.translate(...this.breakBox(2));
         this.scene.scale(1/4,1/4,1/4);
-        this.scene.rotate(this.r4,0,1,0);
+        this.scene.rotate(this.rotations[3],0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d4*Math.cos(8*Math.PI/5 + this.d1 / 2.0),this.posY + 2,this.posZ + this.d4*Math.sin(8*Math.PI/5 + this.d1 / 2.0));
+        this.scene.translate(...this.breakBox(3));
         this.scene.scale(1/4,1/4,1/4);
-        this.scene.rotate(this.r5,0,1,0);
+        this.scene.rotate(this.rotations[4],0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.posX + this.d5*Math.cos(10*Math.PI/5 + this.d1 / 2.0),this.posY + 2,this.posZ + this.d5*Math.sin(10*Math.PI/5 + this.d1 / 2.0));
+        this.scene.translate(...this.breakBox(4));
         this.scene.scale(1/4,1/4,1/4);
-        this.scene.rotate(this.r6,0,1,0);
+        this.scene.rotate(this.rotations[5],0,1,0);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
     }
-
+    /**
+     * Evaluates the currunt SupplyState and calls a display function accordingly
+     */
     display() {
         switch (this.state) {
             case SupplyStates.INACTIVE:
                 return;
-                break;
             case SupplyStates.FALLING:
                 this.displayFalling();
                 break;

@@ -8,6 +8,10 @@ class MyDiamond extends CGFobject {
 		super(scene);
 		this.initBuffers();
 	}
+	/**
+   * @method initBuffers
+   * Initializes Diamond's buffers
+   */
 	initBuffers() {
 		this.vertices = [
 			-1, 0, 0,	//0

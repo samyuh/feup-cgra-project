@@ -1,4 +1,8 @@
-
+/**
+ * Mybody
+ * @constructor
+ * @param scene - Reference to MyScene object
+ */
 class MyBody extends CGFobject {
     constructor(scene) {
         super(scene);
@@ -11,9 +15,16 @@ class MyBody extends CGFobject {
         this.zeppelinMaterial.setShininess(5.0);
         this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
+    /**
+     * Changes the current applied textures
+     * @param {*} texture  texture  applied to the body
+     */
     updateTextures(texture) {
         this.body = texture;
     }
+    /**
+     * Displays the body in a certain position
+     */
     display() {
         this.zeppelinMaterial.setTexture(this.body);
         this.zeppelinMaterial.apply();
