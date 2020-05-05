@@ -75,8 +75,8 @@ class MySupply extends CGFobject {
         this.initialPosY = this.posY;
         this.posZ = posZ;
         this.accelaration = 2*this.initialPosY/9;
-        this.velocityX = velocity * Math.sin(angle);
-        this.velocityZ = velocity * Math.cos(angle);
+        this.velocityX = velocity * Math.sin(angle) * 0.4;
+        this.velocityZ = velocity * Math.cos(angle) * 0.4;
     }
     land(){
         if(this.posY <= 0.125){
