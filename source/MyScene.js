@@ -10,7 +10,6 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
-        this.initTextures();
         this.initMaterials();
 
         //Background color
@@ -26,21 +25,27 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+        /* Objects */
         this.cylinder = new MyCylinder(this, 8);
         this.sphere = new MySphere(this, 16, 8);
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
+
+        /* Vehicle */
         this.vehicle = new MyVehicle(this, 10);
         this.terrain = new MyTerrain(this);
         this.billboard = new MyBillboard(this);
-        
+
+        this.initZeppelinTextures();
+        this.initSkyBoxTextures();
+
 
         this.appearance = new CGFappearance(this);
-		this.appearance.setAmbient(0.3  , 0.3, 0.3, 1);
-		this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
-		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
+        this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
+        this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
         this.appearance.setShininess(120);
-        
+
         this.supplies = [
             new MySupply(this),
             new MySupply(this),
@@ -52,7 +57,7 @@ class MyScene extends CGFscene {
         this.selectSupply = 0;
         this.selectedMaterial = 0;
         this.speedFactor = 1;
-        this.scaleFactor = 1;
+        this.scaleFactor = 3;
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -61,54 +66,17 @@ class MyScene extends CGFscene {
         this.displaySphere = false;
         this.displayNormal = false;
         this.selectedTexture = 0;
+        this.selectedZeppelin = 0;
         this.displayVehicle = true;
 
         this.timefactor = 0;
 
         this.audioMLP = new Audio('audio/mlp.mp3');
-        this.updateAppliedTexture();
-
+        this.updateSkyBoxTextures();
+        this.updateZeppelinTexture();
     }
-
-    checkKeys() {
-        // Check for key codes e.g. in https://keycode.info/
-        if (this.gui.isKeyPressed("KeyW")) {
-            this.vehicle.accelerate(0.01 * this.speedFactor);
-        }
-        if (this.gui.isKeyPressed("KeyS")) {
-            this.vehicle.accelerate(-0.005 * this.speedFactor);
-        }
-        if (this.gui.isKeyPressed("KeyA")) {
-            this.vehicle.turn(Math.PI / 90);
-            this.vehicle.leme(0);
-        }
-        if (this.gui.isKeyPressed("KeyD")) {
-            this.vehicle.turn(-Math.PI / 90);
-            this.vehicle.leme(1);
-        }
-        if ((this.gui.isKeyPressed("KeyA") && this.gui.isKeyPressed("KeyD")) || (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))){
-            this.vehicle.leme(2);
-        }
-        if (this.gui.isKeyPressed("KeyR")) {
-            this.vehicle.reset();
-            for(var i = 0; i < 5; i++){
-                this.supplies[i].reset();
-                this.selectSupply = 0;
-            }
-        }
-        if (this.gui.keyPressedDown("KeyL")) {
-            if(this.selectSupply < 5) {
-                this.supplies[this.selectSupply].drop(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ,this.scaleFactor,this.vehicle.velocity,this.vehicle.angleY);
-                this.selectSupply++;
-            }
-        }
-        if (this.gui.keyPressedDown("KeyP")) {
-            this.vehicle.autoPilot();
-        }
-    }
-
-    // Function that initialize the scene textures
-    initTextures() {
+    
+    initSkyBoxTextures() {
         this.worldTexture = [
             new CGFtexture(this, 'textures/skybox/world_texture/back.png'),
             new CGFtexture(this, 'textures/skybox/world_texture/bottom.png'),
@@ -165,6 +133,7 @@ class MyScene extends CGFscene {
 
 
         this.textures = [this.worldTexture, this.aridTexture, this.divineTexture, this.lakeTexture, this.rainbowTexture, this.palaceTexture];
+        
         this.textureIds = {
             'World': 0,
             'Arid': 1,
@@ -174,42 +143,49 @@ class MyScene extends CGFscene {
             'Palace': 5
         };
     }
-    initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
-        // More visibility to skybox
-        this.lights[0].setAmbient(0.25, 0.25, 0.25, 1.0);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].enable();
-        this.lights[0].update();
-
-        this.lights[1].setPosition(0,0,0,0);
-        this.lights[1].setAmbient(0.75,0.75,0.75,0.75);
-        
-
-    }
-    initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50*Math.cos(Math.PI/6), 50*Math.sin(Math.PI/6), 0), vec3.fromValues(0, 0, 0));
-    }
     //Function that applies a new texture selected in interface
-    updateAppliedTexture() {
+    updateSkyBoxTextures() {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
-        if(this.selectedTexture == 4 || this.selectedTexture == 5) {
+        if (this.selectedTexture == 4 || this.selectedTexture == 5) {
             this.audioMLP.loop = true;
             this.audioMLP.play();
-        }
-        else {
+        } else {
             this.audioMLP.pause();
             this.audioMLP.currentTime = 0;
         }
     }
-    // called periodically (as per setUpdatePeriod() in init())
-    update(t) {
-        this.checkKeys();
-        this.vehicle.update(t);
-        for(var i = 0; i < 5; i++){
-            this.supplies[i].update(t);
-        }
-        this.billboard.update(this.selectSupply);
+    initZeppelinTextures() {
+        var bodyZeppelinRainbowDash = 
+            new CGFtexture(this, "textures/zeppellin/rainbowdash.jpg");
+
+        var waggonZeppelinRainbowDash = [
+            new CGFtexture(this, "textures/zeppellin/waggonmiddle.jpg"),
+            new CGFtexture(this, "textures/zeppellin/waggonfront.jpg"),
+            new CGFtexture(this, "textures/zeppellin/waggonback.jpg")
+        ];
+
+        var wingZeppelinRainbowDash = [
+            new CGFtexture(this, 'textures/zeppellin/wingfront.jpg'),
+            new CGFtexture(this, 'textures/zeppellin/wingback.jpg')
+        ];
+
+        var helixZeppelinRainbowDash = [
+            new CGFtexture(this, 'textures/zeppellin/wingfront.jpg'),
+            new CGFtexture(this, 'textures/zeppellin/wingback.jpg')
+        ];
+
+         this.zeppelinRainbowDash = [bodyZeppelinRainbowDash, waggonZeppelinRainbowDash, wingZeppelinRainbowDash, helixZeppelinRainbowDash];
+
+        this.zeppelinTextures = [this.zeppelinRainbowDash];
+        
+        this.zeppelinTextureIds = {
+            'Rainbow Dash': 0,
+        };
+
+    }
+    //Function that applies a new texture selected in interface
+    updateZeppelinTexture() {
+        this.vehicle.setNewTextures(this.zeppelinTextures[this.selectedZeppelin]);
     }
     initMaterials() {
         this.default = new CGFappearance(this);
@@ -233,6 +209,75 @@ class MyScene extends CGFscene {
             'Default': 0,
             'Earth': 1
         };
+    }
+    initLights() {
+        this.lights[0].setPosition(15, 2, 5, 1);
+        // More visibility to skybox
+        this.lights[0].setAmbient(0.25, 0.25, 0.25, 1.0);
+        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].enable();
+        this.lights[0].update();
+
+        this.lights[1].setPosition(0, 0, 0, 0);
+        this.lights[1].setAmbient(0.75, 0.75, 0.75, 0.75);
+    }
+    initCameras() {
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50 * Math.cos(Math.PI / 6), 50 * Math.sin(Math.PI / 6), 0), vec3.fromValues(0, 0, 0));
+    }
+    checkKeys() {
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+            this.vehicle.accelerate(0.01 * this.speedFactor);
+        }
+        if (this.gui.isKeyPressed("KeyS")) {
+            this.vehicle.accelerate(-0.005 * this.speedFactor);
+        }
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.vehicle.turn(Math.PI / 90);
+            this.vehicle.leme(0);
+        }
+        if (this.gui.isKeyPressed("KeyD")) {
+            this.vehicle.turn(-Math.PI / 90);
+            this.vehicle.leme(1);
+        }
+        if ((this.gui.isKeyPressed("KeyA") && this.gui.isKeyPressed("KeyD")) || (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))) {
+            this.vehicle.leme(2);
+        }
+        if (this.gui.isKeyPressed("KeyR")) {
+            this.vehicle.reset();
+            for (var i = 0; i < 5; i++) {
+                this.supplies[i].reset();
+                this.selectSupply = 0;
+            }
+        }
+        if (this.gui.keyPressedDown("KeyL")) {
+            if (this.selectSupply < 5) {
+                this.supplies[this.selectSupply].drop(this.vehicle.posX, this.vehicle.posY, this.vehicle.posZ, this.scaleFactor, this.vehicle.velocity, this.vehicle.angleY);
+                this.selectSupply++;
+            }
+        }
+        if (this.gui.keyPressedDown("KeyP")) {
+            this.vehicle.setAutoPilot();
+        }
+    }
+    updateVehicleTexture() {
+        this.cube.setNewTextures(this.textures[this.selectedTexture]);
+        if (this.selectedTexture == 4 || this.selectedTexture == 5) {
+            this.audioMLP.loop = true;
+            this.audioMLP.play();
+        } else {
+            this.audioMLP.pause();
+            this.audioMLP.currentTime = 0;
+        }
+    }
+    // called periodically (as per setUpdatePeriod() in init())
+    update(t) {
+        this.checkKeys();
+        this.vehicle.update(t);
+        for (var i = 0; i < 5; i++) {
+            this.supplies[i].update(t);
+        }
+        this.billboard.update(this.selectSupply);
     }
     display() {
         // ---- BEGIN Background, camera and axis setup
@@ -262,13 +307,13 @@ class MyScene extends CGFscene {
 
         if (this.displayVehicle) {
             this.pushMatrix();
-            this.translate(this.vehicle.posX,this.vehicle.posY,this.vehicle.posZ);
+            this.translate(this.vehicle.posX, this.vehicle.posY, this.vehicle.posZ);
             this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-            this.translate(-this.vehicle.posX,-this.vehicle.posY,-this.vehicle.posZ);
+            this.translate(-this.vehicle.posX, -this.vehicle.posY, -this.vehicle.posZ);
             this.vehicle.display();
             this.popMatrix();
         }
-        for(var i = 0; i < 5; i++){
+        for (var i = 0; i < 5; i++) {
             this.supplies[i].display();
         }
 
@@ -295,9 +340,10 @@ class MyScene extends CGFscene {
             this.sphere.disableNormalViz();
             this.cylinder.disableNormalViz();
         }
+
         this.pushMatrix();
-        this.translate(0,0,-3);
-        this.rotate(Math.PI/2,0,1,0);
+        this.translate(0, 0, -3);
+        this.rotate(Math.PI / 2, 0, 1, 0);
         this.billboard.display();
         this.popMatrix();
         this.terrain.display();

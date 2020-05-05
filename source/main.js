@@ -18,9 +18,11 @@ serialInclude(['../lib/CGF.js',
                   'objects/MyPlane.js',
                   'vehicle/MyVehicle.js',
                   'vehicle/MyZeppelin.js',
-                  'vehicle/MyWing.js',
-                  'vehicle/MyHelix.js',
                   'vehicle/MySupply.js',
+                  'vehicle/ZeppelinComponents/MyWing.js',
+                  'vehicle/ZeppelinComponents//MyHelix.js',
+                  'vehicle/ZeppelinComponents/MyWaggon.js',
+                  'vehicle/ZeppelinComponents/MyBody.js',
 
 main=function()
 {

@@ -22,10 +22,11 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
         
         var fSkyBox = this.gui.addFolder('SkyBox Config');
-        fSkyBox.add(this.scene, 'displaySkyBox').name('Display SkyBox').onChange(this.scene.updateAppliedTexture.bind(this.scene));
-        fSkyBox.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
+        fSkyBox.add(this.scene, 'displaySkyBox').name('Display SkyBox').onChange(this.scene.updateSkyBoxTextures.bind(this.scene));
+        fSkyBox.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateSkyBoxTextures.bind(this.scene));
 
         var fVehicle = this.gui.addFolder('Vehicle Config');
+        fVehicle.add(this.scene, 'selectedZeppelin', this.scene.zeppelinTextureIds).name('Selected Texture').onChange(this.scene.updateZeppelinTexture.bind(this.scene));
         fVehicle.add(this.scene, 'displayVehicle').name('Display Vehicle');
         fVehicle.add(this.scene, 'speedFactor', 0.1, 3.0).name('Speed Factor');
         fVehicle.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale Factor');
