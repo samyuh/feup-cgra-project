@@ -16,7 +16,7 @@ uniform mat4 uNMatrix;
 void main() {
     float velocityFactor = velocity + 1.0;
 
-    float defaultOndulation = 0.1 * sin((aTextureCoord.x + timeFactor * 0.005 * velocityFactor) * 20.0) ;
+    float defaultOndulation = 0.1 * sin(timeFactor * velocityFactor * 0.1 + aVertexPosition.x * 20.0);
 
     vec3 offset = vec3(0.0, 0.0, defaultOndulation);
 

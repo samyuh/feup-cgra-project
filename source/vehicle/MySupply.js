@@ -27,6 +27,7 @@ class MySupply extends CGFobject {
     this.time = 0;
     this.initialTime = 0;
     this.rot = 0;
+    this.rescale = 1;
 
     this.quad = new MyUnitCubeQuad(scene);
     this.side = new MyQuad(scene);
@@ -59,13 +60,23 @@ class MySupply extends CGFobject {
     this.rotations = [Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()]
 
     // Random distance from centre of fall
-    this.distances = [Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2]
+    //this.distances = [Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2]
      
+    }
+
+    createDistances(){
+        this.distances = [
+            this.rescale * (Math.random() % 1 + 1/2),
+            this.rescale * (Math.random() % 1 + 1/2),
+            this.rescale * (Math.random() % 1 + 1/2),
+            this.rescale * (Math.random() % 1 + 1/2),
+            this.rescale * (Math.random() % 1 + 1/2)
+        ]
     }
     /**
      * Calculates a random position for the box indicated by index
      * @param {number} index index of this.distances 
-     * @returns array with the parametres of scene.translate CGF function
+     * @returns array with the parametres of scene.translate() CGF function
      */
     breakBox(index){
         return [
@@ -92,17 +103,19 @@ class MySupply extends CGFobject {
         this.posY = posY - 0.7 * scale;
         this.initialPosY = this.posY;
         this.posZ = posZ;
-        this.accelaration = 2*this.initialPosY/9;
+        this.accelaration = 2*(this.posY + 0.125 * this.rescale)/9;
         this.velocityX = velocity * Math.sin(angle) * 0.4;
         this.velocityZ = velocity * Math.cos(angle) * 0.4;
         this.rot = angle;
+        this.rescale = scale;
     }
     /**
      * Changes the SupplyBox state if it hits the ground
      */
     land(){
-        if(this.posY <= 0.125){
-            this.posY = 0.125;
+        if(this.posY <= 0.125*this.rescale){
+            this.posY = 0.01;
+            this.createDistances();
             this.state=SupplyStates.LANDED;
         }
     }
@@ -116,7 +129,7 @@ class MySupply extends CGFobject {
             this.initialTime = t;
         }
         // Fazer a caixa cair a uma certa velocidade
-        if(this.state == SupplyStates.FALLING){
+        else if(this.state == SupplyStates.FALLING){
             this.time = (t-this.initialTime)/1000;
             this.posX += this.velocityX;
             this.posY = -1/2*this.accelaration * this.time * this.time + this.initialPosY;
@@ -140,7 +153,7 @@ class MySupply extends CGFobject {
     displayFalling(){
         this.scene.pushMatrix();
         this.scene.translate(this.posX,this.posY,this.posZ);
-        this.scene.scale(1/4,1/4,1/4);
+        this.scene.scale(1/4*this.rescale,this.rescale*1/4,this.rescale*1/4);
         this.scene.rotate(this.rot,0,1,0);
         this.quad.display();
         this.scene.popMatrix();
@@ -156,6 +169,7 @@ class MySupply extends CGFobject {
         this.scene.translate(this.posX,this.posY,this.posZ);
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotations[0],0,1,0);
+        this.scene.scale(this.rescale,this.rescale,this.rescale);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
@@ -164,6 +178,7 @@ class MySupply extends CGFobject {
         this.scene.translate(...this.breakBox(0));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotations[1],0,1,0);
+        this.scene.scale(this.rescale,this.rescale,this.rescale);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
@@ -172,6 +187,7 @@ class MySupply extends CGFobject {
         this.scene.translate(...this.breakBox(1));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotations[2],0,1,0);
+        this.scene.scale(this.rescale,this.rescale,this.rescale);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
@@ -180,6 +196,7 @@ class MySupply extends CGFobject {
         this.scene.translate(...this.breakBox(2));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotations[3],0,1,0);
+        this.scene.scale(this.rescale,this.rescale,this.rescale);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
@@ -188,6 +205,7 @@ class MySupply extends CGFobject {
         this.scene.translate(...this.breakBox(3));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotations[4],0,1,0);
+        this.scene.scale(this.rescale,this.rescale,this.rescale);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();
@@ -196,6 +214,7 @@ class MySupply extends CGFobject {
         this.scene.translate(...this.breakBox(4));
         this.scene.scale(1/4,1/4,1/4);
         this.scene.rotate(this.rotations[5],0,1,0);
+        this.scene.scale(this.rescale,this.rescale,this.rescale);
         this.scene.rotate(3*Math.PI/2,1,0,0);
         this.side.display();
         this.scene.popMatrix();

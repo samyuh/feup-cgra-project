@@ -65,11 +65,14 @@ class MyVehicle extends CGFobject {
                 this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
             }
         } else {
+            /*
             this.posX += Math.sin(this.angleY) * this.velocity;
             this.posZ += Math.cos(this.angleY) * this.velocity;
             this.autoPilotConfigured = false;
+            */
         }
         this.zeppelin.rotateHelix(this.velocity);
+        console.log(this.velocity);
         this.flagShader.setUniformsValues({ velocity: this.velocity * 1.0 });
         this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
     }
