@@ -31,7 +31,7 @@ class MyBillboard extends CGFobject {
     }
     /**
      * Updates the billboard's bar according to the current number of droped supplies
-     * @param {*} supplies MyScene's nymber of supplies droped
+     * @param {number} supplies MyScene's nymber of supplies droped
      */
     update(supplies){
         this.suppliesDelivered = supplies;

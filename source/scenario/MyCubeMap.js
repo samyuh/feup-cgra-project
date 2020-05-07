@@ -17,7 +17,7 @@ class MyCubeMap extends CGFobject {
 	}
 	/**
 	 * Updates CubeMap's current textures
-	 * @param {*} texture Array of 6 textures to apply to the 6 sides of the cubeMap
+	 * @param {Array<Object>} texture Array of 6 textures to apply to the 6 sides of the cubeMap
 	 */
 	setNewTextures(texture) {
 		this.back = texture[0];

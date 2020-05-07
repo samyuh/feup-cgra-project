@@ -18,7 +18,7 @@ class MyWing extends CGFobject {
       }
       /**
        * Changes the current applied textures
-       * @param {*} textures Array with 2 textures which are applied to the wings
+       * @param {Array<Object>} textures Array with 2 textures which are applied to the wings
        */
       updateTextures(texture) {
             this.frontWing = texture[0];

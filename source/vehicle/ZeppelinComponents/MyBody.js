@@ -17,7 +17,7 @@ class MyBody extends CGFobject {
     }
     /**
      * Changes the current applied textures
-     * @param {*} texture  texture  applied to the body
+     * @param {Object} texture  texture  applied to the body
      */
     updateTextures(texture) {
         this.body = texture;

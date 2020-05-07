@@ -18,7 +18,7 @@ class MyHelix extends CGFobject {
       }
       /**
        * Changes the current applied textures
-       * @param {*} textures Array with 2 textures which are applied to the vehicle
+       * @param {Array<Object>} textures Array with 2 textures which are applied to the vehicle
        */
       updateTextures(textures) {
             this.helixTexture = textures[0];
@@ -26,7 +26,7 @@ class MyHelix extends CGFobject {
       }
       /**
        * Changes the Helix's rotation angle
-       * @param {*} rotateAngle 
+       * @param {number} rotateAngle 
        */
       rotateHelix(rotateAngle) {
             this.rotateAngle = rotateAngle;

@@ -18,7 +18,7 @@ class MyWaggon extends CGFobject {
     }
     /**
      * Changes the current applied textures
-     * @param {*} textures Array with 3 textures which are applied to the waggon
+     * @param {Array<Object>} textures Array with 3 textures which are applied to the waggon
      */
     updateTextures(textures) {
         this.mainWaggon = textures[0];

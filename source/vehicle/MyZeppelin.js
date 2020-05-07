@@ -31,15 +31,15 @@ class MyZeppelin extends CGFobject {
     }
     /**
      * Rotates the zeppelin helix
-     * @param {*} velocity helix rotation velocity
+     * @param {number} velocity helix rotation velocity
      */
     rotateHelix(velocity) {
         this.helixRotateAngle += Math.PI / 3 * velocity;
     }
     /**
      * Rotates the zeppelin's rudder
-     * @param {*} max Maximum value of rudder rotation
-     * @param {*} signal Value added to the rotation, if max is not surpassed
+     * @param {number} max Maximum value of rudder rotation
+     * @param {number} signal Value added to the rotation, if max is not surpassed
      */
     rotateRudder(max, signal) {
         this.rudderRotateAngle = (Math.abs(this.rudderRotateAngle) >= Math.abs(max) ? max : this.rudderRotateAngle + (Math.PI / 200) * signal);

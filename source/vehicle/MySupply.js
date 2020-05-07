@@ -64,8 +64,8 @@ class MySupply extends CGFobject {
     }
     /**
      * Calculates a random position for the box indicated by index
-     * @param index index of this.distances 
-     * @return array with the parametres of scene.translate CGF function
+     * @param {number} index index of this.distances 
+     * @returns array with the parametres of scene.translate CGF function
      */
     breakBox(index){
         return [
@@ -79,12 +79,12 @@ class MySupply extends CGFobject {
     /**
      * Drops the supply crate with a certain position, velocity and angle.
      * Also changes the supply state to FALLING
-     * @param {*} posX vehicle position in the x axis
-     * @param {*} posY vehicle position in the y axis (default value should be 10)
-     * @param {*} posZ vehicle position in the z axis
-     * @param {*} scale vehicle scale factor
-     * @param {*} velocity vehicle velocity
-     * @param {*} angle  vehicle angle with the y axis
+     * @param {number} posX vehicle position in the x axis
+     * @param {number} posY vehicle position in the y axis (default value should be 10)
+     * @param {number} posZ vehicle position in the z axis
+     * @param {number} scale vehicle scale factor
+     * @param {number} velocity vehicle velocity
+     * @param {number} angle  vehicle angle with the y axis
      */
     drop(posX,posY,posZ,scale,velocity,angle){
         this.state = SupplyStates.FALLING;
@@ -109,7 +109,7 @@ class MySupply extends CGFobject {
 
     /**
      * Updates the box position and state, if needed
-     * @param {*} t current time of the program, in ms
+     * @param {number} t current time of the program, in ms
      */
     update(t){
         if(this.state == SupplyStates.INACTIVE){

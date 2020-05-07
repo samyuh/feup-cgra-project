@@ -32,7 +32,7 @@ class MyVehicle extends CGFobject {
     }
     /**
      * Set Method for changing current textures
-     * @param {*} textures Array with 4 textures which are applied to the vehicle
+     * @param {Array<Object>} textures Array with 4 textures which are applied to the vehicle
      */
     setNewTextures(textures) {
         this.zeppelin.updateTextures(textures[0], textures[1], textures[2], textures[3]);
@@ -45,7 +45,7 @@ class MyVehicle extends CGFobject {
     }
     /**
      * Updates vehicle's attributes depending on user input and time passed
-     * @param {*} t current time of the program, in ms
+     * @param {number} t current time of the program, in ms
      */
     update(t) {
         if (this.auto) {
@@ -75,14 +75,14 @@ class MyVehicle extends CGFobject {
     }
     /**
      * Turns the vehicle
-     * @param {*} val vehicle angle for turning
+     * @param {number} val vehicle angle for turning
      */
     turn(val) {
         this.angleY += val;
     }
     /**
      * Rotates the vehicle's rudder
-     * @param {*} i 0 for negative rotation, 1 for positive rotation
+     * @param {number} i 0 for negative rotation, 1 for positive rotation
      */
     leme(i) {
         switch (i) {
@@ -98,7 +98,7 @@ class MyVehicle extends CGFobject {
     }
     /**
      * Changes vehicle's current speed
-     * @param {*} val value of accelaration
+     * @param {number} val value of accelaration
      */
     accelerate(val) {
         this.velocity += val;
@@ -137,9 +137,15 @@ class MyVehicle extends CGFobject {
 
         this.scene.popMatrix();
     }
+    /**
+     * Enables visualization of Object's normals
+     */
     enableNormalViz() {
         this.zeppelin.enableNormalViz();
     }
+    /**
+     * Disables visualization of Object's normals
+     */
     disableNormalViz() {
         this.zeppelin.disableNormalViz();
     }

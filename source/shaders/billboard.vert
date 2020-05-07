@@ -6,8 +6,6 @@ uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
-uniform sampler2D white;
-
 varying vec2 vTextureCoord;
 
 void main() {
