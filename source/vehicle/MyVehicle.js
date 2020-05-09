@@ -29,6 +29,9 @@ class MyVehicle extends CGFobject {
         this.previousTime = 0;
         this.xCenter = 0;
         this.zCenter = 0;
+
+
+        this.position = 0;
     }
     /**
      * Set Method for changing current textures
@@ -48,9 +51,10 @@ class MyVehicle extends CGFobject {
      * @param {number} t current time of the program, in ms
      */
     update(t) {
+        var deltaT = t - this.previousTime;
         if (this.auto) {
             let vAng = (Math.PI * 2) / 5000;
-            let deltaT = t - this.previousTime;
+            
 
             if (!this.autoPilotConfigured) {
                 this.xCenter = this.posX + Math.cos(this.angleY) * 5;
@@ -65,16 +69,18 @@ class MyVehicle extends CGFobject {
                 this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
             }
         } else {
-            /*
             this.posX += Math.sin(this.angleY) * this.velocity;
             this.posZ += Math.cos(this.angleY) * this.velocity;
             this.autoPilotConfigured = false;
-            */
         }
         this.zeppelin.rotateHelix(this.velocity);
-        console.log(this.velocity);
+        
         this.flagShader.setUniformsValues({ velocity: this.velocity * 1.0 });
         this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
+        this.position += Math.min(this.velocity,1) * (deltaT /1000);
+        console.log(this.velocity);
+        console.log(this.position);
+        this.flagShader.setUniformsValues({ position : this.position});
     }
     /**
      * Turns the vehicle
@@ -116,6 +122,7 @@ class MyVehicle extends CGFobject {
         this.velocity = 0;
         this.posX = 0;
         this.posZ = 0;
+        this.position = 0;
     }
     /**
      * Displays the vehicle in it's current position
