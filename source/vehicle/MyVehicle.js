@@ -77,9 +77,7 @@ class MyVehicle extends CGFobject {
         
         this.flagShader.setUniformsValues({ velocity: this.velocity * 1.0 });
         this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
-        this.position += Math.min(this.velocity,1) * (deltaT /1000);
-        console.log(this.velocity);
-        console.log(this.position);
+        this.position += this.velocity* (deltaT /1000);
         this.flagShader.setUniformsValues({ position : this.position});
     }
     /**
@@ -112,6 +110,7 @@ class MyVehicle extends CGFobject {
     accelerate(val) {
         this.velocity += val;
         this.velocity = ((this.velocity > 0) ? this.velocity : 0);
+        this.velocity = Math.min(this.velocity,1);
 
     }
     /**
