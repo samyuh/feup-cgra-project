@@ -17,7 +17,7 @@ class MyVehicle extends CGFobject {
         this.zeppelin = new MyZeppelin(scene, 5, 1);
 
         /* Vehicle flag */
-        this.flag = new MyPlane(scene, 50);
+        this.flag = new MyDoubleSidePlane(scene, 50);
         this.flagTex = new CGFtexture(scene, "textures/zeppellin/flag.png");
         this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
 
