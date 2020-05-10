@@ -41,8 +41,20 @@ class MyZeppelin extends CGFobject {
      * @param {number} max Maximum value of rudder rotation
      * @param {number} signal Value added to the rotation, if max is not surpassed
      */
-    rotateRudder(max, signal) {
-        this.rudderRotateAngle = (Math.abs(this.rudderRotateAngle) >= Math.abs(max) ? max : this.rudderRotateAngle + (Math.PI / 200) * signal);
+    rotateRudder(signal) {
+        //this.rudderRotateAngle = (Math.abs(this.rudderRotateAngle) >= Math.abs(max) ? max : this.rudderRotateAngle + (Math.PI / 200) * signal);
+        switch(signal){
+            case 0:
+                if(this.rudderRotateAngle >= -Math.PI / 12)
+                    this.rudderRotateAngle -= Math.PI / 200;
+                break;
+            case 1:
+                if(this.rudderRotateAngle <= Math.PI / 12)
+                    this.rudderRotateAngle += Math.PI / 200;
+                break;
+            case 2:
+                break;
+        }
     }
     /**
      * Displays the zeppelin in a certain position

@@ -94,13 +94,13 @@ class MyVehicle extends CGFobject {
     leme(i) {
         switch (i) {
             case 0:
-                this.zeppelin.rotateRudder(-Math.PI / 12, -1);
+                this.zeppelin.rotateRudder(0);
                 return;
             case 1:
-                this.zeppelin.rotateRudder(Math.PI / 12, 1);
+                this.zeppelin.rotateRudder(1);
                 return;
             default:
-                this.zeppelin.rotateRudder(0, 0);
+                this.zeppelin.rotateRudder(2);
         }
     }
     /**
@@ -122,6 +122,7 @@ class MyVehicle extends CGFobject {
         this.posX = 0;
         this.posZ = 0;
         this.position = 0;
+        this.zeppelin.rudderRotateAngle = 0;
     }
     /**
      * Displays the vehicle in it's current position
