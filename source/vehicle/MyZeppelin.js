@@ -105,17 +105,17 @@ class MyZeppelin extends CGFobject {
         // Helix and Turbine 
         // Left Helix 
         this.scene.pushMatrix();
-        this.scene.translate(-0.1, 0, 0);
+        this.scene.translate(-0.11, 0, 0);
         this.helix.rotateHelix(this.helixRotateAngle);
-        this.scene.translate(0, -0.55, -0.3);
+        this.scene.translate(0, -0.55, -0.28);
         this.scene.scale(1 / 16, 1 / 16, 1 / 16);
         this.helix.display();
         this.scene.popMatrix();
         // Right Helix 
         this.scene.pushMatrix();
-        this.scene.translate(0.1, 0, 0);
+        this.scene.translate(0.11, 0, 0);
         this.helix.rotateHelix(this.helixRotateAngle);
-        this.scene.translate(0, -0.55, -0.3);
+        this.scene.translate(0, -0.55, -0.28);
         this.scene.scale(1 / 16, 1 / 16, 1 / 16);
         this.helix.display();
         this.scene.popMatrix();

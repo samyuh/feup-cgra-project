@@ -35,6 +35,7 @@ class MyVehicle extends CGFobject {
      */
     setNewTextures(textures) {
         this.zeppelin.updateTextures(textures[0], textures[1], textures[2], textures[3]);
+        this.flag.updateTextures(textures[4]);
     }
     /**
      * Changes auto pilot state (on->off or off->on)
@@ -62,14 +63,15 @@ class MyVehicle extends CGFobject {
                 this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
             }
         } else {
-            this.posX += Math.sin(this.angleY) * this.velocity;
-            this.posZ += Math.cos(this.angleY) * this.velocity;
+            //this.posX += Math.sin(this.angleY) * this.velocity;
+            //this.posZ += Math.cos(this.angleY) * this.velocity;
             this.autoPilotConfigured = false;
         }
         this.zeppelin.rotateHelix(this.velocity);
         
-        this.flag.setTime(t / 100 % 1000);
         this.position += this.velocity* (deltaT /1000);
+
+        this.flag.setTime(t / 100 % 1000);
         this.flag.setPos(this.position);
 
         this.previousTime = t;

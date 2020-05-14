@@ -34,8 +34,9 @@ class MyHelix extends CGFobject {
       /**
        * Displays the helix in a certain position
        */
-      display() {
-            
+      display() { 
+            this.zeppelinMaterial.setTexture(this.helixTexture);
+            this.zeppelinMaterial.apply();
             // Rotating the Helix and placing it on the side of the body
             this.scene.pushMatrix();
             this.scene.translate(0, 0, -2);
@@ -51,7 +52,7 @@ class MyHelix extends CGFobject {
             this.scene.pushMatrix();
             this.scene.translate(-1/2, 1/2, 0);
             this.scene.rotate(Math.PI / 2, 1, 1, 0);
-            this.scene.scale(1/4, 1/4, 1);
+            this.scene.scale(1/6, 1/6, 4/5);
             this.sphere.display();
             this.scene.popMatrix();
 
@@ -60,17 +61,19 @@ class MyHelix extends CGFobject {
             this.scene.translate(1/2, -1/2, 0);
             this.scene.rotate(Math.PI / 4, 0, 0, 1);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
-            this.scene.scale(1/4, 1/4, 1);
+            this.scene.scale(1/6, 1/6, 4/5);
             this.sphere.display();
             this.scene.popMatrix();
 
             this.scene.popMatrix();
             // End of Helix rotation 
 
+            this.zeppelinMaterial.setTexture(this.turbineTexture);
+            this.zeppelinMaterial.apply();
             // Body holding the helix
             this.scene.pushMatrix();
-            this.scene.translate(0, 0, 0);
-            this.scene.scale(1/2, 1/2, 2);
+            this.scene.translate(0, 0, -0.7);
+            this.scene.scale(1/2, 1/2, 1.3);
             this.sphere.display();
             this.scene.popMatrix();
 

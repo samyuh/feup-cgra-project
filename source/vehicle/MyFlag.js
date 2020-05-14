@@ -8,27 +8,26 @@ class MyFlag extends CGFobject {
         super(scene);
         
         this.flag = new MyPlane(scene, 50);
-        this.flagTex = new CGFtexture(scene, "textures/zeppellin/flag.png");
-        this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
+        this.flagFrontShader = new CGFshader(this.scene.gl, "shaders/flagFront.vert", "shaders/flag.frag");
         this.flagBackShader = new CGFshader(this.scene.gl, "shaders/flagBack.vert", "shaders/flag.frag");
-
-        // No sure if this is needed
-        this.flagShader.setUniformsValues({flagTex: 0});
-        this.flagBackShader.setUniformsValues({flagTex: 0});
-
+        
 		this.initBuffers();
-	}
+    }
+    updateTextures(texture) {
+        this.flagTex = texture[0];
+    }
     setTime(pos) {
-        this.flagShader.setUniformsValues({ timeFactor: pos });
+        this.flagFrontShader.setUniformsValues({ timeFactor: pos });
         this.flagBackShader.setUniformsValues({ timeFactor: pos });  
     }
     setPos(pos) {
-        this.flagShader.setUniformsValues({ position : pos });
+        this.flagFrontShader.setUniformsValues({ position : pos });
         this.flagBackShader.setUniformsValues({ position : pos });
     }
 	display() {
-        this.scene.setActiveShader(this.flagShader);
         this.flagTex.bind(0);
+
+        this.scene.setActiveShader(this.flagFrontShader);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.scene.translate(3, 0, 0);
         this.scene.scale(3, 0.8, 1);

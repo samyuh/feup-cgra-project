@@ -57,6 +57,7 @@ class MyScene extends CGFscene {
         this.selectedTexture = 0;
         this.displaySkyBox = true;
         this.audioMLP = new Audio('audio/mlp.mp3');
+        this.audioMLP.volume = 0.05;
         /* Vehicle */
         this.selectedZeppelin = 0;
         this.displayVehicle = true;
@@ -170,29 +171,8 @@ class MyScene extends CGFscene {
      * Initializes textures used on zeppelin
      */
     initZeppelinTextures() {
-        var bodyZeppelinClassic = 
-            new CGFtexture(this, "textures/zeppellin/classic/rainbowdash.jpg");
-
-        var waggonZeppelinClassic = [
-            new CGFtexture(this, "textures/zeppellin/classic/waggonmiddle.jpg"),
-            new CGFtexture(this, "textures/zeppellin/classic/waggonfront.jpg"),
-            new CGFtexture(this, "textures/zeppellin/classic/waggonback.jpg")
-        ];
-
-        var wingZeppelinClassic = [
-            new CGFtexture(this, 'textures/zeppellin/classic/wingfront.jpg'),
-            new CGFtexture(this, 'textures/zeppellin/classic/wingback.jpg')
-        ];
-
-        var helixZeppelinClassic = [
-            new CGFtexture(this, 'textures/zeppellin/classic/wingfront.jpg'),
-            new CGFtexture(this, 'textures/zeppellin/classic/wingback.jpg')
-        ];
-
-        this.zeppelinClassic = [bodyZeppelinClassic, waggonZeppelinClassic, wingZeppelinClassic, helixZeppelinClassic];
-
         var bodyZeppelinRainbowDash = 
-            new CGFtexture(this, "textures/zeppellin/rainbowdash/rainbowdash.jpg");
+        new CGFtexture(this, "textures/zeppellin/rainbowdash/body.jpg");
 
         var waggonZeppelinRainbowDash = [
             new CGFtexture(this, "textures/zeppellin/rainbowdash/waggonmiddle.jpg"),
@@ -206,17 +186,47 @@ class MyScene extends CGFscene {
         ];
 
         var helixZeppelinRainbowDash = [
-            new CGFtexture(this, 'textures/zeppellin/rainbowdash/wingfront.jpg'),
-            new CGFtexture(this, 'textures/zeppellin/rainbowdash/wingback.jpg')
+            new CGFtexture(this, 'textures/zeppellin/rainbowdash/helix.jpg'),
+            new CGFtexture(this, 'textures/zeppellin/rainbowdash/turbine.jpg')
         ];
 
-        this.zeppelinRainbowDash = [bodyZeppelinRainbowDash, waggonZeppelinRainbowDash, wingZeppelinRainbowDash, helixZeppelinRainbowDash];
+        var flagZeppelinRainbowDash = [
+            new CGFtexture(this, "textures/zeppellin/rainbowdash/flag.png")
+        ];
 
-        this.zeppelinTextures = [this.zeppelinClassic, this.zeppelinRainbowDash];
+        this.zeppelinRainbowDash = [bodyZeppelinRainbowDash, waggonZeppelinRainbowDash, wingZeppelinRainbowDash, 
+                                    helixZeppelinRainbowDash, flagZeppelinRainbowDash];
+
+        var bodyZeppelinClassic = 
+            new CGFtexture(this, "textures/zeppellin/classic/body.jpg");
+
+        var waggonZeppelinClassic = [
+            new CGFtexture(this, "textures/zeppellin/classic/waggonmiddle.jpg"),
+            new CGFtexture(this, "textures/zeppellin/classic/waggonfront.jpg"),
+            new CGFtexture(this, "textures/zeppellin/classic/waggonback.jpg")
+        ];
+
+        var wingZeppelinClassic = [
+            new CGFtexture(this, 'textures/zeppellin/classic/wingfront.jpg'),
+            new CGFtexture(this, 'textures/zeppellin/classic/wingback.jpg')
+        ];
+
+        var helixZeppelinClassic = [
+            new CGFtexture(this, 'textures/zeppellin/classic/helix.jpg'),
+            new CGFtexture(this, 'textures/zeppellin/classic/turbine.jpg')
+        ];
+
+        var flagZeppelinRainbowClassic = [
+            new CGFtexture(this, "textures/zeppellin/classic/flag.png")
+        ];
+
+        this.zeppelinClassic = [bodyZeppelinClassic, waggonZeppelinClassic, wingZeppelinClassic, helixZeppelinClassic, flagZeppelinRainbowClassic];
+
+        this.zeppelinTextures = [this.zeppelinRainbowDash, this.zeppelinClassic];
         
         this.zeppelinTextureIds = {
-            'Classic': 0,
-            'Rainbow Dash': 1,
+            'Rainbow Dash': 0,
+            'Classic': 1,
         };
 
     }

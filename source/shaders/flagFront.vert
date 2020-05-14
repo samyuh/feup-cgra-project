@@ -21,7 +21,7 @@ void main() {
 
     vec3 offset = vec3(0.0, 0.0, defaultOndulation);
 
-    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);   
 
     vTextureCoord = aTextureCoord;
 }
