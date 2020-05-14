@@ -51,7 +51,7 @@ class MyHelix extends CGFobject {
             this.scene.pushMatrix();
             this.scene.translate(-1/2, 1/2, 0);
             this.scene.rotate(Math.PI / 2, 1, 1, 0);
-            this.scene.scale(1/8, 1/8, 1);
+            this.scene.scale(1/4, 1/4, 1);
             this.sphere.display();
             this.scene.popMatrix();
 
@@ -60,7 +60,7 @@ class MyHelix extends CGFobject {
             this.scene.translate(1/2, -1/2, 0);
             this.scene.rotate(Math.PI / 4, 0, 0, 1);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
-            this.scene.scale(1/8, 1/8, 1);
+            this.scene.scale(1/4, 1/4, 1);
             this.sphere.display();
             this.scene.popMatrix();
 
@@ -70,7 +70,7 @@ class MyHelix extends CGFobject {
             // Body holding the helix
             this.scene.pushMatrix();
             this.scene.translate(0, 0, 0);
-            this.scene.scale(3/4, 3/4, 2);
+            this.scene.scale(1/2, 1/2, 2);
             this.sphere.display();
             this.scene.popMatrix();
 
