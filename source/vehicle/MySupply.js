@@ -21,7 +21,7 @@ class MySupply extends CGFobject {
     this.posY = 0;
     this.posZ = 0;
     this.initialPosY = 0;
-    this.accelaration = 9.8; //Constant for accelaration (Not used on drop but set != 0 because physics xD)
+    this.acceleration = 9.8; //Constant for acceleration (Not used on drop but set != 0 because physics xD)
     this.velocityX = 0;
     this.velocityZ = 0;
     this.time = 0;
@@ -32,13 +32,11 @@ class MySupply extends CGFobject {
     this.quad = new MyUnitCubeQuad(scene);
     this.side = new MyQuad(scene);
     
-
+    //Textures
     this.TexBox = new CGFtexture(scene, 'textures/box.png');
 
-    //Textures
-
-     //No need for inactive textures because there will be nothing drawn
-     this.fallingTextures = [
+    //No need for inactive textures because there will be nothing drawn
+    this.fallingTextures = [
         new CGFtexture(scene, 'textures/box.png'),
         new CGFtexture(scene, 'textures/box.png'),
         new CGFtexture(scene, 'textures/box.png'),
@@ -59,11 +57,11 @@ class MySupply extends CGFobject {
     // Random rotations
     this.rotations = [Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()]
 
-    // Random distance from centre of fall
-    //this.distances = [Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2,Math.random() % 1 + 1/2]
-     
     }
 
+    /**
+     * Distances are only created after drop because they depend on the Vehicle Scale Factor
+     */
     createDistances(){
         this.distances = [
             this.rescale * (Math.random() % 1 + 1/2),
@@ -103,7 +101,7 @@ class MySupply extends CGFobject {
         this.posY = posY - 0.7 * scale;
         this.initialPosY = this.posY;
         this.posZ = posZ;
-        this.accelaration = 2*(this.posY + 0.125 * this.rescale)/9;
+        this.acceleration = 2*(this.posY + 0.125 * this.rescale)/9;
         this.velocityX = velocity * Math.sin(angle) * 0.4;
         this.velocityZ = velocity * Math.cos(angle) * 0.4;
         this.rot = angle;
@@ -125,14 +123,15 @@ class MySupply extends CGFobject {
      * @param {number} t current time of the program, in ms
      */
     update(t){
+        // Reseting the initial time until drop
         if(this.state == SupplyStates.INACTIVE){
             this.initialTime = t;
         }
-        // Fazer a caixa cair a uma certa velocidade
+        // Drop the box at a certain speed with a certain size
         else if(this.state == SupplyStates.FALLING){
             this.time = (t-this.initialTime)/1000;
             this.posX += this.velocityX;
-            this.posY = -1/2*this.accelaration * this.time * this.time + this.initialPosY;
+            this.posY = -1/2*this.acceleration * this.time * this.time + this.initialPosY;
             this.posZ += this.velocityZ;
             this.land();
         }

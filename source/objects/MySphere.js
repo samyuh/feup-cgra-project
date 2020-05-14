@@ -72,8 +72,6 @@ class MySphere extends CGFobject {
         theta += thetaInc;
 
         //--- Texture Coordinates
-        // To be done...
-        // May need some add itional code also in the beginning of the function.
         var tu = 0.25 + longD * longitude;
         var tv = latD * latitude;
         this.texCoords.push(tu,tv);

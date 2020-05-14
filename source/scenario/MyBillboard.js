@@ -17,7 +17,6 @@ class MyBillboard extends CGFobject {
     this.material.setSpecular(0, 0, 0, 1);
     this.material.setShininess(5.0);
     this.material.setTextureWrap('REPEAT', 'REPEAT');
-    //this.material.setTexture(this.message);
 
     this.message = new CGFtexture(scene,"textures/message.png");
     this.back = new CGFtexture(scene,"textures/white.png");

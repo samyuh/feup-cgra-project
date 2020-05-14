@@ -43,7 +43,7 @@ class MyScene extends CGFscene {
             new MySupply(this),
             new MySupply(this),
         ];
-        
+
         this.selectSupply = 0;
         
         /* Objects connected to MyInterface */
@@ -80,6 +80,10 @@ class MyScene extends CGFscene {
         /* Change this later */
         this.block = false;
     }
+
+    /**
+     * Initializes textures used on skybox
+     */
     initSkyBoxTextures() {
         this.worldTexture = [
             new CGFtexture(this, 'textures/skybox/world_texture/back.png'),
@@ -147,7 +151,10 @@ class MyScene extends CGFscene {
             'Palace': 5
         };
     }
-    //Function that applies a new texture selected in interface
+    
+    /**
+     * Method for updating skybox's textures using the interface selected texture
+     */
     updateSkyBoxTextures() {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
         if (this.selectedTexture == 4 || this.selectedTexture == 5) {
@@ -158,6 +165,10 @@ class MyScene extends CGFscene {
             this.audioMLP.currentTime = 0;
         }
     }
+
+    /**
+     * Initializes textures used on zeppelin
+     */
     initZeppelinTextures() {
         var bodyZeppelinClassic = 
             new CGFtexture(this, "textures/zeppellin/classic/rainbowdash.jpg");
@@ -210,9 +221,16 @@ class MyScene extends CGFscene {
 
     }
     //Function that applies a new texture selected in interface
+    /**
+     * Method for updating zeppelin's textures using the interface selexted texture
+     */
     updateZeppelinTexture() {
         this.vehicle.setNewTextures(this.zeppelinTextures[this.selectedZeppelin]);
     }
+
+    /**
+     * Initializes used materials
+     */
     initMaterials() {
         this.default = new CGFappearance(this);
         this.default.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -236,6 +254,10 @@ class MyScene extends CGFscene {
             'Earth': 1
         };
     }
+
+    /**
+     * Initializes lights for the scene
+     */
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setAmbient(0.25, 0.25, 0.25, 1.0);
@@ -243,12 +265,21 @@ class MyScene extends CGFscene {
         this.lights[0].enable();
         this.lights[0].update();
 
+        // Additional Light created to apply on the SkyBox
         this.lights[1].setPosition(0, 0, 0, 0);
         this.lights[1].setAmbient(0.75, 0.75, 0.75, 0.75);
     }
+
+    /**
+     * Initializes the camera at a certain position
+     */
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50 * Math.cos(Math.PI / 14), 1 * Math.sin(Math.PI / 12) + 35, 0), vec3.fromValues(0, 0, 0));
     }
+
+    /**
+     * Checks user input from keyboard to interact with the vehicle
+     */
     checkKeys() {
         if(!this.block) {
             if (this.gui.isKeyPressed("KeyW")) {
@@ -287,6 +318,9 @@ class MyScene extends CGFscene {
             this.block = !this.block;
         }
     }
+    /**
+     * Method for updating vehicle's textures using the interface selexted texture
+     */
     updateVehicleTexture() {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
         if (this.selectedTexture == 4 || this.selectedTexture == 5) {
@@ -297,7 +331,11 @@ class MyScene extends CGFscene {
             this.audioMLP.currentTime = 0;
         }
     }
-    // called periodically (as per setUpdatePeriod() in init())
+
+    /**
+     * Method called periodically (as per setUpdatePeriod() in init())
+     * @param {number} t 
+     */
     update(t) {
         this.checkKeys();
         this.vehicle.update(t);
@@ -306,6 +344,10 @@ class MyScene extends CGFscene {
         }
         this.billboard.update(this.selectSupply);
     }
+
+    /**
+     * Displays all selected objects
+     */
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
