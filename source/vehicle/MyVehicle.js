@@ -17,13 +17,7 @@ class MyVehicle extends CGFobject {
         this.zeppelin = new MyZeppelin(scene, 5, 1);
 
         /* Vehicle flag */
-        this.flag = new MyPlane(scene, 50);
-        this.flagTex = new CGFtexture(scene, "textures/zeppellin/flag.png");
-        this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
-        this.flagBackShader = new CGFshader(this.scene.gl, "shaders/flagBack.vert", "shaders/flag.frag");
-
-        this.flagShader.setUniformsValues({flagTex: 0});
-        this.flagBackShader.setUniformsValues({flagTex: 0});
+        this.flag = new MyFlag(scene);
 
         /* Auto pilot variables */
         this.auto = false;
@@ -56,36 +50,29 @@ class MyVehicle extends CGFobject {
         var deltaT = t - this.previousTime;
         if (this.auto) {
             let vAng = (Math.PI * 2) / 5000;
-            
 
             if (!this.autoPilotConfigured) {
                 this.xCenter = this.posX + Math.cos(this.angleY) * 5;
                 this.zCenter = this.posZ - Math.sin(this.angleY) * 5;
                 this.velocity = vAng * 5; // to see helix
                 this.autoPilotConfigured = true;
-                this.previousTime = t;
             } else {
-                this.previousTime = t;
                 this.angleY += vAng * deltaT;
                 this.posX = -Math.cos(this.angleY) * 5 + this.xCenter;
                 this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
             }
         } else {
-            this.posX += Math.sin(this.angleY) * this.velocity;
-            this.posZ += Math.cos(this.angleY) * this.velocity;
+            //this.posX += Math.sin(this.angleY) * this.velocity;
+            //this.posZ += Math.cos(this.angleY) * this.velocity;
             this.autoPilotConfigured = false;
         }
         this.zeppelin.rotateHelix(this.velocity);
         
-        this.flagShader.setUniformsValues({ velocity: this.velocity * 1.0 });
-        this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
+        this.flag.setTime(t / 100 % 1000);
         this.position += this.velocity* (deltaT /1000);
-        this.flagShader.setUniformsValues({ position : this.position});
+        this.flag.setPos(this.position);
 
-        this.flagBackShader.setUniformsValues({ velocity: this.velocity * 1.0 });
-        this.flagBackShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
-        this.position += this.velocity* (deltaT /1000);
-        this.flagBackShader.setUniformsValues({ position : this.position});
+        this.previousTime = t;
     }
     /**
      * Turns the vehicle
@@ -138,30 +125,15 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         /* Update Vehicle Coordinates */
         this.scene.translate(this.posX, this.posY, this.posZ);
+
         /* Rotate Vehicle */
         this.scene.rotate(this.angleY, 0, 1, 0);
-
         this.zeppelin.display();
 
         /* Flag */
-        this.scene.setActiveShader(this.flagShader);
-        this.flagTex.bind(0);
-        this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.translate(3, 0, 0);
-        this.scene.scale(3, 0.8, 1);
         this.flag.display();
-        this.scene.setActiveShader(this.scene.defaultShader);
-
-        this.scene.setActiveShader(this.flagBackShader);
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI,0,1,0);
-        this.flag.display();
-        this.scene.popMatrix();
-        this.scene.setActiveShader(this.scene.defaultShader);
-
 
         this.scene.popMatrix();
-     
     }
     /**
      * Enables visualization of Object's normals
