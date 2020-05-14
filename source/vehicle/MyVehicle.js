@@ -62,8 +62,8 @@ class MyVehicle extends CGFobject {
                 this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
             }
         } else {
-            //this.posX += Math.sin(this.angleY) * this.velocity;
-            //this.posZ += Math.cos(this.angleY) * this.velocity;
+            this.posX += Math.sin(this.angleY) * this.velocity;
+            this.posZ += Math.cos(this.angleY) * this.velocity;
             this.autoPilotConfigured = false;
         }
         this.zeppelin.rotateHelix(this.velocity);
