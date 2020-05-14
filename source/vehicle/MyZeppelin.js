@@ -76,13 +76,13 @@ class MyZeppelin extends CGFobject {
         // Top Wing
         this.scene.pushMatrix();
         this.scene.translate(0, 0.4, -1);
-        this.scene.scale(1/2, 1/2, -1/2);
+        this.scene.scale(5/8, 5/8, -5/8);
         this.wing.display();
         this.scene.popMatrix();
         // Bottom Wing 
         this.scene.pushMatrix();
         this.scene.translate(0, -0.4, -1);
-        this.scene.scale(1/2, -1/2, -1/2);
+        this.scene.scale(5/8, -5/8, -5/8);
         this.wing.display();
         this.scene.popMatrix();
         this.scene.popMatrix();
@@ -91,14 +91,14 @@ class MyZeppelin extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-0.4, 0, -1);
         this.scene.rotate(Math.PI / 2, 0, 0, 1)
-        this.scene.scale(1/2, 1/2, -1/2);
+        this.scene.scale(5/8, 5/8, -5/8);
         this.wing.display();
         this.scene.popMatrix();
         // Left Wing 
         this.scene.pushMatrix();
         this.scene.translate(0.4, 0, -1);
         this.scene.rotate(Math.PI / 2, 0, 0, 1)
-        this.scene.scale(1/2, -1/2, -1/2);
+        this.scene.scale(5/8, -5/8, -5/8);
         this.wing.display();
         this.scene.popMatrix();
 
