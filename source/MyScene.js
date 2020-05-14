@@ -62,7 +62,7 @@ class MyScene extends CGFscene {
         this.selectedZeppelin = 0;
         this.displayVehicle = true;
         this.speedFactor = 1;
-        this.scaleFactor = 3;
+        this.scaleFactor = 1;
         /* Elapsed Time */
         this.timefactor = 0;
         
