@@ -34,7 +34,7 @@ class MyZeppelin extends CGFobject {
      * @param {number} velocity helix rotation velocity
      */
     rotateHelix(velocity) {
-        this.helixRotateAngle += Math.PI / 3 * velocity;
+        this.helixRotateAngle += Math.PI / 25 * (velocity * 15 + 1.0);
     }
     /**
      * Rotates the zeppelin's rudder

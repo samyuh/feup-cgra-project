@@ -45,17 +45,21 @@ class MyScene extends CGFscene {
         ];
 
         this.selectSupply = 0;
-        
+
         /* Objects connected to MyInterface */
         /* General */
-        this.displayAxis = true;
+        this.displayAxis = false;
         this.displayCylinder = false;
         this.displaySphere = false;
         this.displayNormal = false;
         this.selectedMaterial = 0;
-        /* SkyBox */
+        /* Scenario */
+        this.displayBillboard = true;
+        this.displayTerrain = true;
         this.selectedTexture = 0;
+        this.selectedTerrainTexture = 0;
         this.displaySkyBox = true;
+        this.music = false;
         this.audioMLP = new Audio('audio/mlp.mp3');
         this.audioMLP.volume = 0.05;
         /* Vehicle */
@@ -65,7 +69,7 @@ class MyScene extends CGFscene {
         this.scaleFactor = 1;
         /* Elapsed Time */
         this.timefactor = 0;
-        
+
         /* Materials */
         this.initMaterials();
 
@@ -74,7 +78,9 @@ class MyScene extends CGFscene {
 
         this.initZeppelinTextures();
         this.initSkyBoxTextures();
+        this.initTerrainTextures();
 
+        this.updateTerrainTextures();
         this.updateSkyBoxTextures();
         this.updateZeppelinTexture();
 
@@ -86,6 +92,15 @@ class MyScene extends CGFscene {
      * Initializes textures used on skybox
      */
     initSkyBoxTextures() {
+        this.rainbowTexture = [
+            new CGFtexture(this, 'textures/skybox/rainbow/back.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/bottom.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/front.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/left.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/right.png'),
+            new CGFtexture(this, 'textures/skybox/rainbow/top.png')
+        ];
+
         this.worldTexture = [
             new CGFtexture(this, 'textures/skybox/world_texture/back.png'),
             new CGFtexture(this, 'textures/skybox/world_texture/bottom.png'),
@@ -122,15 +137,6 @@ class MyScene extends CGFscene {
             new CGFtexture(this, 'textures/skybox/lake/top.jpg')
         ];
 
-        this.rainbowTexture = [
-            new CGFtexture(this, 'textures/skybox/rainbow/back.png'),
-            new CGFtexture(this, 'textures/skybox/rainbow/bottom.png'),
-            new CGFtexture(this, 'textures/skybox/rainbow/front.png'),
-            new CGFtexture(this, 'textures/skybox/rainbow/left.png'),
-            new CGFtexture(this, 'textures/skybox/rainbow/right.png'),
-            new CGFtexture(this, 'textures/skybox/rainbow/top.png')
-        ];
-
         this.palaceTexture = [
             new CGFtexture(this, 'textures/skybox/palace/back.jpg'),
             new CGFtexture(this, 'textures/skybox/palace/bottom.jpg'),
@@ -141,24 +147,24 @@ class MyScene extends CGFscene {
         ];
 
 
-        this.textures = [this.worldTexture, this.aridTexture, this.divineTexture, this.lakeTexture, this.rainbowTexture, this.palaceTexture];
-        
+        this.textures = [this.rainbowTexture, this.worldTexture, this.aridTexture, this.divineTexture, this.lakeTexture, this.palaceTexture];
+
         this.textureIds = {
-            'World': 0,
-            'Arid': 1,
-            'Divine': 2,
-            'Lake': 3,
-            'Rainbow': 4,
+            'Rainbow': 0,
+            'Default': 1,
+            'Arid': 2,
+            'Divine': 3,
+            'Lake': 4,
             'Palace': 5
         };
     }
-    
+
     /**
      * Method for updating skybox's textures using the interface selected texture
      */
     updateSkyBoxTextures() {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
-        if (this.selectedTexture == 4 || this.selectedTexture == 5) {
+        if ((this.selectedTexture == 0 || this.selectedTexture == 5) && this.music) {
             this.audioMLP.loop = true;
             this.audioMLP.play();
         } else {
@@ -167,12 +173,39 @@ class MyScene extends CGFscene {
         }
     }
 
+     /**
+     * Initializes textures used on skybox
+     */
+    initTerrainTextures() {
+        this.rainbowTerrainTexture = [
+            new CGFtexture(this, 'textures/terrain/cloudTex.jpg'),
+            new CGFtexture(this, 'textures/terrain/grassMap.jpg')
+        ];
+
+        this.defaultTerrainTexture = [
+            new CGFtexture(this, 'textures/terrain/grassTex.jpg'),
+            new CGFtexture(this, 'textures/terrain/grassMap.jpg')
+        ];
+
+
+        this.terrainTextures = [this.rainbowTerrainTexture, this.defaultTerrainTexture];
+
+        this.terrainTextureIds = {
+            'Rainbow': 0,
+            'Default': 1
+        };
+    }
+
+    updateTerrainTextures() {
+        this.terrain.updateTextures(this.terrainTextures[this.selectedTerrainTexture]);
+    }
+
     /**
      * Initializes textures used on zeppelin
      */
     initZeppelinTextures() {
-        var bodyZeppelinRainbowDash = 
-        new CGFtexture(this, "textures/zeppellin/rainbowdash/body.jpg");
+        var bodyZeppelinRainbowDash =
+            new CGFtexture(this, "textures/zeppellin/rainbowdash/body.jpg");
 
         var waggonZeppelinRainbowDash = [
             new CGFtexture(this, "textures/zeppellin/rainbowdash/waggonmiddle.jpg"),
@@ -194,10 +227,11 @@ class MyScene extends CGFscene {
             new CGFtexture(this, "textures/zeppellin/rainbowdash/flag.png")
         ];
 
-        this.zeppelinRainbowDash = [bodyZeppelinRainbowDash, waggonZeppelinRainbowDash, wingZeppelinRainbowDash, 
-                                    helixZeppelinRainbowDash, flagZeppelinRainbowDash];
+        this.zeppelinRainbowDash = [bodyZeppelinRainbowDash, waggonZeppelinRainbowDash, wingZeppelinRainbowDash,
+            helixZeppelinRainbowDash, flagZeppelinRainbowDash
+        ];
 
-        var bodyZeppelinClassic = 
+        var bodyZeppelinClassic =
             new CGFtexture(this, "textures/zeppellin/classic/body.jpg");
 
         var waggonZeppelinClassic = [
@@ -223,14 +257,14 @@ class MyScene extends CGFscene {
         this.zeppelinClassic = [bodyZeppelinClassic, waggonZeppelinClassic, wingZeppelinClassic, helixZeppelinClassic, flagZeppelinRainbowClassic];
 
         this.zeppelinTextures = [this.zeppelinRainbowDash, this.zeppelinClassic];
-        
+
         this.zeppelinTextureIds = {
             'Rainbow Dash': 0,
             'Classic': 1,
         };
 
     }
-    //Function that applies a new texture selected in interface
+
     /**
      * Method for updating zeppelin's textures using the interface selexted texture
      */
@@ -277,7 +311,7 @@ class MyScene extends CGFscene {
 
         // Additional Light created to apply on the SkyBox
         this.lights[1].setPosition(0, 0, 0, 0);
-        this.lights[1].setAmbient(0.75, 0.75, 0.75, 0.75);
+        this.lights[1].setAmbient(0.5, 0.5, 0.5, 1.0);
     }
 
     /**
@@ -291,7 +325,7 @@ class MyScene extends CGFscene {
      * Checks user input from keyboard to interact with the vehicle
      */
     checkKeys() {
-        if(!this.block) {
+        if (!this.block) {
             if (this.gui.isKeyPressed("KeyW")) {
                 this.vehicle.accelerate(0.01 * this.speedFactor);
             }
@@ -328,6 +362,7 @@ class MyScene extends CGFscene {
             this.block = !this.block;
         }
     }
+
     /**
      * Method for updating vehicle's textures using the interface selexted texture
      */
@@ -336,6 +371,17 @@ class MyScene extends CGFscene {
         if (this.selectedTexture == 4 || this.selectedTexture == 5) {
             this.audioMLP.loop = true;
             this.audioMLP.play();
+        } else {
+            this.audioMLP.pause();
+            this.audioMLP.currentTime = 0;
+        }
+    }
+    updateMusic() {
+        if (this.music) {
+            if (this.selectedTexture == 0 || this.selectedTexture == 5) {
+                this.audioMLP.loop = true;
+                this.audioMLP.play();
+            }
         } else {
             this.audioMLP.pause();
             this.audioMLP.currentTime = 0;
@@ -377,13 +423,15 @@ class MyScene extends CGFscene {
         this.materials[this.selectedMaterial].apply();
 
         // ---- BEGIN Primitive drawing section
+        // --- Cylinder
         if (this.displayCylinder)
             this.cylinder.display();
 
-        //This sphere does not have defined texture coordinates
+        // --- Sphere
         if (this.displaySphere)
             this.sphere.display();
 
+        // --- Vehicle
         if (this.displayVehicle) {
             this.pushMatrix();
             this.translate(this.vehicle.posX, this.vehicle.posY, this.vehicle.posZ);
@@ -392,10 +440,13 @@ class MyScene extends CGFscene {
             this.vehicle.display();
             this.popMatrix();
         }
+
+        // --- Supplies
         for (var i = 0; i < 5; i++) {
             this.supplies[i].display();
         }
 
+        // -- Sky Box
         if (this.displaySkyBox) {
             this.pushMatrix();
             this.translate(0, 24, 0);
@@ -408,6 +459,21 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
+        // --- Display Billboard
+        if(this.displayBillboard) {
+            this.pushMatrix();
+            this.translate(0, 0, -3);
+            this.rotate(Math.PI / 2, 0, 1, 0);
+            this.billboard.display();
+            this.popMatrix();
+        }
+
+        // --- Display Terrain
+        if(this.displayTerrain) {
+            this.terrain.display();
+        }
+
+        // --- Display Normals
         if (this.displayNormal) {
             this.cube.enableNormalViz();
             this.vehicle.enableNormalViz();
@@ -419,13 +485,6 @@ class MyScene extends CGFscene {
             this.sphere.disableNormalViz();
             this.cylinder.disableNormalViz();
         }
-
-        this.pushMatrix();
-        this.translate(0, 0, -3);
-        this.rotate(Math.PI / 2, 0, 1, 0);
-        this.billboard.display();
-        this.popMatrix();
-        this.terrain.display();
         // ---- END Primitive drawing section
     }
 }

@@ -21,10 +21,14 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayNormal').name('Display Normal');
         this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
         
-        var fSkyBox = this.gui.addFolder('SkyBox Config');
+        var fSkyBox = this.gui.addFolder('Scenario Config');
+        fSkyBox.add(this.scene, 'music').name('Music').onChange(this.scene.updateMusic.bind(this.scene));
+        fSkyBox.add(this.scene, 'displayBillboard').name('Display Billboard');
+        fSkyBox.add(this.scene, 'displayTerrain').name('Display Terrain');
+        fSkyBox.add(this.scene, 'selectedTerrainTexture', this.scene.terrainTextureIds).name('Selected Terrain Texture').onChange(this.scene.updateTerrainTextures.bind(this.scene));
         fSkyBox.add(this.scene, 'displaySkyBox').name('Display SkyBox').onChange(this.scene.updateSkyBoxTextures.bind(this.scene));
-        fSkyBox.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateSkyBoxTextures.bind(this.scene));
-
+        fSkyBox.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected SkyBox Texture').onChange(this.scene.updateSkyBoxTextures.bind(this.scene));
+        
         var fVehicle = this.gui.addFolder('Vehicle Config');
         fVehicle.add(this.scene, 'selectedZeppelin', this.scene.zeppelinTextureIds).name('Selected Texture').onChange(this.scene.updateZeppelinTexture.bind(this.scene));
         fVehicle.add(this.scene, 'displayVehicle').name('Display Vehicle');

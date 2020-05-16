@@ -15,6 +15,10 @@ class MyFlag extends CGFobject {
     }
     updateTextures(texture) {
         this.flagTex = texture[0];
+
+        this.flagFrontShader.setUniformsValues({ flagTex: 0 });
+        this.flagBackShader.setUniformsValues({ flagTex: 0 });
+        
     }
     setTime(pos) {
         this.flagFrontShader.setUniformsValues({ timeFactor: pos });
@@ -25,9 +29,8 @@ class MyFlag extends CGFobject {
         this.flagBackShader.setUniformsValues({ position : pos });
     }
 	display() {
-        this.flagTex.bind(0);
-
         this.scene.setActiveShader(this.flagFrontShader);
+        this.flagTex.bind(0);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.scene.translate(3, 0, 0);
         this.scene.scale(3, 0.8, 1);
@@ -35,13 +38,13 @@ class MyFlag extends CGFobject {
         this.scene.setActiveShader(this.scene.defaultShader);
 
         this.scene.setActiveShader(this.flagBackShader);
+        this.flagTex.bind(0);
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI,0,1,0);
         this.flag.display();
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
         
-		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	}
 }
