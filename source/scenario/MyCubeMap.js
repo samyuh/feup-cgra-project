@@ -15,6 +15,7 @@ class MyCubeMap extends CGFobject {
 		this.skybox.setShininess(5.0);
 		this.skybox.setTextureWrap('REPEAT', 'REPEAT');
 	}
+
 	/**
 	 * Updates CubeMap's current textures
 	 * @param {Array<Object>} texture Array of 6 textures to apply to the 6 sides of the cubeMap
@@ -27,42 +28,49 @@ class MyCubeMap extends CGFobject {
 		this.right = texture[4];
 		this.top = texture[5];
 	}
+
 	/**
 	 * Sets the skybox texture to the back of the cubeMap
 	 */
 	textureBack() {
 		this.skybox.setTexture(this.back);
 	}
+
 	/**
 	 * Sets the skybox texture to the bottom of the cubeMap
 	 */
 	textureBottom() {
 		this.skybox.setTexture(this.bottom);
 	}
+
 	/**
 	 * Sets the skybox texture to the front of the cubeMap
 	 */
 	textureFront() {
 		this.skybox.setTexture(this.front);
 	}
+
 	/**
 	 * Sets the skybox texture to the left of the cubeMap
 	 */
 	textureLeft() {
 		this.skybox.setTexture(this.left);
 	}
+
 	/**
 	 * Sets the skybox texture to the rightof the cubeMap
 	 */
 	textureRight() {
 		this.skybox.setTexture(this.right);
 	}
+
 	/**
 	 * Sets the skybox texture to the top of the cubeMap
 	 */
 	textureTop() {
 		this.skybox.setTexture(this.top);
 	}
+	
 	/**
 	 * Displays the cubeMap in a certain Position
 	 */

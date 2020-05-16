@@ -16,6 +16,7 @@ class MyWaggon extends CGFobject {
         this.zeppelinMaterial.setShininess(5.0);
         this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
+
     /**
      * Changes the current applied textures
      * @param {Array<Object>} textures Array with 3 textures which are applied to the waggon
@@ -25,6 +26,7 @@ class MyWaggon extends CGFobject {
         this.frontWaggon = textures[1];
         this.backWaggon = textures[2];
     }
+    
     /**
      * Displauys the waggon in a certain position
      */

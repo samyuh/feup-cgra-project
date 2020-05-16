@@ -15,6 +15,7 @@ class MyBody extends CGFobject {
         this.zeppelinMaterial.setShininess(5.0);
         this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
+
     /**
      * Changes the current applied textures
      * @param {Object} texture  texture  applied to the body
@@ -22,6 +23,7 @@ class MyBody extends CGFobject {
     updateTextures(texture) {
         this.body = texture;
     }
+    
     /**
      * Displays the body in a certain position
      */

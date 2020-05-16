@@ -28,6 +28,7 @@ class MyBillboard extends CGFobject {
     //this.shader.setUniformsValues({ white: 0 });
     this.shader.setUniformsValues({suppliesDelivered : this.suppliesDelivered/5.0});
     }
+    
     /**
      * Updates the billboard's bar according to the current number of droped supplies
      * @param {number} supplies MyScene's nymber of supplies droped
@@ -36,6 +37,7 @@ class MyBillboard extends CGFobject {
         this.suppliesDelivered = supplies;
         this.shader.setUniformsValues({suppliesDelivered : this.suppliesDelivered/5.0});
     }
+
     /**
      * Displays the billboard in a certain position
      */
@@ -102,12 +104,14 @@ class MyBillboard extends CGFobject {
         this.scene.popMatrix();
         
     }
+
     /**
      * Enables visualization of Object's normals
      */
     enableNormalViz() {
         this.plane.enableNormalViz()
     }
+
     /**
      * Disables visualization of Object's normals
      */

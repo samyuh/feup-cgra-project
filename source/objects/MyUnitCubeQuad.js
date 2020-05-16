@@ -15,24 +15,28 @@ class MyUnitCubeQuad extends CGFobject {
 		this.texture.setTextureWrap('REPEAT', 'REPEAT');
 	
 	}
+	
 	/**
 	 * Sets the texture to the top of the cubeMap
 	 */
 	textureTop() {
 		this.texture.setTexture(this.top);
 	}
+
 	/**
 	 * Sets the texture to the side of the cubeMap
 	 */
 	textureSide() {
 		this.texture.setTexture(this.side);
 	}
+
 	/**
 	 * Sets the texture to the bottom of the cubeMap
 	 */
 	textureBottom() {
 		this.texture.setTexture(this.bottom);
 	}
+
 	/**
 	 * Sets all textures from an array
 	 * @param {*} texture array with top, bottom and side textures
@@ -42,6 +46,7 @@ class MyUnitCubeQuad extends CGFobject {
 		this.bottom = texture[1];
 		this.side = texture[2];
 	}
+
 	/**
 	 * Displays the Object in a certain position
 	 */
@@ -93,7 +98,5 @@ class MyUnitCubeQuad extends CGFobject {
 		this.scene.translate(0,0,0.5);
 		this.quad.display();
 		this.scene.popMatrix();
-
-
 	}
 }

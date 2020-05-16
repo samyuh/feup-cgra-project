@@ -78,6 +78,7 @@ class MySupply extends CGFobject {
             this.rescale * (Math.random() % 1 + 1 / 2)
         ]
     }
+
     /**
      * Calculates a random position for the box indicated by index
      * @param {number} index index of this.distances 
@@ -227,6 +228,7 @@ class MySupply extends CGFobject {
         this.side.display();
         this.scene.popMatrix();
     }
+    
     /**
      * Evaluates the currunet SupplyState and calls a display function accordingly
      */

@@ -11,31 +11,31 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
 
-        /* Background Colour */
+        // -- Background Colour
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        /* Update the scene every 12 milliseconds */
+        // -- Update the scene every 12 milliseconds
         this.setUpdatePeriod(12);
 
-        /* Initialize scene components */
+        // -- Initialize scene components
         this.axis = new CGFaxis(this);
 
-        /* Objects */
+        // -- Objects
         this.cylinder = new MyCylinder(this, 8);
         this.sphere = new MySphere(this, 16, 8);
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
 
-        /* Vehicle */
+        // -- Vehicle
         this.vehicle = new MyVehicle(this, 10);
         this.terrain = new MyTerrain(this);
         this.billboard = new MyBillboard(this);
 
-        /* Supplies */
+        // -- Supplies
         this.supplies = [
             new MySupply(this),
             new MySupply(this),
@@ -46,29 +46,31 @@ class MyScene extends CGFscene {
 
         this.selectSupply = 0;
 
-        /* Objects connected to MyInterface */
-        /* General */
+        // -- Objects connected to MyInterface
+        // -- General
         this.displayAxis = false;
         this.displayCylinder = false;
         this.displaySphere = false;
         this.displayNormal = false;
         this.selectedMaterial = 0;
-        /* Scenario */
+        // -- Scenario
         this.displayBillboard = true;
         this.displayTerrain = true;
         this.selectedTexture = 0;
         this.selectedTerrainTexture = 0;
         this.displaySkyBox = true;
-        this.music = false;
+        this.musicActive = false;
         this.audioMLP = new Audio('audio/mlp.mp3');
         this.audioMLP.volume = 0.05;
-        /* Vehicle */
+        // -- Vehicle
         this.selectedZeppelin = 0;
         this.displayVehicle = true;
         this.speedFactor = 1;
         this.scaleFactor = 1;
-        /* Elapsed Time */
-        this.timefactor = 0;
+
+        // -- Miscellaneous
+        // -- Block Movement when auto pilot is active
+        this.blockMovement = false;
 
         /* Materials */
         this.initMaterials();
@@ -83,16 +85,13 @@ class MyScene extends CGFscene {
         this.updateTerrainTextures();
         this.updateSkyBoxTextures();
         this.updateZeppelinTexture();
-
-        /* Change this later */
-        this.block = false;
     }
 
     /**
      * Initializes textures used on skybox
      */
     initSkyBoxTextures() {
-        this.rainbowTexture = [
+        this.rainbowSkyBoxTexture = [
             new CGFtexture(this, 'textures/skybox/rainbow/back.png'),
             new CGFtexture(this, 'textures/skybox/rainbow/bottom.png'),
             new CGFtexture(this, 'textures/skybox/rainbow/front.png'),
@@ -101,7 +100,7 @@ class MyScene extends CGFscene {
             new CGFtexture(this, 'textures/skybox/rainbow/top.png')
         ];
 
-        this.worldTexture = [
+        this.worldSkyBoxTexture = [
             new CGFtexture(this, 'textures/skybox/world_texture/back.png'),
             new CGFtexture(this, 'textures/skybox/world_texture/bottom.png'),
             new CGFtexture(this, 'textures/skybox/world_texture/front.png'),
@@ -110,7 +109,7 @@ class MyScene extends CGFscene {
             new CGFtexture(this, 'textures/skybox/world_texture/top.png')
         ];
 
-        this.aridTexture = [
+        this.aridSkyBoxTexture = [
             new CGFtexture(this, 'textures/skybox/arid/back.jpg'),
             new CGFtexture(this, 'textures/skybox/arid/bottom.jpg'),
             new CGFtexture(this, 'textures/skybox/arid/front.jpg'),
@@ -119,7 +118,7 @@ class MyScene extends CGFscene {
             new CGFtexture(this, 'textures/skybox/arid/top.jpg')
         ];
 
-        this.divineTexture = [
+        this.divineSkyBoxTexture = [
             new CGFtexture(this, 'textures/skybox/divine/back.jpg'),
             new CGFtexture(this, 'textures/skybox/divine/bottom.jpg'),
             new CGFtexture(this, 'textures/skybox/divine/front.jpg'),
@@ -128,7 +127,7 @@ class MyScene extends CGFscene {
             new CGFtexture(this, 'textures/skybox/divine/top.jpg')
         ];
 
-        this.lakeTexture = [
+        this.lakeSkyBoxTexture = [
             new CGFtexture(this, 'textures/skybox/lake/back.jpg'),
             new CGFtexture(this, 'textures/skybox/lake/bottom.jpg'),
             new CGFtexture(this, 'textures/skybox/lake/front.jpg'),
@@ -137,7 +136,7 @@ class MyScene extends CGFscene {
             new CGFtexture(this, 'textures/skybox/lake/top.jpg')
         ];
 
-        this.palaceTexture = [
+        this.palaceSkyBoxTexture = [
             new CGFtexture(this, 'textures/skybox/palace/back.jpg'),
             new CGFtexture(this, 'textures/skybox/palace/bottom.jpg'),
             new CGFtexture(this, 'textures/skybox/palace/front.jpg'),
@@ -147,7 +146,8 @@ class MyScene extends CGFscene {
         ];
 
 
-        this.textures = [this.rainbowTexture, this.worldTexture, this.aridTexture, this.divineTexture, this.lakeTexture, this.palaceTexture];
+        this.textures = [this.rainbowSkyBoxTexture, this.worldSkyBoxTexture, this.aridSkyBoxTexture, 
+            this.divineSkyBoxTexture, this.lakeSkyBoxTexture, this.palaceSkyBoxTexture];
 
         this.textureIds = {
             'Rainbow': 0,
@@ -164,7 +164,7 @@ class MyScene extends CGFscene {
      */
     updateSkyBoxTextures() {
         this.cube.setNewTextures(this.textures[this.selectedTexture]);
-        if ((this.selectedTexture == 0 || this.selectedTexture == 5) && this.music) {
+        if ((this.selectedTexture == 0 || this.selectedTexture == 5) && this.musicActive) {
             this.audioMLP.loop = true;
             this.audioMLP.play();
         } else {
@@ -174,7 +174,7 @@ class MyScene extends CGFscene {
     }
 
      /**
-     * Initializes textures used on skybox
+     * Initializes textures used on terrain
      */
     initTerrainTextures() {
         this.rainbowTerrainTexture = [
@@ -196,6 +196,9 @@ class MyScene extends CGFscene {
         };
     }
 
+    /**
+     * Method for updating terrain's textures using the interface selected texture
+     */
     updateTerrainTextures() {
         this.terrain.updateTextures(this.terrainTextures[this.selectedTerrainTexture]);
     }
@@ -266,14 +269,14 @@ class MyScene extends CGFscene {
     }
 
     /**
-     * Method for updating zeppelin's textures using the interface selexted texture
+     * Method for updating zeppelin's textures using the interface selected texture
      */
     updateZeppelinTexture() {
         this.vehicle.setNewTextures(this.zeppelinTextures[this.selectedZeppelin]);
     }
 
     /**
-     * Initializes used materials
+     * Initializes materials
      */
     initMaterials() {
         this.default = new CGFappearance(this);
@@ -300,7 +303,7 @@ class MyScene extends CGFscene {
     }
 
     /**
-     * Initializes lights for the scene
+     * Initializes scene's light
      */
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -325,59 +328,50 @@ class MyScene extends CGFscene {
      * Checks user input from keyboard to interact with the vehicle
      */
     checkKeys() {
-        if (!this.block) {
+        if (!this.blockMovement) {
             if (this.gui.isKeyPressed("KeyW")) {
                 this.vehicle.accelerate(0.01 * this.speedFactor);
             }
             if (this.gui.isKeyPressed("KeyS")) {
-                this.vehicle.accelerate(-0.005 * this.speedFactor);
+                this.vehicle.accelerate(-0.008 * this.speedFactor);
             }
             if (this.gui.isKeyPressed("KeyA")) {
                 this.vehicle.turn(Math.PI / 90);
-                this.vehicle.rudder(0);
+                this.vehicle.rudderDirection(0);
             }
             if (this.gui.isKeyPressed("KeyD")) {
                 this.vehicle.turn(-Math.PI / 90);
-                this.vehicle.rudder(1);
+                this.vehicle.rudderDirection(1);
             }
-            if ((this.gui.isKeyPressed("KeyA") && this.gui.isKeyPressed("KeyD")) || (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))) {
-                this.vehicle.rudder(2);
+            if (!this.gui.isKeyPressed("KeyD") && !this.gui.isKeyPressed("KeyA")) {
+                this.vehicle.rudderDirection(-1);
             }
-            if (this.gui.isKeyPressed("KeyR")) {
+        }
+        if (this.gui.keyPressedDown("KeyP")) {
+            this.vehicle.setAutoPilot();
+            this.blockMovement = !this.blockMovement;
+        }
+        if (this.gui.keyPressedDown("KeyL")) {
+            if (this.selectSupply < 5) {
+                this.supplies[this.selectSupply].drop(this.vehicle.posX, this.vehicle.posY, this.vehicle.posZ, this.scaleFactor, this.vehicle.velocity, this.vehicle.angleY);
+                this.selectSupply++;
+            }
+        }
+        if (this.gui.isKeyPressed("KeyR")) {
+                this.blockMovement = false;
                 this.vehicle.reset();
                 for (var i = 0; i < 5; i++) {
                     this.supplies[i].reset();
                     this.selectSupply = 0;
                 }
-            }
-            if (this.gui.keyPressedDown("KeyL")) {
-                if (this.selectSupply < 5) {
-                    this.supplies[this.selectSupply].drop(this.vehicle.posX, this.vehicle.posY, this.vehicle.posZ, this.scaleFactor, this.vehicle.velocity, this.vehicle.angleY);
-                    this.selectSupply++;
-                }
-            }
-        }
-        if (this.gui.keyPressedDown("KeyP")) {
-            this.vehicle.setAutoPilot();
-            this.block = !this.block;
         }
     }
 
     /**
-     * Method for updating vehicle's textures using the interface selexted texture
+     * Method for updating activate and deactivate music through interface
      */
-    updateVehicleTexture() {
-        this.cube.setNewTextures(this.textures[this.selectedTexture]);
-        if (this.selectedTexture == 4 || this.selectedTexture == 5) {
-            this.audioMLP.loop = true;
-            this.audioMLP.play();
-        } else {
-            this.audioMLP.pause();
-            this.audioMLP.currentTime = 0;
-        }
-    }
     updateMusic() {
-        if (this.music) {
+        if (this.musicActive) {
             if (this.selectedTexture == 0 || this.selectedTexture == 5) {
                 this.audioMLP.loop = true;
                 this.audioMLP.play();

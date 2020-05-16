@@ -16,6 +16,7 @@ class MyWing extends CGFobject {
             this.zeppelinMaterial.setShininess(5.0);
             this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
       }
+      
       /**
        * Changes the current applied textures
        * @param {Array<Object>} textures Array with 2 textures which are applied to the wings
@@ -24,6 +25,7 @@ class MyWing extends CGFobject {
             this.frontWing = texture[0];
             this.backWing = texture[1];
       }
+
       /**
        * Displauys the wings in a certain position
        */

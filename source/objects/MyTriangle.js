@@ -8,26 +8,27 @@ class MyTriangle extends CGFobject {
     super(scene)
     this.initBuffers();
   }
+
   /**
    * @method initBuffers
    * Initializes Triangle's buffers
    */
   initBuffers() {
-		this.vertices = [
-			-1, 1, 0,	//0
-			-1, -1, 0,	//1
-			1, -1, 0	//2
-		];
+    this.vertices = [
+      -1, 1, 0, //0
+      -1, -1, 0, //1
+      1, -1, 0 //2
+    ];
 
-		//Counter-clockwise reference of vertices
-		this.indices = [
-			0, 1, 2,
+    //Counter-clockwise reference of vertices
+    this.indices = [
+      0, 1, 2,
       1, 0, 2,
-		];
+    ];
 
     this.normals = [];
     for (var i = 0; i <= 2; i++) {
-        this.normals.push(0, 0, 1);
+      this.normals.push(0, 0, 1);
     }
     this.texCoords = [
       0, 0.75,
@@ -35,7 +36,7 @@ class MyTriangle extends CGFobject {
       0.5, 1,
     ];
 
-		this.primitiveType = this.scene.gl.TRIANGLES;
-		this.initGLBuffers();
-	}
+    this.primitiveType = this.scene.gl.TRIANGLES;
+    this.initGLBuffers();
+  }
 }

@@ -20,7 +20,7 @@ class MyVehicle extends CGFobject {
         this.flag = new MyFlag(scene);
 
         /* Auto pilot variables */
-        this.auto = false;
+        this.autoPilot = false;
         this.autoPilotConfigured = false;
         this.previousTime = 0;
         this.xCenter = 0;
@@ -29,6 +29,7 @@ class MyVehicle extends CGFobject {
 
         this.position = 0;
     }
+
     /**
      * Set Method for changing current textures
      * @param {Array<Object>} textures Array with 4 textures which are applied to the vehicle
@@ -37,45 +38,14 @@ class MyVehicle extends CGFobject {
         this.zeppelin.updateTextures(textures[0], textures[1], textures[2], textures[3]);
         this.flag.updateTextures(textures[4]);
     }
+
     /**
      * Changes auto pilot state (on->off or off->on)
      */
     setAutoPilot() {
-        this.auto = !this.auto;
+        this.autoPilot = !this.autoPilot;
     }
-    /**
-     * Updates vehicle's attributes depending on user input and time passed
-     * @param {number} t current time of the program, in ms
-     */
-    update(t) {
-        var deltaT = t - this.previousTime;
-        if (this.auto) {
-            let vAng = (Math.PI * 2) / 5000;
 
-            if (!this.autoPilotConfigured) {
-                this.xCenter = this.posX + Math.cos(this.angleY) * 5;
-                this.zCenter = this.posZ - Math.sin(this.angleY) * 5;
-                this.velocity = vAng * 5; // to see helix
-                this.autoPilotConfigured = true;
-            } else {
-                this.angleY += vAng * deltaT;
-                this.posX = -Math.cos(this.angleY) * 5 + this.xCenter;
-                this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
-            }
-        } else {
-            this.posX += Math.sin(this.angleY) * this.velocity;
-            this.posZ += Math.cos(this.angleY) * this.velocity;
-            this.autoPilotConfigured = false;
-        }
-        this.zeppelin.rotateHelix(this.velocity);
-        
-        this.position += this.velocity* (deltaT /1000);
-
-        this.flag.setTime(t / 100 % 1000);
-        this.flag.setPos(this.position);
-
-        this.previousTime = t;
-    }
     /**
      * Turns the vehicle
      * @param {number} val vehicle angle for turning
@@ -83,13 +53,15 @@ class MyVehicle extends CGFobject {
     turn(val) {
         this.angleY += val;
     }
+
     /**
      * Rotates the vehicle's rudder
      * @param {number} direction 0 for left, 1 for right
      */
-    rudder(direction) {
+    rudderDirection(direction) {
         this.zeppelin.rotateRudder(direction);
     }
+    
     /**
      * Changes vehicle's current speed
      * @param {number} val value of accelaration
@@ -100,6 +72,7 @@ class MyVehicle extends CGFobject {
         this.velocity = Math.min(this.velocity,1);
 
     }
+
     /**
      * Resets the obejcts's atrributes to its default state
      */
@@ -109,21 +82,59 @@ class MyVehicle extends CGFobject {
         this.posX = 0;
         this.posZ = 0;
         this.position = 0;
-        this.zeppelin.rudderRotateAngle = 0;
+        this.zeppelin.rudderRotateAngle = 0; // ???
+        this.autoPilot = false;
+        this.autoPilotConfigured = false;
     }
+
+    /**
+     * Updates vehicle's attributes depending on user input and time passed
+     * @param {number} t current time of the program, in ms
+     */
+    update(t) {
+        var deltaT = t - this.previousTime;
+        if (this.autoPilot) {
+            let vAng = (Math.PI * 2) / 5000;
+
+            if (!this.autoPilotConfigured) {
+                this.velocity = vAng * 5;
+                this.xCenter = this.posX + Math.cos(this.angleY) * 5;
+                this.zCenter = this.posZ - Math.sin(this.angleY) * 5;
+                this.autoPilotConfigured = true;
+            } else {
+                this.angleY += vAng * deltaT;
+                this.posX = -Math.cos(this.angleY) * 5 + this.xCenter;
+                this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
+                this.zeppelin.rotateRudder(0);
+            }
+        } else {
+            this.posX += Math.sin(this.angleY) * this.velocity;
+            this.posZ += Math.cos(this.angleY) * this.velocity;
+            this.autoPilotConfigured = false;
+        }
+
+        this.position += this.velocity * (deltaT /1000);
+
+        this.zeppelin.rotateHelix(this.velocity);
+        
+        this.flag.setTime(t / 100 % 1000);
+        this.flag.setPos(this.position);
+
+        this.previousTime = t;
+    }
+
     /**
      * Displays the vehicle in it's current position
      */
     display() {
         this.scene.pushMatrix();
-        /* Update Vehicle Coordinates */
+        // --- Update Coordinates
         this.scene.translate(this.posX, this.posY, this.posZ);
 
-        /* Rotate Vehicle */
+        // --- Vehicle
         this.scene.rotate(this.angleY, 0, 1, 0);
         this.zeppelin.display();
-
-        /* Flag */
+        // --- Flag
         this.flag.display();
 
         this.scene.popMatrix();
@@ -132,12 +143,14 @@ class MyVehicle extends CGFobject {
      * Enables visualization of Object's normals
      */
     enableNormalViz() {
+        //this.flag.enableNormalViz();
         this.zeppelin.enableNormalViz();
     }
     /**
      * Disables visualization of Object's normals
      */
     disableNormalViz() {
+        //this.flag.disableNormalViz();
         this.zeppelin.disableNormalViz();
     }
 

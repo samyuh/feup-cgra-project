@@ -7,13 +7,15 @@ class MyTerrain extends CGFobject {
         constructor(scene) {
                 super(scene);
 
-                this.plane = new MyPlane(scene, 50);
+                this.plane = new MyPlane(scene, 30);
 
                 this.terrainShader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
-
-                
         }
 
+        /**
+         * Set Method for changing current textures
+         * @param {Array<Object>} textures Array with 2 textures which are applied to the terrain
+         */
         updateTextures(textures) {
                 this.terrainTex = textures[0];
                 this.terrainMap = textures[1];

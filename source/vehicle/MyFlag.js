@@ -13,21 +13,40 @@ class MyFlag extends CGFobject {
         
 		this.initBuffers();
     }
+
+    /**
+     * Set Method for changing current textures
+     * @param {Array<Object>} texture Array with 2 textures which is applied to the vflag
+     */
     updateTextures(texture) {
         this.flagTex = texture[0];
+        // To do : Cordas
 
         this.flagFrontShader.setUniformsValues({ flagTex: 0 });
         this.flagBackShader.setUniformsValues({ flagTex: 0 });
-        
     }
-    setTime(pos) {
-        this.flagFrontShader.setUniformsValues({ timeFactor: pos });
-        this.flagBackShader.setUniformsValues({ timeFactor: pos });  
+
+    /**
+     * Set uniform value for time
+     * @param {number} time
+     */
+    setTime(time) {
+        this.flagFrontShader.setUniformsValues({ timeFactor: time });
+        this.flagBackShader.setUniformsValues({ timeFactor: time });  
     }
+
+    /**
+     * Set uniform value for time
+     * @param {number} pos
+     */
     setPos(pos) {
         this.flagFrontShader.setUniformsValues({ position : pos });
         this.flagBackShader.setUniformsValues({ position : pos });
     }
+    
+    /**
+     * Displays the flag
+     */
 	display() {
         this.scene.setActiveShader(this.flagFrontShader);
         this.flagTex.bind(0);

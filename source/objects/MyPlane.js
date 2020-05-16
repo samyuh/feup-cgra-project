@@ -15,6 +15,7 @@ class MyPlane extends CGFobject{
 		this.w = (this.maxT - this.minT) / this.nrDivs;
 		this.initBuffers();
 	}
+
 	/**
    * @method initBuffers
    * Initializes Plane's buffers
@@ -53,17 +54,18 @@ class MyPlane extends CGFobject{
 		this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
 		this.initGLBuffers();
 	}
+
 	/**
 	 * Set Method to enable Fill mode (Uses triangles)
 	 */
 	setFillMode() { 
 		this.primitiveType=this.scene.gl.TRIANGLE_STRIP;
 	}
+
 	/**
 	 * Set Method to enable Line mode (Uses lines)
 	 */
-	setLineMode() 
-	{ 
+	setLineMode() { 
 		this.primitiveType=this.scene.gl.LINES;
 	};
 

@@ -16,6 +16,7 @@ class MyZeppelin extends CGFobject {
         this.helixRotateAngle = 0;
         this.rudderRotateAngle = 0;
     }
+
     /**
      * Updates zeppelin's textures
      * @param {*} bodyTexture New texture for the zeppelin's body
@@ -29,6 +30,7 @@ class MyZeppelin extends CGFobject {
         this.wing.updateTextures(wingTextures);
         this.helix.updateTextures(helixTextures);
     }
+
     /**
      * Rotates the zeppelin helix
      * @param {number} velocity helix rotation velocity
@@ -36,6 +38,7 @@ class MyZeppelin extends CGFobject {
     rotateHelix(velocity) {
         this.helixRotateAngle += Math.PI / 25 * (velocity * 15 + 1.0);
     }
+
     /**
      * Rotates the zeppelin's rudder
      * @param {number} direction Direction vehicle is supposed to turn. 0 for negative rotation, 1 for positive rotation
@@ -62,8 +65,9 @@ class MyZeppelin extends CGFobject {
                 break;
         }
     }
+
     /**
-     * Displays the zeppelin in a certain position
+     * Displays the zeppelin
      */
     display() {
         
