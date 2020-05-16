@@ -38,21 +38,27 @@ class MyZeppelin extends CGFobject {
     }
     /**
      * Rotates the zeppelin's rudder
-     * @param {number} max Maximum value of rudder rotation
-     * @param {number} signal Value added to the rotation, if max is not surpassed
+     * @param {number} direction Direction vehicle is supposed to turn. 0 for negative rotation, 1 for positive rotation
      */
-    rotateRudder(signal) {
-        //this.rudderRotateAngle = (Math.abs(this.rudderRotateAngle) >= Math.abs(max) ? max : this.rudderRotateAngle + (Math.PI / 200) * signal);
-        switch(signal){
+    rotateRudder(direction) {
+        var errorTolerance = Math.PI / 300;
+        var increment = Math.PI / 200;
+        var maxRudderAngle = Math.PI / 20;
+
+        switch(direction) {
             case 0:
-                if(this.rudderRotateAngle >= -Math.PI / 12)
-                    this.rudderRotateAngle -= Math.PI / 200;
+                if(this.rudderRotateAngle >= -maxRudderAngle)
+                    this.rudderRotateAngle -= increment;
                 break;
             case 1:
-                if(this.rudderRotateAngle <= Math.PI / 12)
-                    this.rudderRotateAngle += Math.PI / 200;
+                if(this.rudderRotateAngle <= maxRudderAngle)
+                    this.rudderRotateAngle += increment;
                 break;
-            case 2:
+            default:
+                if (this.rudderRotateAngle >= errorTolerance) 
+                    this.rudderRotateAngle -= increment;
+                else if (this.rudderRotateAngle <= -errorTolerance) 
+                    this.rudderRotateAngle += increment;
                 break;
         }
     }

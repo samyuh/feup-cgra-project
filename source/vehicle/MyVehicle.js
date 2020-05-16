@@ -85,19 +85,10 @@ class MyVehicle extends CGFobject {
     }
     /**
      * Rotates the vehicle's rudder
-     * @param {number} i 0 for negative rotation, 1 for positive rotation
+     * @param {number} direction 0 for left, 1 for right
      */
-    leme(i) {
-        switch (i) {
-            case 0:
-                this.zeppelin.rotateRudder(0);
-                return;
-            case 1:
-                this.zeppelin.rotateRudder(1);
-                return;
-            default:
-                this.zeppelin.rotateRudder(2);
-        }
+    rudder(direction) {
+        this.zeppelin.rotateRudder(direction);
     }
     /**
      * Changes vehicle's current speed
