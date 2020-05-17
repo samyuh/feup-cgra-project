@@ -7,20 +7,19 @@ class MyFlag extends CGFobject {
 	constructor(scene) {
         super(scene);
         
-        this.flag = new MyPlane(scene, 50);
+        this.plane = new MyPlane(scene, 50);
         this.flagFrontShader = new CGFshader(this.scene.gl, "shaders/flagFront.vert", "shaders/flag.frag");
         this.flagBackShader = new CGFshader(this.scene.gl, "shaders/flagBack.vert", "shaders/flag.frag");
         
 		this.initBuffers();
     }
-
     /**
      * Set Method for changing current textures
      * @param {Array<Object>} texture Array with 2 textures which is applied to the vflag
      */
     updateTextures(texture) {
         this.flagTex = texture[0];
-        // To do : Cordas
+        this.ropeTex = texture[1];
 
         this.flagFrontShader.setUniformsValues({ flagTex: 0 });
         this.flagBackShader.setUniformsValues({ flagTex: 0 });
@@ -48,22 +47,58 @@ class MyFlag extends CGFobject {
      * Displays the flag
      */
 	display() {
+        // -- Front-- //
+        this.scene.pushMatrix();
         this.scene.setActiveShader(this.flagFrontShader);
+        
+        // -- Flag -- //
+        this.scene.pushMatrix();
         this.flagTex.bind(0);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.scene.translate(3, 0, 0);
         this.scene.scale(3, 0.8, 1);
-        this.flag.display();
+        this.plane.display();
+        this.flagTex.unbind(0);
+        this.scene.popMatrix();
+        // -- Rope -- //
+        this.scene.pushMatrix();
+        this.ropeTex.bind(0);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.scene.translate(0.75, 0, 0);
+        this.scene.scale(1.5, 0.1, 1);
+        this.plane.display();
+        this.ropeTex.unbind(0);
+        this.scene.popMatrix();
+        this.scene.popMatrix();
+
+        // -- Back -- //
+        this.scene.pushMatrix();
+        this.scene.setActiveShader(this.flagBackShader);
+        
+        // -- Flag -- //
+        this.scene.pushMatrix();
+        this.flagTex.bind(0);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.scene.translate(3, 0, 0);
+        this.scene.scale(3, 0.8, 1);
+        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.plane.display();
+        this.flagTex.unbind(0);
+        this.scene.popMatrix();
+        // -- Rope -- //
+        this.scene.pushMatrix();
+        this.ropeTex.bind(0);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.scene.translate(0.75, 0, 0);
+        this.scene.scale(1.5, 0.1, 1);
+        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.plane.display();
+        this.ropeTex.unbind(0);
+        this.scene.popMatrix();
+        this.scene.popMatrix();
+        
         this.scene.setActiveShader(this.scene.defaultShader);
 
-        this.scene.setActiveShader(this.flagBackShader);
-        this.flagTex.bind(0);
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI,0,1,0);
-        this.flag.display();
-        this.scene.popMatrix();
-        this.scene.setActiveShader(this.scene.defaultShader);
-        
 		this.initGLBuffers();
 	}
 }

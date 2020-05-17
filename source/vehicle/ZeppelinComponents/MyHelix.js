@@ -10,9 +10,9 @@ class MyHelix extends CGFobject {
             this.rotateAngle = 0;
 
             this.zeppelinMaterial = new CGFappearance(scene);
-            this.zeppelinMaterial.setAmbient(1, 1, 1, 1);
-            this.zeppelinMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
-            this.zeppelinMaterial.setSpecular(0.5, 0.5, 0.5, 1);
+            this.zeppelinMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
+            this.zeppelinMaterial.setDiffuse(1.0, 1.0, 1.0, 1.0);
+            this.zeppelinMaterial.setSpecular(1.0, 1.0, 1.0, 1.0);
             this.zeppelinMaterial.setShininess(5.0);
             this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
       }

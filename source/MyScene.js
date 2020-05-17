@@ -227,7 +227,8 @@ class MyScene extends CGFscene {
         ];
 
         var flagZeppelinRainbowDash = [
-            new CGFtexture(this, "textures/zeppellin/rainbowdash/flag.png")
+            new CGFtexture(this, "textures/zeppellin/rainbowdash/flag.png"),
+            new CGFtexture(this, "textures/zeppellin/rainbowdash/rope.png")
         ];
 
         this.zeppelinRainbowDash = [bodyZeppelinRainbowDash, waggonZeppelinRainbowDash, wingZeppelinRainbowDash,
@@ -254,7 +255,8 @@ class MyScene extends CGFscene {
         ];
 
         var flagZeppelinRainbowClassic = [
-            new CGFtexture(this, "textures/zeppellin/classic/flag.png")
+            new CGFtexture(this, "textures/zeppellin/classic/flag.png"),
+            new CGFtexture(this, "textures/zeppellin/classic/rope.png")          
         ];
 
         this.zeppelinClassic = [bodyZeppelinClassic, waggonZeppelinClassic, wingZeppelinClassic, helixZeppelinClassic, flagZeppelinRainbowClassic];

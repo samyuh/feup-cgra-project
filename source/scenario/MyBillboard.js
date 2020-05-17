@@ -12,9 +12,9 @@ class MyBillboard extends CGFobject {
 
     //Textures
     this.material = new CGFappearance(scene);
-    this.material.setAmbient(1, 1, 1, 1);
-    this.material.setDiffuse(0, 0, 0, 1);
-    this.material.setSpecular(0, 0, 0, 1);
+    this.material.setAmbient(1.0, 1.0, 1.0, 1.0);
+    this.material.setDiffuse(0.6, 0.6, 0.6, 1.0);
+    this.material.setSpecular(0.4, 0.4, 0.4, 1.0);
     this.material.setShininess(5.0);
     this.material.setTextureWrap('REPEAT', 'REPEAT');
 

@@ -10,6 +10,7 @@ class MyQuad extends CGFobject {
 		if (coords != undefined)
 			this.updateTexCoords(coords);
 	}
+	
 	/**
    * @method initBuffers
    * Initializes Quad's buffers
