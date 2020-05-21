@@ -8,20 +8,14 @@ class MyWing extends CGFobject {
             super(scene);
             this.square = new MySquare(scene);
             this.triangle = new MyTriangle(scene);
-
-            this.zeppelinMaterial = new CGFappearance(scene);
-            this.zeppelinMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
-            this.zeppelinMaterial.setDiffuse(0.8, 0.8, 0.8, 1.0);
-            this.zeppelinMaterial.setSpecular(0.5, 0.5, 0.5, 1.0);
-            this.zeppelinMaterial.setShininess(5.0);
-            this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
       }
       
       /**
        * Changes the current applied textures
        * @param {Array<Object>} textures Array with 2 textures which are applied to the wings
        */
-      updateTextures(texture) {
+      updateTextures(texture, zeppelinMaterial) {
+            this.zeppelinMaterial = zeppelinMaterial;
             this.frontWing = texture[0];
             this.backWing = texture[1];
       }

@@ -7,20 +7,14 @@ class MyBody extends CGFobject {
     constructor(scene) {
         super(scene);
         this.sphere = new MySphere(scene, 16, 8);
-
-        this.zeppelinMaterial = new CGFappearance(scene);
-        this.zeppelinMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
-        this.zeppelinMaterial.setDiffuse(0.8, 0.8, 0.8, 1.0);
-        this.zeppelinMaterial.setSpecular(0.5, 0.5, 0.5, 1.0);
-        this.zeppelinMaterial.setShininess(5.0);
-        this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     /**
      * Changes the current applied textures
      * @param {Object} texture  texture  applied to the body
      */
-    updateTextures(texture) {
+    updateTextures(texture, zeppelinMaterial) {
+        this.zeppelinMaterial = zeppelinMaterial;
         this.body = texture;
     }
     

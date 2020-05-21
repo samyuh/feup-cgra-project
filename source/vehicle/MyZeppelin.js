@@ -15,8 +15,14 @@ class MyZeppelin extends CGFobject {
         /* Rotation Variables */
         this.helixRotateAngle = 0;
         this.rudderRotateAngle = 0;
-    }
 
+        this.zeppelinMaterial = new CGFappearance(scene);
+        this.zeppelinMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
+        this.zeppelinMaterial.setDiffuse(0.8, 0.8, 0.8, 1.0);
+        this.zeppelinMaterial.setSpecular(0.5, 0.5, 0.5, 1.0);
+        this.zeppelinMaterial.setShininess(5.0);
+        this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
+    }
     /**
      * Updates zeppelin's textures
      * @param {*} bodyTexture New texture for the zeppelin's body
@@ -25,10 +31,10 @@ class MyZeppelin extends CGFobject {
      * @param {*} helixTextures New texture for the zeppelin's helix
      */
     updateTextures(bodyTexture, waggonTextures, wingTextures, helixTextures) {
-        this.body.updateTextures(bodyTexture);
-        this.waggon.updateTextures(waggonTextures);
-        this.wing.updateTextures(wingTextures);
-        this.helix.updateTextures(helixTextures);
+        this.body.updateTextures(bodyTexture, this.zeppelinMaterial);
+        this.waggon.updateTextures(waggonTextures, this.zeppelinMaterial);
+        this.wing.updateTextures(wingTextures, this.zeppelinMaterial);
+        this.helix.updateTextures(helixTextures, this.zeppelinMaterial);
     }
 
     /**

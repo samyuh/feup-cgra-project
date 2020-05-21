@@ -97,7 +97,7 @@ class MyVehicle extends CGFobject {
             let vAng = (Math.PI * 2) / 5000;
 
             if (!this.autoPilotConfigured) {
-                this.velocity = vAng * 5;
+                //this.velocity = this.angleY * 5;
                 this.xCenter = this.posX + Math.cos(this.angleY) * 5;
                 this.zCenter = this.posZ - Math.sin(this.angleY) * 5;
                 this.autoPilotConfigured = true;
@@ -105,17 +105,17 @@ class MyVehicle extends CGFobject {
                 this.angleY += vAng * deltaT;
                 this.posX = -Math.cos(this.angleY) * 5 + this.xCenter;
                 this.posZ = Math.sin(this.angleY) * 5 + this.zCenter;
+                this.zeppelin.rotateHelix(this.angleY * 5 / deltaT);
                 this.zeppelin.rotateRudder(0);
             }
         } else {
             this.posX += Math.sin(this.angleY) * this.velocity;
             this.posZ += Math.cos(this.angleY) * this.velocity;
+            this.zeppelin.rotateHelix(this.velocity);
             this.autoPilotConfigured = false;
         }
 
         this.position += this.velocity * (deltaT /1000);
-
-        this.zeppelin.rotateHelix(this.velocity);
         
         this.flag.setTime(t / 100 % 1000);
         this.flag.setPos(this.position);

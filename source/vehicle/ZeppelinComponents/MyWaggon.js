@@ -8,20 +8,14 @@ class MyWaggon extends CGFobject {
         super(scene);
         this.sphere = new MySphere(scene, 16, 8);
         this.cylinder = new MyCylinder(scene, 100);
-
-        this.zeppelinMaterial = new CGFappearance(scene);
-        this.zeppelinMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
-        this.zeppelinMaterial.setDiffuse(0.8, 0.8, 0.8, 1.0);
-        this.zeppelinMaterial.setSpecular(0.5, 0.5, 0.5, 1.0);
-        this.zeppelinMaterial.setShininess(5.0);
-        this.zeppelinMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     /**
      * Changes the current applied textures
      * @param {Array<Object>} textures Array with 3 textures which are applied to the waggon
      */
-    updateTextures(textures) {
+    updateTextures(textures, zeppelinMaterial) {
+        this.zeppelinMaterial = zeppelinMaterial;
         this.mainWaggon = textures[0];
         this.frontWaggon = textures[1];
         this.backWaggon = textures[2];

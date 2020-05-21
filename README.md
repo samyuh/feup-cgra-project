@@ -1,5 +1,7 @@
 # Magical Zeppelin
 
+![University](https://img.shields.io/badge/FEUP-MIEIC-red)
+
 **Short Description**: Final project built with WebGL using the library [WebCGF](https://paginas.fe.up.pt/~ruirodrig/pub/sw/webcgf/docs/)
 
 **Institution**: [FEUP](https://sigarra.up.pt/feup/en/web_page.Inicial)
