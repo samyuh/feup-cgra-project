@@ -64,6 +64,7 @@ class MyScene extends CGFscene {
         this.audioMLP.volume = 0.05;
         // -- Vehicle
         this.selectedZeppelin = 0;
+        this.selectedBox = 0;
         this.displayVehicle = true;
         this.speedFactor = 1;
         this.scaleFactor = 1;
@@ -79,12 +80,14 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.initZeppelinTextures();
+        this.initBoxTextures();
         this.initSkyBoxTextures();
         this.initTerrainTextures();
 
-        this.updateTerrainTextures();
-        this.updateSkyBoxTextures();
         this.updateZeppelinTexture();
+        this.updateBoxTexture();
+        this.updateSkyBoxTextures();
+        this.updateTerrainTextures();
     }
 
     /**
@@ -202,7 +205,6 @@ class MyScene extends CGFscene {
     updateTerrainTextures() {
         this.terrain.updateTextures(this.terrainTextures[this.selectedTerrainTexture]);
     }
-
     /**
      * Initializes textures used on zeppelin
      */
@@ -230,6 +232,8 @@ class MyScene extends CGFscene {
             new CGFtexture(this, "textures/zeppellin/rainbowdash/flag.png"),
             new CGFtexture(this, "textures/zeppellin/rainbowdash/rope.png")
         ];
+
+
 
         this.zeppelinRainbowDash = [bodyZeppelinRainbowDash, waggonZeppelinRainbowDash, wingZeppelinRainbowDash,
             helixZeppelinRainbowDash, flagZeppelinRainbowDash
@@ -259,7 +263,8 @@ class MyScene extends CGFscene {
             new CGFtexture(this, "textures/zeppellin/classic/rope.png")          
         ];
 
-        this.zeppelinClassic = [bodyZeppelinClassic, waggonZeppelinClassic, wingZeppelinClassic, helixZeppelinClassic, flagZeppelinRainbowClassic];
+        this.zeppelinClassic = [bodyZeppelinClassic, waggonZeppelinClassic, wingZeppelinClassic,
+             helixZeppelinClassic, flagZeppelinRainbowClassic];
 
         this.zeppelinTextures = [this.zeppelinRainbowDash, this.zeppelinClassic];
 
@@ -268,6 +273,24 @@ class MyScene extends CGFscene {
             'Classic': 1,
         };
 
+    }
+
+    initBoxTextures() {
+        var boxZeppelinRainbowDash = new CGFtexture(this, "textures/zeppellin/rainbowdash/box.png");
+
+        var boxZeppelinClassic = new CGFtexture(this, "textures/zeppellin/classic/box.png");
+
+        this.boxTextures = [boxZeppelinRainbowDash, boxZeppelinClassic];
+
+        this.boxTextureIds = {
+            'Rainbow Dash': 0,
+            'Companion Cube s2': 1,
+        };
+    }
+    updateBoxTexture() {
+        for (var i = 0; i < 5; i++) {
+            this.supplies[i].updateTextures(this.boxTextures[this.selectedBox]);
+        }
     }
 
     /**

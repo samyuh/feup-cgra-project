@@ -43,15 +43,6 @@ class MySupply extends CGFobject {
         this.rot = 0;
         this.rescale = 1;
 
-        //-- Falling Cube Textures
-        var fallingTextures = [
-            new CGFtexture(scene, 'textures/zeppellin/cube.png'),
-            new CGFtexture(scene, 'textures/zeppellin/cube.png'),
-            new CGFtexture(scene, 'textures/zeppellin/cube.png'),
-        ];
-
-        this.quad.setNewTextures(fallingTextures);
-
         // -- Ground Textures
         this.boxGroundMaterial = new CGFappearance(scene);
         this.boxGroundMaterial.setAmbient(1, 1, 1, 1);
@@ -59,11 +50,21 @@ class MySupply extends CGFobject {
         this.boxGroundMaterial.setSpecular(1, 1, 1, 1);
         this.boxGroundMaterial.setShininess(5.0);
         this.boxGroundMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        this.boxGroundMaterial.setTexture(new CGFtexture(scene, 'textures/zeppellin/cube.png'));
 
         // -- Boxes will always fall on a pentagon like form with:
         // Random rotations
         this.rotations = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()]
+    }
+    updateTextures(boxTexture) {
+        this.boxGroundMaterial.setTexture(boxTexture);
+
+        var fallingTextures = [
+            boxTexture,
+            boxTexture,
+            boxTexture,
+        ];
+
+        this.quad.setNewTextures(fallingTextures);
     }
 
     /**

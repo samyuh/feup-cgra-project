@@ -31,6 +31,7 @@ class MyInterface extends CGFinterface {
         
         var fVehicle = this.gui.addFolder('Vehicle Config');
         fVehicle.add(this.scene, 'selectedZeppelin', this.scene.zeppelinTextureIds).name('Selected Texture').onChange(this.scene.updateZeppelinTexture.bind(this.scene));
+        fVehicle.add(this.scene, 'selectedBox', this.scene.boxTextureIds).name('Selected Box Texture').onChange(this.scene.updateBoxTexture.bind(this.scene));
         fVehicle.add(this.scene, 'displayVehicle').name('Display Vehicle');
         fVehicle.add(this.scene, 'speedFactor', 0.1, 3.0).name('Speed Factor');
         fVehicle.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale Factor');
