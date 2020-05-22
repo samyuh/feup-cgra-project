@@ -6,20 +6,20 @@
 class MyVehicle extends CGFobject {
     constructor(scene, initialPosY) {
         super(scene);
-        /* Vehicle main variables */
+        // -- Vehicle main variables -- //
         this.velocity = 0;
         this.angleY = 0;
         this.posX = 0;
         this.posY = initialPosY;
         this.posZ = 0;
 
-        /* Vehicle model */
+        // -- Vehicle model -- //
         this.zeppelin = new MyZeppelin(scene, 5, 1);
 
-        /* Vehicle flag */
+        // -- Vehicle flag -- //
         this.flag = new MyFlag(scene);
 
-        /* Auto pilot variables */
+        // -- Auto pilot variables -- //
         this.autoPilot = false;
         this.autoPilotConfigured = false;
         this.previousTime = 0;
@@ -97,7 +97,7 @@ class MyVehicle extends CGFobject {
             let vAng = (Math.PI * 2) / 5000;
 
             if (!this.autoPilotConfigured) {
-                //this.velocity = this.angleY * 5;
+                // -- this.velocity = this.angleY * 5;
                 this.xCenter = this.posX + Math.cos(this.angleY) * 5;
                 this.zCenter = this.posZ - Math.sin(this.angleY) * 5;
                 this.autoPilotConfigured = true;
@@ -128,13 +128,15 @@ class MyVehicle extends CGFobject {
      */
     display() {
         this.scene.pushMatrix();
-        // --- Update Coordinates
+
+        // -- Update Coordinates -- //
         this.scene.translate(this.posX, this.posY, this.posZ);
 
-        // --- Vehicle
+        // -- Vehicle -- //
         this.scene.rotate(this.angleY, 0, 1, 0);
         this.zeppelin.display();
-        // --- Flag
+
+        // -- Flag -- //
         this.flag.display();
 
         this.scene.popMatrix();

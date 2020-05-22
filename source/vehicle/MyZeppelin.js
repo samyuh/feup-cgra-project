@@ -6,13 +6,13 @@
 class MyZeppelin extends CGFobject {
     constructor(scene) {
         super(scene);
-        /* Zeppelin Components (Let's build it like a lego building :P) */
+        // -- Zeppelin Components (Let's build it like a lego building :P) -- //
         this.body = new MyBody(scene);
         this.wing = new MyWing(scene);
         this.helix = new MyHelix(scene);
         this.waggon = new MyWaggon(scene);
 
-        /* Rotation Variables */
+        // -- Rotation Variables -- //
         this.helixRotateAngle = 0;
         this.rudderRotateAngle = 0;
 
@@ -77,40 +77,40 @@ class MyZeppelin extends CGFobject {
      */
     display() {
         
-        // Zeppelin body
+        // -- Zeppelin body -- //
         this.body.display();
 
-        // Waggon 
+        // -- Waggon -- //
         this.waggon.display();
 
-        // Wings
-        // Top and Bottom Wings 
-        // Rudder Rotation
+        // -- Wings -- //
+        // -- Top and Bottom Wings -- //
+        // -- Rudder Rotation -- //
         this.scene.pushMatrix();
         this.scene.rotate(this.rudderRotateAngle, 0, 1, 1);
         
-        // Top Wing
+        // -- Top Wing -- //
         this.scene.pushMatrix();
         this.scene.translate(0, 0.4, -1);
         this.scene.scale(5/8, 5/8, -5/8);
         this.wing.display();
         this.scene.popMatrix();
-        // Bottom Wing 
+        // -- Bottom Wing 
         this.scene.pushMatrix();
         this.scene.translate(0, -0.4, -1);
         this.scene.scale(5/8, -5/8, -5/8);
         this.wing.display();
         this.scene.popMatrix();
         this.scene.popMatrix();
-        // Right and Left Wings 
-        // Right Wing 
+        // -- Right and Left Wings -- //
+        // -- Right Wing -- //
         this.scene.pushMatrix();
         this.scene.translate(-0.4, 0, -1);
         this.scene.rotate(Math.PI / 2, 0, 0, 1)
         this.scene.scale(5/8, 5/8, -5/8);
         this.wing.display();
         this.scene.popMatrix();
-        // Left Wing 
+        // Left Wing -- //
         this.scene.pushMatrix();
         this.scene.translate(0.4, 0, -1);
         this.scene.rotate(Math.PI / 2, 0, 0, 1)
@@ -118,8 +118,8 @@ class MyZeppelin extends CGFobject {
         this.wing.display();
         this.scene.popMatrix();
 
-        // Helix and Turbine 
-        // Left Helix 
+        // -- Helix and Turbine -- //
+        // -- Left Helix -- //
         this.scene.pushMatrix();
         this.scene.translate(-0.11, 0, 0);
         this.helix.rotateHelix(this.helixRotateAngle);
@@ -127,7 +127,7 @@ class MyZeppelin extends CGFobject {
         this.scene.scale(1 / 16, 1 / 16, 1 / 16);
         this.helix.display();
         this.scene.popMatrix();
-        // Right Helix 
+        // -- Right Helix -- //
         this.scene.pushMatrix();
         this.scene.translate(0.11, 0, 0);
         this.helix.rotateHelix(this.helixRotateAngle);

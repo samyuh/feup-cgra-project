@@ -3,20 +3,15 @@
 ![University](https://img.shields.io/badge/FEUP-MIEIC-red)
 
 **Short Description**: Final project built with WebGL using the library [WebCGF](https://paginas.fe.up.pt/~ruirodrig/pub/sw/webcgf/docs/)
-
 **Institution**: [FEUP](https://sigarra.up.pt/feup/en/web_page.Inicial)
-
 **Course**: [MIEIC](https://sigarra.up.pt/feup/en/cur_geral.cur_view?pv_curso_id=742&pv_ano_lectivo=2019)
-
 **Curricular Unit**: [CGRA](https://sigarra.up.pt/feup/en/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=399891) (Computer Graphics)
 
 ### Description
 
 The aim of this project was built a WebGL scene using transformations, illumination, materials, textures and shaders that we learned in practical classes. The source code that I did in practical classes can be found in [this repository]().
 
-All skybox textures are from [Open Game Art](https://opengameart.org/art-search?keys=skybox).
-
-**Disclaimer:** This repository was used for educational purposes. The solutions here may not be the most efficient ones. You can use the code at your own risk.
+Some skybox textures can be found on [Open Game Art](https://opengameart.org/art-search?keys=skybox).
 
 ### Setup
 
@@ -35,20 +30,20 @@ To run this project you need to start a local server on its root. If you have tr
 ### Screenshots
 
 ##### Zeppelin Texture - Rainbow Dash and friends
-![zeppelin](./screenshots/proj-t7g5-1.png)
+![zeppelin](./screenshots/proj-t7g5-01.png)
 
 ##### Terrain
-![terrain](./screenshots/proj-t7g5-2.png)
+![terrain](./screenshots/proj-t7g5-02.png)
 
 ##### Supply Deliver
-![supply](./screenshots/proj-t7g5-3.png)
-![supply](./screenshots/proj-t7g5-4.png)
+![supply](./screenshots/proj-t7g5-03.png)
+![supply](./screenshots/proj-t7g5-04.png)
 
 ##### Flag
-![flag](./screenshots/proj-t7g5-5.png)
+![flag](./screenshots/proj-t7g5-05.png)
 
 ##### Billboard
-![billboard](./screenshots/proj-t7g5-6.png)
+![billboard](./screenshots/proj-t7g5-06.png)
 
 
 

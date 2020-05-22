@@ -20,7 +20,7 @@ class MyTriangle extends CGFobject {
       1, -1, 0 //2
     ];
 
-    //Counter-clockwise reference of vertices
+    // -- Counter-clockwise reference of vertices -- //
     this.indices = [
       0, 1, 2,
       1, 0, 2,

@@ -75,6 +75,8 @@ class MyCubeMap extends CGFobject {
 	 * Displays the cubeMap in a certain Position
 	 */
 	display() {
+		// -- Displays the 6 Faces of the CubeMap -- //
+		// -- Face 1 -- //
 		this.scene.pushMatrix();
 		this.textureLeft();
 		this.skybox.apply();
@@ -84,6 +86,7 @@ class MyCubeMap extends CGFobject {
 		this.quad.display();
 		this.scene.popMatrix();
 
+		// -- Face 2 -- //
 		this.scene.pushMatrix();
 		this.textureFront();
 		this.skybox.apply();
@@ -92,6 +95,7 @@ class MyCubeMap extends CGFobject {
 		this.quad.display();
 		this.scene.popMatrix();
 
+		// -- Face 3 -- //
 		this.scene.pushMatrix();
 		this.textureRight();
 		this.skybox.apply();
@@ -101,6 +105,7 @@ class MyCubeMap extends CGFobject {
 		this.quad.display();
 		this.scene.popMatrix();
 
+		// -- Face 4 -- //
 		this.scene.pushMatrix();
 		this.textureBack();
 		this.skybox.apply();
@@ -110,6 +115,7 @@ class MyCubeMap extends CGFobject {
 		this.quad.display();
 		this.scene.popMatrix();
 
+		// -- Face 5 -- //
 		this.scene.pushMatrix();
 		this.textureTop();
 		this.skybox.apply();
@@ -119,6 +125,7 @@ class MyCubeMap extends CGFobject {
 		this.quad.display();
 		this.scene.popMatrix();
 
+		// -- Face 6 -- //
 		this.scene.pushMatrix();
 		this.textureBottom();
 		this.skybox.apply();
@@ -128,9 +135,15 @@ class MyCubeMap extends CGFobject {
 		this.quad.display();
 		this.scene.popMatrix();
 	}
+	/**
+	 * Enables visualization of Object's normals
+	 */
 	enableNormalViz() {
 		this.quad.enableNormalViz();
 	}
+	/**
+	 * Disables visualization of Object's normals
+	 */
 	disableNormalViz() {
 		this.quad.disableNormalViz();
 	}

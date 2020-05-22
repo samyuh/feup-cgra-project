@@ -27,23 +27,23 @@ class MyCylinder extends CGFobject {
             var x = Math.cos(angle);
             var z = Math.sin(angle);
 
-            // Vertices of Cylinder
-            // Base of Cylinder
+            // -- Vertices of Cylinder -- //
+            // -- Base of Cylinder -- //
             this.vertices.push(x);
             this.vertices.push(0);
             this.vertices.push(z);
 
-            // Top of Cylinder
+            // -- Top of Cylinder -- //
             this.vertices.push(x);
             this.vertices.push(1);
             this.vertices.push(z);
 
-            // Normals
+            // -- Normals -- //
             // cos^2 (x) + sin^2 (x) = 1, so normal is unitary
             this.normals.push(Math.cos(angle), 0, Math.sin(angle));
             this.normals.push(Math.cos(angle), 0, Math.sin(angle));
 
-            // Texture Coordinates
+            // -- Texture Coordinates -- //
             /*  0 ----------- 1
             *  |
             *  |
@@ -58,7 +58,7 @@ class MyCylinder extends CGFobject {
             angle += amplitude;
         }
 
-        // Draw Sides
+        // -- Draw Sides -- //
         for (var i = 0; i < this.slices * 2; i = i + 2) {
             this.indices.push(i);
             this.indices.push((i + 1));
