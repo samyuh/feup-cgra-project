@@ -54,8 +54,7 @@ class MyScene extends CGFscene {
         this.displayNormal = false;
         this.selectedMaterial = 0;
         // -- Scenario
-        this.displayBillboard = true;
-        this.displayTerrain = true;
+        this.displayTerrainBillboard = true;
         this.selectedTexture = 0;
         this.selectedTerrainTexture = 0;
         this.displaySkyBox = true;
@@ -478,18 +477,18 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        // --- Display Billboard
-        if(this.displayBillboard) {
+        // --- Display Terrain and Billboard
+        if(this.displayTerrainBillboard) {
+            // -- Billboard
             this.pushMatrix();
             this.translate(0, 0, -3);
             this.rotate(Math.PI / 2, 0, 1, 0);
             this.billboard.display();
             this.popMatrix();
-        }
-
-        // --- Display Terrain
-        if(this.displayTerrain) {
+            // --- Terrain
             this.terrain.display();
+            // -- Restore Shader
+            this.setActiveShader(this.defaultShader);
         }
 
         // --- Display Normals

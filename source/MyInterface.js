@@ -19,12 +19,11 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayCylinder').name('Display Cylinder');
         this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
         this.gui.add(this.scene, 'displayNormal').name('Display Normal');
-        this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
+        this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Material/Texture');
         
         var fSkyBox = this.gui.addFolder('Scenario Config');
         fSkyBox.add(this.scene, 'musicActive').name('Music').onChange(this.scene.updateMusic.bind(this.scene));
-        fSkyBox.add(this.scene, 'displayBillboard').name('Display Billboard');
-        fSkyBox.add(this.scene, 'displayTerrain').name('Display Terrain');
+        fSkyBox.add(this.scene, 'displayTerrainBillboard').name('Display Terrain');
         fSkyBox.add(this.scene, 'selectedTerrainTexture', this.scene.terrainTextureIds).name('Selected Terrain Texture').onChange(this.scene.updateTerrainTextures.bind(this.scene));
         fSkyBox.add(this.scene, 'displaySkyBox').name('Display SkyBox').onChange(this.scene.updateSkyBoxTextures.bind(this.scene));
         fSkyBox.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected SkyBox Texture').onChange(this.scene.updateSkyBoxTextures.bind(this.scene));

@@ -107,13 +107,13 @@ class MyBillboard extends CGFobject {
         // -- Material -- //
         this.material.apply();
         // -- Object -- //
-        this.scene.setActiveShader(this.shader);
         this.scene.pushMatrix();
+        this.scene.setActiveShader(this.shader);
         this.scene.translate(0,3/2,0.001);
         this.scene.scale(3/2,1/5,1);
         this.plane.display();
         this.scene.popMatrix();
-        this.scene.setActiveShader(this.scene.defaultShader);
+        // -- Shader is reset in MyScene
     }
 
     /**
