@@ -10,7 +10,7 @@ class MyBillboard extends CGFobject {
     this.plane = new MyPlane(scene, 10);
     this.suppliesDelivered = 0;
 
-    //Textures
+    // -- Materials -- //
     this.material = new CGFappearance(scene);
     this.material.setAmbient(1.0, 1.0, 1.0, 1.0);
     this.material.setDiffuse(0.6, 0.6, 0.6, 1.0);
@@ -18,14 +18,26 @@ class MyBillboard extends CGFobject {
     this.material.setShininess(5.0);
     this.material.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.message = new CGFtexture(scene,"textures/message.png");
-    this.back = new CGFtexture(scene,"textures/white.png");
-    this.posts = new CGFtexture(scene,"textures/grey.png");
+    this.white = new CGFappearance(scene);
+    this.white.setAmbient(1.0, 1.0, 1.0, 1.0);
+    this.white.setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.white.setSpecular(1.0, 1.0, 1.0, 1.0);
+    this.white.setShininess(5.0);
+    this.white.setTextureWrap('REPEAT', 'REPEAT');
 
-    //Shaders
+    this.grey = new CGFappearance(scene);
+    this.grey.setAmbient(0.5, 0.5, 0.5, 1.0);
+    this.grey.setDiffuse(0.5, 0.5, 0.5, 1.0);
+    this.grey.setSpecular(0.5, 0.5, 0.5, 1.0);
+    this.grey.setShininess(5.0);
+    this.grey.setTextureWrap('REPEAT', 'REPEAT');
+
+    // -- Textures -- //
+    this.message = new CGFtexture(scene,"textures/billboard/message.png");
+
+    // -- Shaders -- //
     this.shader = new CGFshader(scene.gl, "shaders/billboard.vert", "shaders/billboard.frag");
 
-    //this.shader.setUniformsValues({ white: 0 });
     this.shader.setUniformsValues({suppliesDelivered : this.suppliesDelivered/5.0});
     }
     
@@ -42,52 +54,48 @@ class MyBillboard extends CGFobject {
      * Displays the billboard in a certain position
      */
     display() {
-        // Planes
-        // Front Plane
+        // -- Planes -- //
+        // -- Material -- //
         this.material.setTexture(this.message);
         this.material.apply();
+        // -- Object Front -- //
         this.scene.pushMatrix();
         this.scene.translate(0,3/2,0);
         this.scene.scale(2,1,1);
         this.plane.display();
         this.scene.popMatrix();
 
-        // Back Plane
+        // -- Material -- //
+        this.white.apply();
         this.scene.pushMatrix();
-        this.material.setTexture(this.back);
-        this.material.apply();
+         // -- Object Back -- //
         this.scene.translate(0,3/2,0);
         this.scene.scale(2,1,1);
         this.scene.rotate(Math.PI,0,1,0);
         this.plane.display();
         this.scene.popMatrix();
 
-        // Posts (Height = 1)
-        // First Post Front
+        // -- Posts (Height = 1) -- //
+        // -- Material -- //
+        this.grey.apply();
+        // -- Objects Front -- //
         this.scene.pushMatrix();
-        this.material.setTexture(this.posts);
-        this.material.apply();
         this.scene.translate(-15/16,1/2,0);
         this.scene.scale(1/8,1,1);
         this.plane.display();
         this.scene.popMatrix();
-
-        // First Post Back
-        this.scene.pushMatrix();
-        this.scene.translate(-15/16,1/2,0);
-        this.scene.scale(1/8,1,1);
-        this.scene.rotate(Math.PI,0,1,0);
-        this.plane.display();
-        this.scene.popMatrix();
-
-        // Second Post Front
         this.scene.pushMatrix();
         this.scene.translate(15/16,1/2,0);
         this.scene.scale(1/8,1,1);
         this.plane.display();
         this.scene.popMatrix();
-
-        // Second Post Back
+        // -- Objects Back -- //
+        this.scene.pushMatrix();
+        this.scene.translate(-15/16,1/2,0);
+        this.scene.scale(1/8,1,1);
+        this.scene.rotate(Math.PI,0,1,0);
+        this.plane.display();
+        this.scene.popMatrix();
         this.scene.pushMatrix();
         this.scene.translate(15/16,1/2,0);
         this.scene.scale(1/8,1,1);
@@ -95,14 +103,17 @@ class MyBillboard extends CGFobject {
         this.plane.display();
         this.scene.popMatrix();
 
-        //Progress Bar
-        this.scene.pushMatrix();
+        // -- Progress Bar -- //
+        // -- Material -- //
+        this.material.apply();
+        // -- Object -- //
         this.scene.setActiveShader(this.shader);
+        this.scene.pushMatrix();
         this.scene.translate(0,3/2,0.001);
         this.scene.scale(3/2,1/5,1);
         this.plane.display();
         this.scene.popMatrix();
-        
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 
     /**
