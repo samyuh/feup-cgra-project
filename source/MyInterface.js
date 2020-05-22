@@ -8,13 +8,13 @@ class MyInterface extends CGFinterface {
     }
 
     init(application) {
-        // call CGFinterface init
+        // -- call CGFinterface init -- //
         super.init(application);
-        // init GUI. For more information on the methods, check:
-        // http://workshop.chromeexperiments.com/examples/gui
+        // -- init GUI. For more information on the methods, check:  -- //
+        // -- http://workshop.chromeexperiments.com/examples/gui -- //
         this.gui = new dat.GUI();
 
-        //Checkbox element in GUI
+        // -- Checkbox element in GUI -- //
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
         this.gui.add(this.scene, 'displayCylinder').name('Display Cylinder');
         this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
@@ -35,34 +35,34 @@ class MyInterface extends CGFinterface {
         fVehicle.add(this.scene, 'speedFactor', 0.1, 3.0).name('Speed Factor');
         fVehicle.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale Factor');
 
-        // Init Keys
+        // -- Init Keys -- //
         this.initKeys();
         return true;
     }
 
     initKeys() {
-      // Create reference from the scene to GUI
+      // -- Create reference from the scene to GUI -- //
       this.scene.gui = this;
 
-      // disable processKeyboard
+      // -- disable processKeyboard -- //
       this.processKeyboard = function() {};
 
-      // array to store which keys are being pressed
+      // -- array to store which keys are being pressed -- //
       this.activeKeys = {};
-      // mark it as active in the array to process only one time
+      // -- mark it as active in the array to process only one time -- //
       this.keysDown = {};
     }
 
     processKeyDown(event) {
-      // called when a key is pressed down
-      // mark it as active in the array
+      // -- called when a key is pressed down -- //
+      // -- mark it as active in the array -- //
       this.activeKeys[event.code]=true;
-      // mark it as active in the array to process only one time
+      // -- mark it as active in the array to process only one time -- //
       this.keysDown[event.code]=true;
     }
 
     processKeyUp(event) {
-      // called when a key is released, mark it as inactive in the array
+      // -- called when a key is released, mark it as inactive in the array -- //
       this.activeKeys[event.code]=false;
     }
 
@@ -73,7 +73,7 @@ class MyInterface extends CGFinterface {
     }
 
     isKeyPressed(keyCode) {
-      // returns true if a key is marked as pressed, false otherwise
+      // -- returns true if a key is marked as pressed, false otherwise -- //
       return this.activeKeys[keyCode] || false;
     }
   }

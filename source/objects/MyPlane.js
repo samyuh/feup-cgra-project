@@ -21,7 +21,7 @@ class MyPlane extends CGFobject{
    * Initializes Plane's buffers
    */
 	initBuffers() {
-		// Generate vertices, normals, and texCoords
+		// -- Generate vertices, normals, and texCoords -- //
 		this.vertices = [];
 		this.normals = [];
 		this.texCoords = [];

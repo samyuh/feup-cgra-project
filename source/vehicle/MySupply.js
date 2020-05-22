@@ -18,32 +18,32 @@ class MySupply extends CGFobject {
 
         this.state = SupplyStates.INACTIVE;
 
-        // -- Objets
+        // -- Objets -- //
         this.quad = new MyUnitCubeQuad(scene);
         this.side = new MyQuad(scene);
 
-        // -- Supply Position
+        // -- Supply Position -- //
         this.posX = 0;
         this.posY = 0;
         this.initialPosY = 0;
         this.posZ = 0;
 
-        // -- Supply Velocity
+        // -- Supply Velocity -- //
         this.velocityX = 0;
         this.velocityZ = 0;
 
-        // -- Supply Acceleration
+        // -- Supply Acceleration -- //
         this.acceleration = 0;
 
-        // -- Time
+        // -- Time -- //
         this.initialTime = 0;
         this.time = 0;
 
-        // -- Supply rotation angle and scale
+        // -- Supply rotation angle and scale -- //
         this.rot = 0;
         this.rescale = 1;
 
-        // -- Ground Textures
+        // -- Ground Textures -- //
         this.boxGroundMaterial = new CGFappearance(scene);
         this.boxGroundMaterial.setAmbient(1, 1, 1, 1);
         this.boxGroundMaterial.setDiffuse(1, 1, 1, 1);
@@ -51,8 +51,7 @@ class MySupply extends CGFobject {
         this.boxGroundMaterial.setShininess(5.0);
         this.boxGroundMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
-        // -- Boxes will always fall on a pentagon like form with:
-        // Random rotations
+        // -- Boxes will always fall on a pentagon like form with random rotations -- //
         this.rotations = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()]
     }
     updateTextures(boxTexture) {
@@ -143,11 +142,11 @@ class MySupply extends CGFobject {
      * @param {number} t current time of the program, in ms
      */
     update(t) {
-        // Reseting the initial time until drop
+        // -- Reseting the initial time until drop -- //
         if (this.state == SupplyStates.INACTIVE) {
             this.initialTime = t;
         }
-        // Drop the box at a certain speed with a certain size
+        // -- Drop the box at a certain speed with a certain size -- //
         else if (this.state == SupplyStates.FALLING) {
             this.time = (t - this.initialTime) / 1000;
             this.posX += this.velocityX;
@@ -175,6 +174,8 @@ class MySupply extends CGFobject {
     displayLanded() {
         this.boxGroundMaterial.apply();
 
+        // -- 6 Faces of a Broken Box will be displayed with random positions -- //
+        // -- Face 1 -- //
         this.scene.pushMatrix();
         this.scene.translate(this.posX, this.posY, this.posZ);
         this.scene.scale(1 / 4, 1 / 4, 1 / 4);
@@ -184,6 +185,7 @@ class MySupply extends CGFobject {
         this.side.display();
         this.scene.popMatrix();
 
+        // -- Face 2 -- //
         this.scene.pushMatrix();
         this.scene.translate(...this.breakBox(0));
         this.scene.scale(1 / 4, 1 / 4, 1 / 4);
@@ -193,6 +195,7 @@ class MySupply extends CGFobject {
         this.side.display();
         this.scene.popMatrix();
 
+        // -- Face 3 -- //
         this.scene.pushMatrix();
         this.scene.translate(...this.breakBox(1));
         this.scene.scale(1 / 4, 1 / 4, 1 / 4);
@@ -202,6 +205,7 @@ class MySupply extends CGFobject {
         this.side.display();
         this.scene.popMatrix();
 
+        // -- Face 4 -- //
         this.scene.pushMatrix();
         this.scene.translate(...this.breakBox(2));
         this.scene.scale(1 / 4, 1 / 4, 1 / 4);
@@ -211,6 +215,7 @@ class MySupply extends CGFobject {
         this.side.display();
         this.scene.popMatrix();
 
+        // -- Face 5 -- //
         this.scene.pushMatrix();
         this.scene.translate(...this.breakBox(3));
         this.scene.scale(1 / 4, 1 / 4, 1 / 4);
@@ -220,6 +225,7 @@ class MySupply extends CGFobject {
         this.side.display();
         this.scene.popMatrix();
 
+        // -- Face 6 -- //
         this.scene.pushMatrix();
         this.scene.translate(...this.breakBox(4));
         this.scene.scale(1 / 4, 1 / 4, 1 / 4);

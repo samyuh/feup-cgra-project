@@ -128,13 +128,15 @@ class MyVehicle extends CGFobject {
      */
     display() {
         this.scene.pushMatrix();
-        // --- Update Coordinates
+        
+        // -- Update Coordinates -- //
         this.scene.translate(this.posX, this.posY, this.posZ);
 
-        // --- Vehicle
+        // -- Vehicle -- //
         this.scene.rotate(this.angleY, 0, 1, 0);
         this.zeppelin.display();
-        // --- Flag
+
+        // -- Flag -- //
         this.flag.display();
 
         this.scene.popMatrix();

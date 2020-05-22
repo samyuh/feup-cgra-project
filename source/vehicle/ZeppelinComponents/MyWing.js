@@ -24,7 +24,7 @@ class MyWing extends CGFobject {
        * Displauys the wings in a certain position
        */
       display() {
-            /* Wing's Square */
+            // -- Wing's Square -- //
             this.zeppelinMaterial.setTexture(this.frontWing);
             this.zeppelinMaterial.apply();
             this.scene.pushMatrix();
@@ -33,7 +33,7 @@ class MyWing extends CGFobject {
             this.square.display();
             this.scene.popMatrix();
 
-            /* Wing's Triangle */
+            // -- Wing's Triangle -- //
             this.zeppelinMaterial.setTexture(this.backWing);
             this.zeppelinMaterial.apply();
             this.scene.pushMatrix();

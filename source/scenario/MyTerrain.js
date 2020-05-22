@@ -36,6 +36,6 @@ class MyTerrain extends CGFobject {
                 this.scene.scale(50, 50, 1);
                 this.plane.display();
                 this.scene.popMatrix();
-                // -- Shader is reset in MyScene
+                // -- Shader is reset in MyScene -- //
         }
 }

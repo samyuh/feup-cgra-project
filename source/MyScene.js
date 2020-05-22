@@ -11,31 +11,31 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
 
-        // -- Background Colour
+        // -- Background Colour -- //
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        // -- Update the scene every 12 milliseconds
+        // -- Update the scene every 12 milliseconds -- //
         this.setUpdatePeriod(12);
 
-        // -- Initialize scene components
+        // -- Initialize scene components -- //
         this.axis = new CGFaxis(this);
 
-        // -- Objects
+        // -- Objects -- //
         this.cylinder = new MyCylinder(this, 8);
         this.sphere = new MySphere(this, 16, 8);
         this.cube = new MyCubeMap(this);
         this.diamond = new MyDiamond(this);
 
-        // -- Vehicle
+        // -- Vehicle -- //
         this.vehicle = new MyVehicle(this, 10);
         this.terrain = new MyTerrain(this);
         this.billboard = new MyBillboard(this);
 
-        // -- Supplies
+        // -- Supplies -- //
         this.supplies = [
             new MySupply(this),
             new MySupply(this),
@@ -46,14 +46,14 @@ class MyScene extends CGFscene {
 
         this.selectSupply = 0;
 
-        // -- Objects connected to MyInterface
-        // -- General
+        // -- Objects connected to MyInterface -- //
+        // -- General -- //
         this.displayAxis = false;
         this.displayCylinder = false;
         this.displaySphere = false;
         this.displayNormal = false;
         this.selectedMaterial = 0;
-        // -- Scenario
+        // -- Scenario -- //
         this.displayTerrainBillboard = true;
         this.selectedTexture = 0;
         this.selectedTerrainTexture = 0;
@@ -61,21 +61,21 @@ class MyScene extends CGFscene {
         this.musicActive = false;
         this.audioMLP = new Audio('audio/mlp.mp3');
         this.audioMLP.volume = 0.05;
-        // -- Vehicle
+        // -- Vehicle -- //
         this.selectedZeppelin = 0;
         this.selectedBox = 0;
         this.displayVehicle = true;
         this.speedFactor = 1;
         this.scaleFactor = 1;
 
-        // -- Miscellaneous
-        // -- Block Movement when auto pilot is active
+        // -- Miscellaneous -- //
+        // -- Block Movement when auto pilot is active -- //
         this.blockMovement = false;
 
-        /* Materials */
+        // -- Materials -- //
         this.initMaterials();
 
-        /* Textures */
+        // -- Textures -- //
         this.enableTextures(true);
 
         this.initZeppelinTextures();
@@ -423,33 +423,35 @@ class MyScene extends CGFscene {
      * Displays all selected objects
      */
     display() {
-        // ---- BEGIN Background, camera and axis setup
-        // Clear image and depth buffer everytime we update the scene
+        // -- BEGIN Background, camera and axis setup -- //
+        // -- Clear image and depth buffer everytime we update the scene -- //
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-        // Initialize Model-View matrix as identity (no transformation
+
+        // Initialize Model-View matrix as identity (no transformation) -- //
         this.updateProjectionMatrix();
         this.loadIdentity();
-        // Apply transformations corresponding to the camera position relative to the origin
+
+        // -- Apply transformations corresponding to the camera position relative to the origin -- //
         this.applyViewMatrix();
 
-        // Draw axis
+        // -- Draw axis -- //
         if (this.displayAxis) {
             this.axis.display();
         }
 
         this.materials[this.selectedMaterial].apply();
 
-        // ---- BEGIN Primitive drawing section
-        // --- Cylinder
+        // -- BEGIN Primitive drawing section -- //
+        // -- Cylinder -- //
         if (this.displayCylinder)
             this.cylinder.display();
 
-        // --- Sphere
+        // --- Sphere -- //
         if (this.displaySphere)
             this.sphere.display();
 
-        // --- Vehicle
+        // --- Vehicle -- //
         if (this.displayVehicle) {
             this.pushMatrix();
             this.translate(this.vehicle.posX, this.vehicle.posY, this.vehicle.posZ);
@@ -459,12 +461,12 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        // --- Supplies
+        // -- Supplies -- //
         for (var i = 0; i < 5; i++) {
             this.supplies[i].display();
         }
 
-        // -- Sky Box
+        // -- Sky Box -- //
         if (this.displaySkyBox) {
             this.pushMatrix();
             this.translate(0, 24, 0);
@@ -477,21 +479,21 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        // --- Display Terrain and Billboard
+        // -- Display Terrain and Billboard -- //
         if(this.displayTerrainBillboard) {
-            // -- Billboard
+            // -- Billboard -- //
             this.pushMatrix();
             this.translate(0, 0, -3);
             this.rotate(Math.PI / 2, 0, 1, 0);
             this.billboard.display();
             this.popMatrix();
-            // --- Terrain
+            // -- Terrain -- //
             this.terrain.display();
-            // -- Restore Shader
+            // -- Restore Shader -- //
             this.setActiveShader(this.defaultShader);
         }
 
-        // --- Display Normals
+        // -- Display Normals -- //
         if (this.displayNormal) {
             this.cube.enableNormalViz();
             this.vehicle.enableNormalViz();
@@ -503,6 +505,6 @@ class MyScene extends CGFscene {
             this.sphere.disableNormalViz();
             this.cylinder.disableNormalViz();
         }
-        // ---- END Primitive drawing section
+        // -- END Primitive drawing section -- //
     }
 }

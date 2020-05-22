@@ -25,7 +25,7 @@ class MyWaggon extends CGFobject {
      * Displauys the waggon in a certain position
      */
     display() {
-        // Central cylinder 
+        // -- Central cylinder  -- //
         this.zeppelinMaterial.setTexture(this.mainWaggon);
         this.zeppelinMaterial.apply();
         this.scene.pushMatrix();
@@ -37,7 +37,7 @@ class MyWaggon extends CGFobject {
         this.cylinder.display();
         this.scene.popMatrix();
         
-        // First sphere completing one side of the waggon
+        // -- First sphere completing one side of the waggon -- //
         this.zeppelinMaterial.setTexture(this.backWaggon);
         this.zeppelinMaterial.apply();
         this.scene.pushMatrix();
@@ -47,7 +47,7 @@ class MyWaggon extends CGFobject {
         this.sphere.display();
         this.scene.popMatrix();
 
-        // First sphere completing the other side of the waggon
+        // -- First sphere completing the other side of the waggon -- //
         this.zeppelinMaterial.setTexture(this.frontWaggon);
         this.zeppelinMaterial.apply();
         this.scene.pushMatrix();
