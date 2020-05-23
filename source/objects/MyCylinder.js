@@ -5,22 +5,22 @@
  * @param slices - Reference to number of sides of Cylinder
  */
 class MyCylinder extends CGFobject {
-  	constructor(scene, slices) {
+    constructor(scene, slices) {
         super(scene);
         this.slices = slices;
         this.initBuffers();
-  	}
-	/**
-   * @method initBuffers
-   * Initializes Cylinder's buffers
-   */
-  	initBuffers() {
+    }
+    /**
+     * @method initBuffers
+     * Initializes Cylinder's buffers
+     */
+    initBuffers() {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
 
-        var amplitude = (2 * Math.PI)/this.slices;
+        var amplitude = (2 * Math.PI) / this.slices;
         var angle = 0;
 
         for (var i = 0; i <= this.slices; i++) {
@@ -45,15 +45,15 @@ class MyCylinder extends CGFobject {
 
             // -- Texture Coordinates -- //
             /*  0 ----------- 1
-            *  |
-            *  |
-            *  |
-            *  |
-            *  1
-            *  To map a texture, each side will have 1/this.slices
-            * */
-            this.texCoords.push(1-i/this.slices, 1); // É suposto?
-            this.texCoords.push(1-i/this.slices, 0);
+             *  |
+             *  |
+             *  |
+             *  |
+             *  1
+             *  To map a texture, each side will have 1/this.slices
+             * */
+            this.texCoords.push(1 - i / this.slices, 1); // É suposto?
+            this.texCoords.push(1 - i / this.slices, 0);
 
             angle += amplitude;
         }

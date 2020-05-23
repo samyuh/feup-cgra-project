@@ -28,7 +28,6 @@ class MyScene extends CGFscene {
         this.cylinder = new MyCylinder(this, 8);
         this.sphere = new MySphere(this, 16, 8);
         this.cube = new MyCubeMap(this);
-        this.diamond = new MyDiamond(this);
 
         // -- Vehicle -- //
         this.vehicle = new MyVehicle(this, 10);
@@ -204,6 +203,7 @@ class MyScene extends CGFscene {
     updateTerrainTextures() {
         this.terrain.updateTextures(this.terrainTextures[this.selectedTerrainTexture]);
     }
+
     /**
      * Initializes textures used on zeppelin
      */
@@ -274,6 +274,16 @@ class MyScene extends CGFscene {
 
     }
 
+    /**
+     * Method for updating zeppelin's textures using the interface selected texture
+     */
+    updateZeppelinTexture() {
+        this.vehicle.setNewTextures(this.zeppelinTextures[this.selectedZeppelin]);
+    }
+
+    /**
+     * Initializes textures used on MySupply
+     */
     initBoxTextures() {
         var boxZeppelinRainbowDash = new CGFtexture(this, "textures/zeppellin/rainbowdash/box.png");
 
@@ -286,17 +296,13 @@ class MyScene extends CGFscene {
             'Companion Cube s2': 1,
         };
     }
+     /**
+     * Method for updating MySupply texture using the interface selected texture
+     */
     updateBoxTexture() {
         for (var i = 0; i < 5; i++) {
             this.supplies[i].updateTextures(this.boxTextures[this.selectedBox]);
         }
-    }
-
-    /**
-     * Method for updating zeppelin's textures using the interface selected texture
-     */
-    updateZeppelinTexture() {
-        this.vehicle.setNewTextures(this.zeppelinTextures[this.selectedZeppelin]);
     }
 
     /**
@@ -442,7 +448,6 @@ class MyScene extends CGFscene {
 
         this.materials[this.selectedMaterial].apply();
 
-        // -- BEGIN Primitive drawing section -- //
         // -- Cylinder -- //
         if (this.displayCylinder)
             this.cylinder.display();
@@ -499,12 +504,21 @@ class MyScene extends CGFscene {
             this.vehicle.enableNormalViz();
             this.sphere.enableNormalViz();
             this.cylinder.enableNormalViz();
+            this.terrain.enableNormalViz();
+            this.billboard.enableNormalViz();
+            for(let i = 0; i < 5; i++)
+                this.supplies[i].enableNormalViz();
         } else {
             this.cube.disableNormalViz();
             this.vehicle.disableNormalViz();
             this.sphere.disableNormalViz();
             this.cylinder.disableNormalViz();
+            this.terrain.disableNormalViz();
+            this.billboard.disableNormalViz();
+            for(let i = 0; i < 5; i++)
+                this.supplies[i].disableNormalViz();
         }
-        // -- END Primitive drawing section -- //
     }
 }
+
+// -- Hope you enjoyed! (Our Easter Egg -> ^-^) -- //

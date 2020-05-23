@@ -10,17 +10,17 @@ class MyQuad extends CGFobject {
 		if (coords != undefined)
 			this.updateTexCoords(coords);
 	}
-	
+
 	/**
-   * @method initBuffers
-   * Initializes Quad's buffers
-   */
+	 * @method initBuffers
+	 * Initializes Quad's buffers
+	 */
 	initBuffers() {
 		this.vertices = [
-			-0.5, -0.5, 0,   	//0
-			0.5, -0.5, 0,		//1
-			-0.5, 0.5, 0,		//2
-			0.5, 0.5, 0			//3
+			-0.5, -0.5, 0, //0
+			0.5, -0.5, 0, //1
+			-0.5, 0.5, 0, //2
+			0.5, 0.5, 0 //3
 		];
 
 		// -- Counter-clockwise reference of vertices -- //
@@ -39,13 +39,12 @@ class MyQuad extends CGFobject {
 
 		/*
 			Texture coords (s,t)
-					+----------> s
+			+----------> s
 	        |
 	        |
-					|
-					v
+			|
 	        t
-    */
+    	*/
 		this.texCoords = [
 			0, 1,
 			1, 1,

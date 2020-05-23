@@ -32,22 +32,21 @@ To run this project you need to start a local server on its root. If you have tr
 
 ### Textures
 
+The textures of the terrain and skybox, as well as their visibility on the scene, can be changed in the interface, more specifically in the folder that says Scenario Config. Vehicle textures and visibility can be changed in the Vehicle Config folder. I
+
 ##### CubeMap
 
-Dizer aqui como é que se mudam as texturas
+We have a lot of SkyBoxes textures that we found online. Two of them are inspired in My Little Pony.
 
 ##### Zeppelin Texture
 
-Falar das texturas:
-Rainbow Dash is awesome
-You should think with portals
+We made two different textures for our Zeppelin. One of them is inspired in Rainbow Dash, one pegasus from *My Little Pony*, and the other texture is inspired in the Portal game ~~one box is our beloved companion cube~~.
 
 ### Other Remarks
 
-É possivel ver as normais dos objetos a selecionar a opção
-Deixamos estar a sphere e cilindro no menu de objetos selecionaveis para os professores poderem avaliar os mesmos objetos de uma forma melhor.
-Falar do movimento das caixas
-Outros pontos pertinentes a falar
+In addition, it is also possible to view both the cylinder and the sphere individually, as well as the normal ones of all objects present on the scene.
+Also if the current SkyBox texture is Palace or Rainbow Dash, you can listen My Little Pony theme song in Portuguese selecting Music in Scenario Config.
+Our boxes also have horizontal movement, following the rotation and direction of our zeppelin.
 
 ### Screenshots
 

@@ -38,4 +38,16 @@ class MyTerrain extends CGFobject {
                 this.scene.popMatrix();
                 // -- Shader is reset in MyScene -- //
         }
+        /**
+         * Enables visualization of Object's normals
+         */
+        enableNormalViz() {
+                this.plane.enableNormalViz();
+        }
+        /**
+         * Disables visualization of Object's normals
+         */
+        disableNormalViz() {
+                this.plane.disableNormalViz();
+        }
 }

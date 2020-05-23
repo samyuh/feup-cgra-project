@@ -15,10 +15,9 @@ const SupplyStates = {
 class MySupply extends CGFobject {
     constructor(scene) {
         super(scene);
-
         this.state = SupplyStates.INACTIVE;
 
-        // -- Objets -- //
+        // -- Objects -- //
         this.quad = new MyUnitCubeQuad(scene);
         this.side = new MyQuad(scene);
 
@@ -142,7 +141,7 @@ class MySupply extends CGFobject {
      * @param {number} t current time of the program, in ms
      */
     update(t) {
-        // -- Reseting the initial time until drop -- //
+        // -- Reset the initial time until drop -- //
         if (this.state == SupplyStates.INACTIVE) {
             this.initialTime = t;
         }
@@ -252,5 +251,19 @@ class MySupply extends CGFobject {
             default:
                 return;
         }
+    }
+    /**
+     * Enables visualization of Object's normals
+     */
+    enableNormalViz() {
+        this.quad.enableNormalViz();
+        this.side.enableNormalViz();
+    }
+    /**
+     * Disables visualization of Object's normals
+     */
+    disableNormalViz() {
+        this.quad.disableNormalViz();
+        this.side.disableNormalViz();
     }
 }

@@ -70,7 +70,7 @@ class MyCubeMap extends CGFobject {
 	textureTop() {
 		this.skybox.setTexture(this.top);
 	}
-	
+
 	/**
 	 * Displays the cubeMap in a certain Position
 	 */

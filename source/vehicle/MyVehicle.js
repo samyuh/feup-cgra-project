@@ -61,7 +61,7 @@ class MyVehicle extends CGFobject {
     rudderDirection(direction) {
         this.zeppelin.rotateRudder(direction);
     }
-    
+
     /**
      * Changes vehicle's current speed
      * @param {number} val value of accelaration
@@ -69,7 +69,7 @@ class MyVehicle extends CGFobject {
     accelerate(val) {
         this.velocity += val;
         this.velocity = ((this.velocity > 0) ? this.velocity : 0);
-        this.velocity = Math.min(this.velocity,1);
+        this.velocity = Math.min(this.velocity, 1);
 
     }
 
@@ -115,8 +115,8 @@ class MyVehicle extends CGFobject {
             this.autoPilotConfigured = false;
         }
 
-        this.position += this.velocity * (deltaT /1000);
-        
+        this.position += this.velocity * (deltaT / 1000);
+
         this.flag.setTime(t / 100 % 1000);
         this.flag.setPos(this.position);
 
@@ -145,14 +145,14 @@ class MyVehicle extends CGFobject {
      * Enables visualization of Object's normals
      */
     enableNormalViz() {
-        //this.flag.enableNormalViz();
+        this.flag.enableNormalViz();
         this.zeppelin.enableNormalViz();
     }
     /**
      * Disables visualization of Object's normals
      */
     disableNormalViz() {
-        //this.flag.disableNormalViz();
+        this.flag.disableNormalViz();
         this.zeppelin.disableNormalViz();
     }
 

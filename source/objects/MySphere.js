@@ -34,8 +34,8 @@ class MySphere extends CGFobject {
     var thetaInc = (2 * Math.PI) / this.longDivs;
     var latVertices = this.longDivs + 1;
 
-    var longD = 1 /this.longDivs;
-    var latD = 1/this.latDivs;
+    var longD = 1 / this.longDivs;
+    var latD = 1 / this.latDivs;
 
     // -- build an all-around stack at a time, starting on "north pole" and proceeding "south" -- //
     for (let latitude = 0; latitude <= this.latDivs; latitude++) {
@@ -55,26 +55,26 @@ class MySphere extends CGFobject {
         if (latitude < this.latDivs && longitude < this.longDivs) {
           var current = latitude * latVertices + longitude;
           var next = current + latVertices;
-          // -- pushing two triangles using indices from this round (current, current+1) -- //
-          // -- and the ones directly south (next, next+1) -- //
-          // -- (i.e. one full round of slices ahead) -- //
+          // pushing two triangles using indices from this round (current, current+1)
+          // and the ones directly south (next, next+1) 
+          // (i.e. one full round of slices ahead) 
 
-          this.indices.push( current + 1, current, next);
-          this.indices.push( current + 1, next, next +1);
+          this.indices.push(current + 1, current, next);
+          this.indices.push(current + 1, next, next + 1);
         }
 
         //--- Normals
-        // -- at each vertex, the direction of the normal is equal to -- //
-        // -- the vector from the center of the sphere to the vertex. -- //
-        // -- in a sphere of radius equal to one, the vector length is one. -- //
-        // -- therefore, the value of the normal is equal to the position vectro -- //
+        // at each vertex, the direction of the normal is equal to 
+        // the vector from the center of the sphere to the vertex. 
+        // in a sphere of radius equal to one, the vector length is one. 
+        // therefore, the value of the normal is equal to the position vectro 
         this.normals.push(x, y, z);
         theta += thetaInc;
 
         // -- Texture Coordinates -- //
         var tu = 0.25 + longD * longitude;
         var tv = latD * latitude;
-        this.texCoords.push(tu,tv);
+        this.texCoords.push(tu, tv);
 
       }
       phi += phiInc;

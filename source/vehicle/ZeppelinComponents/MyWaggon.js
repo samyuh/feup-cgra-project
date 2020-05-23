@@ -13,6 +13,7 @@ class MyWaggon extends CGFobject {
     /**
      * Changes the current applied textures
      * @param {Array<Object>} textures Array with 3 textures which are applied to the waggon
+     * @param {Object} zeppelinMaterial material used 
      */
     updateTextures(textures, zeppelinMaterial) {
         this.zeppelinMaterial = zeppelinMaterial;
@@ -20,7 +21,7 @@ class MyWaggon extends CGFobject {
         this.frontWaggon = textures[1];
         this.backWaggon = textures[2];
     }
-    
+
     /**
      * Displauys the waggon in a certain position
      */
@@ -36,7 +37,7 @@ class MyWaggon extends CGFobject {
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.cylinder.display();
         this.scene.popMatrix();
-        
+
         // -- First sphere completing one side of the waggon -- //
         this.zeppelinMaterial.setTexture(this.backWaggon);
         this.zeppelinMaterial.apply();
@@ -56,5 +57,19 @@ class MyWaggon extends CGFobject {
         this.scene.translate(0, 0, 1);
         this.sphere.display();
         this.scene.popMatrix();
+    }
+    /**
+     * Enables visualization of Object's normals
+     */
+    enableNormalViz() {
+        this.sphere.enableNormalViz();
+        this.cylinder.enableNormalViz();
+    }
+    /**
+     * Disables visualization of Object's normals
+     */
+    disableNormalViz() {
+        this.sphere.disableNormalViz();
+        this.cylinder.disableNormalViz();
     }
 }

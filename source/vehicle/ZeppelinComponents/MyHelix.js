@@ -13,6 +13,7 @@ class MyHelix extends CGFobject {
       /**
        * Changes the current applied textures
        * @param {Array<Object>} textures Array with 2 textures which are applied to the vehicle
+       * @param {Object} zeppelinMaterial material used 
        */
       updateTextures(textures, zeppelinMaterial) {
             this.zeppelinMaterial = zeppelinMaterial;
@@ -27,11 +28,11 @@ class MyHelix extends CGFobject {
       rotateHelix(rotateAngle) {
             this.rotateAngle = rotateAngle;
       }
-      
+
       /**
        * Displays the helix in a certain position
        */
-      display() { 
+      display() {
             this.zeppelinMaterial.setTexture(this.helixTexture);
             this.zeppelinMaterial.apply();
 
@@ -48,18 +49,18 @@ class MyHelix extends CGFobject {
 
             // -- Helix nª 1 -- //
             this.scene.pushMatrix();
-            this.scene.translate(-1/2, 1/2, 0);
+            this.scene.translate(-1 / 2, 1 / 2, 0);
             this.scene.rotate(Math.PI / 2, 1, 1, 0);
-            this.scene.scale(1/6, 1/6, 4/5);
+            this.scene.scale(1 / 6, 1 / 6, 4 / 5);
             this.sphere.display();
             this.scene.popMatrix();
 
             // -- Helix nª 2 -- //
             this.scene.pushMatrix();
-            this.scene.translate(1/2, -1/2, 0);
+            this.scene.translate(1 / 2, -1 / 2, 0);
             this.scene.rotate(Math.PI / 4, 0, 0, 1);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
-            this.scene.scale(1/6, 1/6, 4/5);
+            this.scene.scale(1 / 6, 1 / 6, 4 / 5);
             this.sphere.display();
             this.scene.popMatrix();
 
@@ -72,9 +73,20 @@ class MyHelix extends CGFobject {
             // -- Body holding the helix -- //
             this.scene.pushMatrix();
             this.scene.translate(0, 0, -0.7);
-            this.scene.scale(1/2, 1/2, 1.3);
+            this.scene.scale(1 / 2, 1 / 2, 1.3);
             this.sphere.display();
             this.scene.popMatrix();
-
       }
+      /**
+     * Enables visualization of Object's normals
+     */
+    enableNormalViz() {
+      this.sphere.enableNormalViz();
+  }
+  /**
+   * Disables visualization of Object's normals
+   */
+  disableNormalViz() {
+      this.sphere.disableNormalViz();
+  }
 }

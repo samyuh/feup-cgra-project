@@ -7,7 +7,7 @@ class MyFlag extends CGFobject {
 	constructor(scene) {
         super(scene);
         
-        this.plane = new MyPlane(scene, 50);
+        this.plane = new MyPlane(scene, 30);
         this.flagFrontShader = new CGFshader(this.scene.gl, "shaders/flagFront.vert", "shaders/flag.frag");
         this.flagBackShader = new CGFshader(this.scene.gl, "shaders/flagBack.vert", "shaders/flag.frag");
         
@@ -64,8 +64,8 @@ class MyFlag extends CGFobject {
         this.scene.pushMatrix();
         this.ropeTex.bind(0);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.translate(0.75, 0, 0);
-        this.scene.scale(1.5, 0.1, 1);
+        this.scene.translate(1, 0, 0);
+        this.scene.scale(1, 0.1, 1);
         this.plane.display();
         this.ropeTex.unbind(0);
         this.scene.popMatrix();
@@ -89,8 +89,8 @@ class MyFlag extends CGFobject {
         this.scene.pushMatrix();
         this.ropeTex.bind(0);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.translate(0.75, 0, 0);
-        this.scene.scale(1.5, 0.1, 1);
+        this.scene.translate(1, 0, 0);
+        this.scene.scale(1, 0.1, 1);
         this.scene.rotate(Math.PI, 0, 1, 0);
         this.plane.display();
         this.ropeTex.unbind(0);
@@ -100,5 +100,17 @@ class MyFlag extends CGFobject {
         this.scene.setActiveShader(this.scene.defaultShader);
 
 		this.initGLBuffers();
-	}
+    }
+    /**
+     * Enables visualization of Object's normals
+     */
+    enableNormalViz() {
+        this.plane.enableNormalViz();
+    }
+    /**
+     * Disables visualization of Object's normals
+     */
+    disableNormalViz() {
+        this.plane.disableNormalViz();
+    }
 }

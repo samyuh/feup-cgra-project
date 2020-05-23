@@ -136,4 +136,22 @@ class MyZeppelin extends CGFobject {
         this.helix.display();
         this.scene.popMatrix();
     }
+    /**
+     * Enables visualization of Object's normals
+     */
+    enableNormalViz() {
+        this.body.enableNormalViz();
+        this.wing.enableNormalViz();
+        this.helix.enableNormalViz();
+        this.waggon.enableNormalViz();
+    }
+    /**
+     * Disables visualization of Object's normals
+     */
+    disableNormalViz() {
+        this.body.disableNormalViz();
+        this.wing.disableNormalViz();
+        this.helix.disableNormalViz();
+        this.waggon.disableNormalViz();
+    }
 }

@@ -13,6 +13,7 @@ class MyWing extends CGFobject {
       /**
        * Changes the current applied textures
        * @param {Array<Object>} textures Array with 2 textures which are applied to the wings
+       * @param {Object} zeppelinMaterial material used 
        */
       updateTextures(texture, zeppelinMaterial) {
             this.zeppelinMaterial = zeppelinMaterial;
@@ -21,7 +22,7 @@ class MyWing extends CGFobject {
       }
 
       /**
-       * Displauys the wings in a certain position
+       * Displays the wings in a certain position
        */
       display() {
             // -- Wing's Square -- //
@@ -42,5 +43,19 @@ class MyWing extends CGFobject {
             this.scene.scale(0.25, 0.25, 0.25);
             this.triangle.display();
             this.scene.popMatrix();
+      }
+      /**
+     * Enables visualization of Object's normals
+     */
+      enableNormalViz() {
+            this.square.enableNormalViz();
+            this.triangle.disableNormalViz();
+      }
+      /**
+       * Disables visualization of Object's normals
+       */
+      disableNormalViz() {
+            this.square.disableNormalViz();
+            this.triangle.disableNormalViz();
       }
 }

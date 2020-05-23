@@ -13,9 +13,9 @@ class MyUnitCubeQuad extends CGFobject {
 		this.texture.setSpecular(0.1, 0.1, 0.1, 1);
 		this.texture.setShininess(10.0);
 		this.texture.setTextureWrap('REPEAT', 'REPEAT');
-	
+
 	}
-	
+
 	/**
 	 * Sets the texture to the top of the cubeMap
 	 */
@@ -57,25 +57,25 @@ class MyUnitCubeQuad extends CGFobject {
 		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 		// -- Side 1 -- //
 		this.scene.pushMatrix();
-		this.scene.rotate(-Math.PI/2, 0,1,0);
-		this.scene.translate(0,0,0.5);
+		this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+		this.scene.translate(0, 0, 0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 		// -- Side 2 -- //
 		this.scene.pushMatrix();
-		this.scene.translate(0,0,0.5);
+		this.scene.translate(0, 0, 0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 		// -- Side 3 -- //
 		this.scene.pushMatrix();
-		this.scene.rotate(Math.PI/2, 0,1,0);
-		this.scene.translate(0,0,0.5);
+		this.scene.rotate(Math.PI / 2, 0, 1, 0);
+		this.scene.translate(0, 0, 0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 		// -- Side 4 -- //
 		this.scene.pushMatrix();
-		this.scene.rotate(Math.PI, 0,1,0);
-		this.scene.translate(0, 0,0.5);
+		this.scene.rotate(Math.PI, 0, 1, 0);
+		this.scene.translate(0, 0, 0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 
@@ -84,8 +84,8 @@ class MyUnitCubeQuad extends CGFobject {
 		this.texture.apply();
 		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 		this.scene.pushMatrix();
-		this.scene.rotate(Math.PI/2, 1,0,0);
-		this.scene.translate(0,0,0.5);
+		this.scene.rotate(Math.PI / 2, 1, 0, 0);
+		this.scene.translate(0, 0, 0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 
@@ -94,9 +94,21 @@ class MyUnitCubeQuad extends CGFobject {
 		this.texture.apply();
 		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 		this.scene.pushMatrix();
-		this.scene.rotate(-Math.PI/2, 1,0,0);
-		this.scene.translate(0,0,0.5);
+		this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+		this.scene.translate(0, 0, 0.5);
 		this.quad.display();
 		this.scene.popMatrix();
 	}
+	/**
+     * Enables visualization of Object's normals
+     */
+    enableNormalViz() {
+        this.quad.enableNormalViz();
+    }
+    /**
+     * Disables visualization of Object's normals
+     */
+    disableNormalViz() {
+        this.quad.disableNormalViz();
+    }
 }
