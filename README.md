@@ -16,13 +16,13 @@
 
 ### Description
 
-The aim of this project was built a WebGL scene using transformations, illumination, materials, textures and shaders that we learned in practical classes. The source code that we did in practical classes can be found in [this repository]().
+The aim of this project was built a WebGL scene using transformations, illumination, materials, textures and shaders that we learned in practical classes. The source code that we did in practical classes can be found in [this repository](https://github.com/SamuelKun/feup-cgra).
 
 Some skybox textures used in this project can be found on [Open Game Art](https://opengameart.org/art-search?keys=skybox).
 
 ### Setup
 
-To run this project you need to start a local server on its root. If you have trouble configuring your local server you can also see this project on [Github Pages]().
+To run this project you need to start a local server on its root. If you have trouble configuring your local server you can also see this project on [Github Pages](https://samuelkun.github.io/feup-cgra-project).
 
 ### Tools Used
 
@@ -34,15 +34,15 @@ To run this project you need to start a local server on its root. If you have tr
 
 The terrain and skybox's textures, as well as their visibility on the scene, can be changed in the interface, specifically in the *Scenario Config* folder. Vehicle textures and visibility can be changed in the Vehicle Config folder.
 
-##### CubeMap
+#### SkyBox
 
 We have many SkyBox textures that we found online. Two of them are inspired by *My Little Pony*.
 
-##### Zeppelin Texture
+#### Zeppelin Texture
 
 We made two different textures for our Zeppelin. The former is inspired by *Rainbow Dash*, a pegasus from *My Little Pony*, and the latter is inspired by the game *Portal*.
 
-##### Supply texture
+#### Supply texture
 
 There are 2 different textures for the Supply. The selected texture can either be the default wood crate, or the *Companion Cube* from *Portal*
 
@@ -58,11 +58,11 @@ Our Supplies also have horizontal movement, following the rotation and direction
 ### Instructions/Keys
 
 - W - Increase Speed
-- D - Decrese Speed
+- D - Decrease Speed
 - A - Turn Left
 - D - Turn Right
-- L - Drop a Box from the Zeppelin (Up to 5 boxes)
-- P - Toggle Auto-Pilot
+- L - Drop a Box from the Zeppelin (Up to 5 boxes, each takes 3 seconds to reach the ground)
+- P - Toggle Auto-Pilot (Zeppelin makes circular turns of radius 5 in 5 seconds)
 - R - Restart Scene
 
 
