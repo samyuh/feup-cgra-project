@@ -65,6 +65,9 @@ Our Supplies also have horizontal movement, following the rotation and direction
 - P - Toggle Auto-Pilot (Zeppelin makes circular turns of radius 5 in 5 seconds)
 - R - Restart Scene
 
+### Disclaimer
+
+This repository was used for educational purposes. The solutions here may not be the most efficient ones. You can use the code at your own risk.
 
 ### Screenshots
 
